@@ -1,7 +1,7 @@
 @import url(./assets/pico.slate.min.css);
 
 :root {
-  font-family: "Inter", system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: 'Inter', system-ui, Avenir, Helvetica, Arial, sans-serif;
   font-optical-sizing: auto;
   line-height: 1.5;
   font-weight: 400;
@@ -44,10 +44,10 @@ footer .container {
 
 footer,
 header {
-  padding: .5rem 0;
+  padding: 0.5rem 0;
   border-bottom: var(--pico-border-width) solid transparent;
 }
 
-main>h1 {
+main > h1 {
   text-align: center;
 }

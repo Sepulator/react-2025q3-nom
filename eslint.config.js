@@ -20,6 +20,13 @@ export default defineConfig([
   pluginReact.configs.flat['jsx-runtime'],
   eslintConfigPrettier,
   {
+    settings: {
+      react: {
+        version: 'detect',
+      },
+    },
+  },
+  {
     rules: {
       'no-console': 'warn',
     },
