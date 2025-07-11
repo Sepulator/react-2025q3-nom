@@ -1,16 +1,18 @@
 import { Component } from 'react';
 import { Search } from '../components/search';
 import { CardList } from '../components/card-list';
+import { getMovieList } from '../services/api';
 
 export class Main extends Component {
   state = {
     query: '',
   };
 
-  handleQuery = (newQuery: string) => {
-    this.setState({
-      query: newQuery,
-    });
+  componentDidMount() {}
+
+  handleQuery = async (query: string) => {
+    const movieList = await getMovieList(query);
+    console.log(movieList);
   };
 
   render() {
