@@ -58,3 +58,33 @@ header {
   will-change: filter;
   transition: filter 300ms;
 }
+
+.cards-list {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+  max-width: 960px;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.card>span {
+  color: rgba(170, 153, 153, 0.6);
+}
+
+.card>img {
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, .1);
+}
+
+.card>img:hover {
+  cursor: pointer;
+  box-shadow:
+    0px 1px 3px 0px rgba(165, 9, 9, 0.342),
+    0px 1px 2px 0px rgba(0, 0, 0, 0.06);
+
+}

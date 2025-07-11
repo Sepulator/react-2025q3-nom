@@ -1,4 +1,5 @@
 import { base_url, poster_sizes } from '../consts/consts';
+import { formatDate } from '../services/utils';
 import type { Movie } from '../types/interfaces';
 
 interface Props {
@@ -6,14 +7,15 @@ interface Props {
 }
 
 export function Card({ movie }: Props) {
-  const { title, poster_path } = movie;
+  const { title, poster_path, release_date } = movie;
 
   return (
     <>
-      <article>
-        <img src={`${base_url}/${poster_sizes[3]}/${poster_path}`}></img>
-        <span>{title}</span>
-      </article>
+      <div className="card">
+        <img src={`${base_url}/${poster_sizes[2]}/${poster_path}`}></img>
+        <p>{title}</p>
+        <span>{release_date && formatDate(release_date)}</span>
+      </div>
     </>
   );
 }

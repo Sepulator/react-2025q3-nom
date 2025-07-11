@@ -1,6 +1,6 @@
 import { Component } from 'react';
 import { Search } from '../components/search';
-import { CardsList } from '../components/card-list';
+import { CardsList } from '../components/cards-list';
 import { getMovieList } from '../services/api';
 import type { MovieList } from '../types/interfaces';
 

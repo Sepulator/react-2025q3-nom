@@ -19,7 +19,9 @@ export class Search extends Component<Props, State> {
     this.setState({ searchValue: query });
   }
 
-  submit = (formData: FormData) => {
+  handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const formData = new FormData(event.currentTarget);
     const query = formData.get('search') as string;
     this.props.handleQuery(query);
     queryStorage.save(query);
@@ -31,7 +33,7 @@ export class Search extends Component<Props, State> {
 
   render() {
     return (
-      <form role="group" className="search" action={this.submit}>
+      <form role="group" className="search" onSubmit={this.handleSubmit}>
         <input
           name="search"
           type="text"
@@ -39,7 +41,7 @@ export class Search extends Component<Props, State> {
           value={this.state.searchValue}
           onChange={this.handleChange}
         />
-        <input type="submit" value="Search" />
+        <button type="submit">Search</button>
       </form>
     );
   }
