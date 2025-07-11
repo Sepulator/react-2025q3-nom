@@ -1,28 +1,40 @@
-import { useState } from 'react';
+import { Component, type FormEvent } from 'react';
 
 interface Props {
   handleQuery: (query: string) => void;
 }
 
-export function Search({ handleQuery }: Props) {
-  const [searchValue, setSearchValue] = useState('');
+interface State {
+  searchValue: string;
+}
 
-  function submit(formData: FormData) {
+export class Search extends Component<Props, State> {
+  state = {
+    searchValue: '',
+  };
+
+  submit = (formData: FormData) => {
     const query = formData.get('search') as string;
     if (!query) return;
-    handleQuery(query);
-  }
+    this.props.handleQuery(query);
+  };
 
-  return (
-    <form role="search" className="search" action={submit}>
-      <input
-        name="search"
-        type="search"
-        placeholder="Search"
-        value={searchValue}
-        onChange={(e) => setSearchValue(e.target.value)}
-      />
-      <input type="submit" value="Search" />
-    </form>
-  );
+  handleChange = (e: FormEvent<HTMLInputElement>) => {
+    this.setState({ searchValue: e.currentTarget.value });
+  };
+
+  render() {
+    return (
+      <form role="group" className="search" action={this.submit}>
+        <input
+          name="search"
+          type="text"
+          placeholder="Search"
+          value={this.state.searchValue}
+          onChange={this.handleChange}
+        />
+        <input type="submit" value="Search" />
+      </form>
+    );
+  }
 }
