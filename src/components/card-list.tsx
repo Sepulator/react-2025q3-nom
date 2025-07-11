@@ -1,7 +1,16 @@
+import type { Movie } from '../types/interfaces';
+import { Card } from './card';
+
 interface Props {
-  movieList: string;
+  movieList: Movie[];
 }
 
-export function CardList({ movieList }: Props) {
-  return <h2>{movieList}</h2>;
+export function CardsList({ movieList }: Props) {
+  return (
+    <section className="cards-list">
+      {movieList.map((movie) => (
+        <Card movie={movie} key={movie.id} />
+      ))}
+    </section>
+  );
 }

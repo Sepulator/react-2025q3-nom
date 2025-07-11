@@ -1,4 +1,5 @@
 import { Component, type FormEvent } from 'react';
+import { queryStorage } from '../services/localstorage';
 
 interface Props {
   handleQuery: (query: string) => void;
@@ -13,10 +14,15 @@ export class Search extends Component<Props, State> {
     searchValue: '',
   };
 
+  componentDidMount(): void {
+    const query = queryStorage.get() || '';
+    this.setState({ searchValue: query });
+  }
+
   submit = (formData: FormData) => {
     const query = formData.get('search') as string;
-    if (!query) return;
     this.props.handleQuery(query);
+    queryStorage.save(query);
   };
 
   handleChange = (e: FormEvent<HTMLInputElement>) => {
