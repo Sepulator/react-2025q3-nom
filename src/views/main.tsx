@@ -12,7 +12,7 @@ interface State {
 type Props = object;
 
 export class Main extends Component<Props, State> {
-  state = {
+  state: State = {
     movieList: {
       page: 1,
       results: [],

@@ -10,7 +10,7 @@ interface State {
 }
 
 export class Search extends Component<Props, State> {
-  state = {
+  state: State = {
     searchValue: '',
   };
 
