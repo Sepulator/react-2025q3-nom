@@ -15,6 +15,7 @@ export class Search extends Component<Props, State> {
   componentDidMount(): void {
     if (this.ref.current) {
       this.ref.current.value = queryStorage.get() || '';
+      this.ref.current.focus();
     }
   }
 
