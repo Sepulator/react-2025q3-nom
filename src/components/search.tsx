@@ -1,4 +1,4 @@
-import { Component, type FormEvent } from 'react';
+import { Component, createRef } from 'react';
 import { queryStorage } from '../services/localstorage';
 
 interface Props {
@@ -10,13 +10,10 @@ interface State {
 }
 
 export class Search extends Component<Props, State> {
-  state: State = {
-    searchValue: '',
-  };
+  ref = createRef<HTMLInputElement>();
 
   componentDidMount(): void {
-    const query = queryStorage.get() || '';
-    this.setState({ searchValue: query });
+    this.ref.current!.value = queryStorage.get() || '';
   }
 
   handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -27,20 +24,10 @@ export class Search extends Component<Props, State> {
     queryStorage.save(query);
   };
 
-  handleChange = (e: FormEvent<HTMLInputElement>) => {
-    this.setState({ searchValue: e.currentTarget.value });
-  };
-
   render() {
     return (
       <form role="group" className="search" onSubmit={this.handleSubmit}>
-        <input
-          name="search"
-          type="text"
-          placeholder="Search movie"
-          value={this.state.searchValue}
-          onChange={this.handleChange}
-        />
+        <input name="search" type="text" placeholder="Search movie" ref={this.ref} />
         <button type="submit">Search</button>
       </form>
     );
