@@ -13,15 +13,17 @@ export class Search extends Component<Props, State> {
   ref = createRef<HTMLInputElement>();
 
   componentDidMount(): void {
-    this.ref.current!.value = queryStorage.get() || '';
+    if (this.ref.current) {
+      this.ref.current.value = queryStorage.get() || '';
+    }
   }
 
   handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
-    const query = formData.get('search')!.toString().trim();
-    this.props.handleQuery(query);
-    queryStorage.save(query);
+    const query = formData.get('search')?.toString().trim();
+    this.props.handleQuery(query || '');
+    queryStorage.save(query || '');
   };
 
   render() {
