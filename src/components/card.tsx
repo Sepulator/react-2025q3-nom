@@ -11,11 +11,13 @@ export function Card({ movie }: Props) {
 
   return (
     <>
-      <div className="card">
+      <article className="card">
         <img src={`${base_url}/${poster_sizes[2]}/${poster_path}`}></img>
-        <p>{title}</p>
-        <span>{release_date && formatDate(release_date)}</span>
-      </div>
+        <div>
+          <p>{title}</p>
+          <span>{release_date && formatDate(release_date)}</span>
+        </div>
+      </article>
     </>
   );
 }
