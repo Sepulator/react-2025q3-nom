@@ -1,9 +1,15 @@
-import { url } from '../consts/consts';
-import type { MovieList } from '../types/interfaces';
+import { urlNowPLaying, urlSearchMovie } from '../consts/consts';
+import type { MoviesList } from '../types/interfaces';
 
 export const getMovieList = async (query: string) => {
-  const response = await fetch(`${url}&query=${query}`);
-  const data = (await response.json()) as MovieList;
+  const response = await fetch(`${urlSearchMovie}&query=${query}`);
+  const data = (await response.json()) as MoviesList;
+
+  return data;
+};
+export const getNowPLaying = async () => {
+  const response = await fetch(`${urlNowPLaying}`);
+  const data = (await response.json()) as MoviesList;
 
   return data;
 };

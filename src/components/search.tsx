@@ -22,7 +22,7 @@ export class Search extends Component<Props, State> {
   handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
-    const query = formData.get('search') as string;
+    const query = formData.get('search')!.toString().trim();
     this.props.handleQuery(query);
     queryStorage.save(query);
   };
@@ -37,7 +37,7 @@ export class Search extends Component<Props, State> {
         <input
           name="search"
           type="text"
-          placeholder="Search"
+          placeholder="Search movie"
           value={this.state.searchValue}
           onChange={this.handleChange}
         />
