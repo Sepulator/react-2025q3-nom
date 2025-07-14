@@ -1,0 +1,97 @@
+@import url(./assets/pico.slate.min.css);
+
+:root {
+  font-family: 'Inter', system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-optical-sizing: auto;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  min-height: 100vh;
+
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+}
+
+header .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+footer .container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+footer,
+header {
+  padding: 0.5rem 0;
+  border-bottom: var(--pico-border-width) solid transparent;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  justify-items: start;
+  align-items: center;
+}
+
+.search {
+  max-width: 600px;
+}
+
+.logo {
+  height: 2.25rem;
+  will-change: filter;
+  transition: filter 300ms;
+}
+
+.cards-list {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+  max-width: 960px;
+}
+
+.card {
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+}
+
+.card > div {
+  padding: 0.5rem;
+}
+
+.card span {
+  color: rgba(170, 153, 153, 0.6);
+}
+
+.card > img {
+  transition: transform 0.3s ease;
+
+  &:hover {
+    transform: scale(1.05);
+  }
+}
+
+.card:hover {
+  cursor: pointer;
+  border-radius: 8px;
+  box-shadow: 0px 0px 6px 2px rgb(241, 237, 237);
+}
