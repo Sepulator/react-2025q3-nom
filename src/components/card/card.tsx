@@ -1,7 +1,7 @@
-import { urlImage, poster_sizes } from '../consts/consts';
-import { formatDate } from '../services/utils';
-import image from '../assets/image.svg';
-import type { Movie } from '../types/interfaces';
+import image from '@/assets/image.svg';
+import type { Movie } from '@/types/interfaces';
+import { formatDate } from '@/services/utils';
+import { poster_sizes, urlImage } from '@/consts';
 
 interface Props {
   movie: Movie;

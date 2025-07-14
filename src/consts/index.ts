@@ -1,4 +1,4 @@
-import { getKey } from '../services/utils';
+import { getKey } from '@/services/utils';
 
 export const urlImage = 'https://image.tmdb.org/t/p/';
 export const poster_sizes = ['w92', 'w154', 'w185', 'w342', 'w500', 'w780', 'original'];

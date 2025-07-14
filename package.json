@@ -10,7 +10,7 @@
     "lint:css": "stylelint \"**/*.css\"",
     "prepare": "husky",
     "test": "vitest",
-    "coverage": "vitest run --coverage",
+    "test:coverage": "vitest run --coverage",
     "format:fix": "prettier --write .",
     "preview": "vite preview"
   },

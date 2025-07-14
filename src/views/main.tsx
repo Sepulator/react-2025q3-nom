@@ -1,9 +1,10 @@
 import { Component } from 'react';
-import { Search } from '../components/search';
-import { CardsList } from '../components/cards-list';
-import { getMovieList, getNowPLaying } from '../services/api';
-import type { MoviesList } from '../types/interfaces';
-import { queryStorage } from '../services/localstorage';
+
+import CardsList from '@/components/card-list';
+import { getMovieList, getNowPLaying } from '@/services/api';
+import { queryStorage } from '@/services/localstorage';
+import type { MoviesList } from '@/types/interfaces';
+import Search from '@/components/search';
 
 interface State {
   moviesList: MoviesList;

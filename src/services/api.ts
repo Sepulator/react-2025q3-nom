@@ -1,5 +1,5 @@
-import { urlNowPLaying, urlSearchMovie } from '../consts/consts';
-import type { MoviesList } from '../types/interfaces';
+import { urlNowPLaying, urlSearchMovie } from '@/consts';
+import type { MoviesList } from '@/types/interfaces';
 
 export const getMovieList = async (query: string) => {
   const response = await fetch(`${urlSearchMovie}&query=${query}`);
