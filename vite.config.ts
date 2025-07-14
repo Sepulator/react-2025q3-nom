@@ -1,4 +1,5 @@
 /// <reference types="vitest" />
+
 import { defineConfig } from 'vite';
 import path from 'path';
 import react from '@vitejs/plugin-react';
@@ -12,6 +13,7 @@ export default defineConfig({
   },
   test: {
     globals: true,
+    environment: 'jsdom',
     coverage: {
       reporter: 'text',
       thresholds: {
@@ -26,7 +28,8 @@ export default defineConfig({
         'src/**/*.spec.{js,jsx,ts,tsx}',
         'src/main.{js,jsx,ts,tsx}',
         'src/App.{js,jsx,ts,tsx}',
-        'src/setupTests.{js,ts}',
+        'src/__tests__/setupTests.{js,ts,tsx}',
+        'src/__tests__/test-utils.{js,ts,tsx}',
         'src/**/*.d.ts',
       ],
     },
