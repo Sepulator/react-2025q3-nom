@@ -5,6 +5,7 @@ import { getMovieList, getNowPLaying } from '@/services/api';
 import { queryStorage } from '@/services/localstorage';
 import type { MoviesList } from '@/types/interfaces';
 import Search from '@/components/search';
+import { httpMessages } from '@/consts';
 
 interface State {
   moviesList: MoviesList;
@@ -54,10 +55,13 @@ export class Main extends Component<Props, State> {
         <h1>The Movie Database API</h1>
         <Search handleQuery={this.getMoviesList} />
         {this.state.error ? (
-          <article aria-invalid="true">Error: {this.state.error}</article>
+          <article style={{ color: 'var(--pico-del-color)' }}>
+            Error: {this.state.error + ' '}
+            {httpMessages.find((code) => code.status.toString() === this.state.error)?.message}
+          </article>
         ) : this.state.loading ? (
           <article aria-busy="true">Loading</article>
-        ) : this.state.moviesList.results.length ? (
+        ) : this.state.moviesList.results?.length ? (
           <CardsList movieList={this.state.moviesList.results} />
         ) : (
           <span>Nothing to display. Type to search movie.</span>

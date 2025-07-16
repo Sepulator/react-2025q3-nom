@@ -1,4 +1,3 @@
-import { urlSearchMovie, urlNowPLaying } from '@/consts';
 import type { MoviesList } from '@/types/interfaces';
 import { http, HttpResponse } from 'msw';
 
@@ -58,18 +57,19 @@ export const mockBatmanMovie: MoviesList = {
 };
 
 export const handlers = [
-  http.get(urlSearchMovie, ({ request }) => {
+  http.get('https://api.themoviedb.org/3/search/movie', ({ request }) => {
     const url = new URL(request.url);
     const search = url.searchParams.get('query');
+    if (!search) return HttpResponse.json(mockEmptyMovies);
 
-    if (search === mockBatmanMovie.results[0].title.toLocaleLowerCase()) {
+    if (search.toLocaleLowerCase() === mockBatmanMovie.results[0].title.toLocaleLowerCase()) {
       return HttpResponse.json(mockBatmanMovie);
     } else {
       return HttpResponse.json(mockEmptyMovies);
     }
   }),
 
-  http.get(urlNowPLaying, () => {
+  http.get('https://api.themoviedb.org/3/movie/now_playing', () => {
     return HttpResponse.json(mockMoviesList);
   }),
 ];
