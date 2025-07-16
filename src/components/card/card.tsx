@@ -13,7 +13,10 @@ export function Card({ movie }: Props) {
   return (
     <>
       <article className="card">
-        <img src={poster_path ? `${urlImage}/${poster_sizes[2]}/${poster_path}` : image}></img>
+        <img
+          src={poster_path ? `${urlImage}/${poster_sizes[2]}/${poster_path}` : image}
+          alt={poster_path ? `${title}` : `No image available for ${title}`}
+        ></img>
         <div>
           <p>{title}</p>
           <span>{release_date && formatDate(release_date)}</span>
