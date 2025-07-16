@@ -1,8 +1,9 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { render, fireEvent, screen } from '@/__tests__/test-utils';
-import { Search } from './search';
+
 import { queryStorage } from '@/services/localstorage';
+import Search from '@/components/search';
 
 vi.mock('@/services/localstorage', () => ({
   queryStorage: {
