@@ -35,28 +35,29 @@ describe('Main Component', () => {
     });
   });
 
-  // it('displays error message when API fails', async () => {
-  //   render(<Main />);
+  it('displays error message when API fails', async () => {
+    vi.mocked(queryStorage.get).mockReturnValue('error');
+    render(<Main />);
 
-  //   await waitFor(() => {
-  //     expect(screen.getByText(/error/i)).toBeInTheDocument();
-  //   });
-  // });
+    const searchButton = screen.getByRole('button', { name: 'Search' });
 
-  // it('displays empty state message when no results', async () => {
-  //   render(<Main />);
+    fireEvent.click(searchButton);
 
-  //   await waitFor(() => {
-  //     expect(screen.getByText('Nothing to display. Type to search movie.')).toBeInTheDocument();
-  //   });
-  // });
+    await waitFor(() => {
+      expect(screen.getByText(/error/i)).toBeInTheDocument();
+    });
+  });
 
-  // it('loads movies from localStorage query on mount if available', async () => {
-  //   localStorage.setItem('query', 'saved search');
-  //   render(<Main />);
+  it('displays empty state message when no results', async () => {
+    vi.mocked(queryStorage.get).mockReturnValue('not batman');
+    render(<Main />);
 
-  //   await waitFor(() => {
-  //     expect(screen.getByText('Test Movie')).toBeInTheDocument();
-  //   });
-  // });
+    const searchButton = screen.getByRole('button', { name: 'Search' });
+
+    fireEvent.click(searchButton);
+
+    await waitFor(() => {
+      expect(screen.getByText('Nothing to display. Type to search movie.')).toBeInTheDocument();
+    });
+  });
 });

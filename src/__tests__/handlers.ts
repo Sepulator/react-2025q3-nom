@@ -65,7 +65,15 @@ export const handlers = [
     if (search.toLocaleLowerCase() === 'batman') {
       return HttpResponse.json(mockBatmanMovie);
     }
-    return HttpResponse.json(mockMoviesList);
+
+    if (search === 'error') {
+      return new HttpResponse(null, {
+        status: 500,
+        statusText: 'Internal Server Error',
+      });
+    }
+
+    return HttpResponse.json(mockEmptyMovies);
   }),
 
   http.get('https://api.themoviedb.org/3/movie/now_playing', () => {
