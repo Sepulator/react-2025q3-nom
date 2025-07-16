@@ -35,6 +35,19 @@ describe('Main Component', () => {
     });
   });
 
+  it('handles invalid local storage data', async () => {
+    vi.mocked(queryStorage.get).mockReturnValue(null);
+    render(<Main />);
+
+    const searchButton = screen.getByRole('button', { name: 'Search' });
+
+    fireEvent.click(searchButton);
+
+    await waitFor(() => {
+      expect(screen.getByText('Test Movie')).toBeInTheDocument();
+    });
+  });
+
   it('displays error message when API fails', async () => {
     vi.mocked(queryStorage.get).mockReturnValue('error');
     render(<Main />);

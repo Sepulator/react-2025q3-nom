@@ -61,7 +61,7 @@ export class Main extends Component<Props, State> {
           </article>
         ) : this.state.loading ? (
           <article aria-busy="true">Loading</article>
-        ) : this.state.moviesList.results?.length ? (
+        ) : this.state.moviesList.results.length ? (
           <CardsList movieList={this.state.moviesList.results} />
         ) : (
           <span>Nothing to display. Type to search movie.</span>
