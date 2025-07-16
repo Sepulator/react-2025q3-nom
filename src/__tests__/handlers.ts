@@ -62,11 +62,10 @@ export const handlers = [
     const search = url.searchParams.get('query');
     if (!search) return HttpResponse.json(mockEmptyMovies);
 
-    if (search.toLocaleLowerCase() === mockBatmanMovie.results[0].title.toLocaleLowerCase()) {
+    if (search.toLocaleLowerCase() === 'batman') {
       return HttpResponse.json(mockBatmanMovie);
-    } else {
-      return HttpResponse.json(mockEmptyMovies);
     }
+    return HttpResponse.json(mockMoviesList);
   }),
 
   http.get('https://api.themoviedb.org/3/movie/now_playing', () => {

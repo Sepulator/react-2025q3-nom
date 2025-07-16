@@ -1,30 +1,33 @@
 import { render, screen, waitFor, fireEvent } from '@/__tests__/test-utils';
+import { queryStorage } from '@/services/localstorage';
 import { Main } from '@/views/main';
-import { afterEach, describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
+
+vi.mock('@/services/localstorage', () => ({
+  queryStorage: {
+    get: vi.fn(),
+    save: vi.fn(),
+  },
+}));
 
 describe('Main Component', () => {
-  afterEach(() => {
-    localStorage.clear();
+  it('makes initial API call on component mount with loading', async () => {
+    render(<Main />);
+    expect(screen.getByText('The Movie Database API')).toBeInTheDocument();
+    expect(screen.getByRole('group')).toBeInTheDocument();
+    expect(screen.getByText('Loading')).toBeInTheDocument();
+
+    await waitFor(() => {
+      expect(screen.getByText('Test Movie')).toBeInTheDocument();
+    });
   });
 
-  // it('makes initial API call on component mount with loading', async () => {
-  //   render(<Main />);
-  //   expect(screen.getByText('The Movie Database API')).toBeInTheDocument();
-  //   expect(screen.getByRole('group')).toBeInTheDocument();
-  //   expect(screen.getByText('Loading')).toBeInTheDocument();
-
-  //   await waitFor(() => {
-  //     expect(screen.getByText('Test Movie')).toBeInTheDocument();
-  //   });
-  // });
-
   it('handles search query and updates movies list', async () => {
+    vi.mocked(queryStorage.get).mockReturnValue('batman');
     render(<Main />);
 
-    const searchInput = screen.getByPlaceholderText('Search movie');
     const searchButton = screen.getByRole('button', { name: 'Search' });
 
-    fireEvent.change(searchInput, { target: { value: 'Batman' } });
     fireEvent.click(searchButton);
 
     await waitFor(() => {

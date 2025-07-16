@@ -3,9 +3,6 @@ export interface MoviesList {
   results: Movie[];
   total_pages: number;
   total_results: number;
-  status_code?: number;
-  status_message?: string;
-  success?: boolean;
 }
 
 export interface Movie {
