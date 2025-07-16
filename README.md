@@ -1,4 +1,4 @@
-# React project setup. Class components. Error boundary
+# React: Unit Testing
 
 The Movie Database API created with Vite, React, TypeScript and PicoCSS.
 
@@ -13,11 +13,12 @@ The application is powered by [The Movie Database (TMDB) API](https://developer.
 
 ## Features
 
-- ⚡ [Library for web](https://vuejs.org/): Built with React 19.
+- ⚡ [Library for web](https://react.dev/): Built with React 19.
 - 🎯 [Build tool](https://vite.dev/): Vite makes web development simple again.
 - 💪 [Strongly typed](https://www.typescriptlang.org/): Uses TypeScript.
-- 🎊 [CSS Framework](https://picocss.com/) Minimal CSS Framework for semantic HTML .
+- 🎊 [CSS Framework](https://picocss.com/): Minimal CSS Framework for semantic HTML.
 - 🛍️ [REST API](https://developer.themoviedb.org/docs/getting-started): The API service is for those of you interested in movie, TV show or actor data in your application.
+- 🔥 [Vite-native](https://vitest.dev/): A Vite-native testing framework. It's fast!.
 
 ## Getting Started
 
@@ -29,10 +30,10 @@ The application is powered by [The Movie Database (TMDB) API](https://developer.
   git clone https://github.com/Sepulator/react-2025q3-nom
 ```
 
-#### 2. Switch to class components branch
+#### 2. Switch to `unit-testing` branch
 
 ```bash copy
-  git switch class-components
+  git switch unit-testing
 ```
 
 #### 3. Open project directory and install dependencies
@@ -87,6 +88,14 @@ This command starts the dev server locally `http://localhost:5173/`.
 
 ```bash copy
   npm run test
+```
+
+---
+
+#### Test coverage
+
+```bash copy
+  npm run test:coverage
 ```
 
 ---
