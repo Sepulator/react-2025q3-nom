@@ -1,15 +1,9 @@
-import Footer from '@/components/footer';
-import Header from '@/components/header';
-import { Main } from '@/views/main';
+import { router } from '@/router';
+
+import { RouterProvider } from 'react-router';
 
 function App() {
-  return (
-    <>
-      <Header />
-      <Main />
-      <Footer />
-    </>
-  );
+  return <RouterProvider router={router} />;
 }
 
 export default App;

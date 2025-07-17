@@ -52,7 +52,7 @@ export function Main() {
   };
 
   return (
-    <main className="container main">
+    <>
       <h1>The Movie Database API</h1>
       <Search handleQuery={getMoviesList} />
       {state.error ? (
@@ -67,6 +67,6 @@ export function Main() {
       ) : (
         <span>Nothing to display. Type to search movie.</span>
       )}
-    </main>
+    </>
   );
 }

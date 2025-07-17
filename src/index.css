@@ -78,7 +78,7 @@ header {
   color: rgb(170 153 153 / 60%);
 }
 
-.card > img {
+.card-img {
   transition: transform 0.3s ease;
 
   &:hover {
@@ -90,4 +90,27 @@ header {
   cursor: pointer;
   border-radius: 8px;
   box-shadow: 0 0 6px 2px rgb(241 237 237);
+}
+
+.about {
+  margin: 0 auto;
+  max-width: 800px;
+  line-height: 1.6;
+}
+
+.about-article {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+@media (width <=780px) {
+  .about-article {
+    flex-direction: column;
+  }
+}
+
+.about-img {
+  width: 300px;
+  border-radius: 10px;
 }

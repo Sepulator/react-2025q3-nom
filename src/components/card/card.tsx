@@ -16,6 +16,7 @@ export function Card({ movie }: Props) {
         <img
           src={poster_path ? `${urlImage}/${poster_sizes[2]}/${poster_path}` : image}
           alt={poster_path ? `${title}` : `No image available for ${title}`}
+          className="card-img"
         ></img>
         <div>
           <p>{title}</p>
