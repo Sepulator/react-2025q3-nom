@@ -1,6 +1,7 @@
 import { getKey } from '@/services/utils';
 import { httpMessages } from '@/consts/http-status-code';
 
+export const QUERY = 'query-nom';
 export const urlImage = 'https://image.tmdb.org/t/p/';
 export const poster_sizes = ['w92', 'w154', 'w185', 'w342', 'w500', 'w780', 'original'];
 const key = getKey('379d96759ca1f073b651c08c3b38a4c2');

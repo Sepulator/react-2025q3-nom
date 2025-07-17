@@ -1,18 +1,20 @@
 import { useEffect, useRef } from 'react';
-import { queryStorage } from '@/services/localstorage';
+import { useLocalStorage } from '@/services/localstorage';
+import { QUERY } from '@/consts';
 
 interface Props {
   handleQuery: (query: string) => void;
 }
 export function Search({ handleQuery }: Props) {
+  const [storedValue, setStoredValue] = useLocalStorage<string>(QUERY, '');
   const ref = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     if (ref.current) {
-      ref.current.value = queryStorage.get() || '';
+      ref.current.value = storedValue;
       ref.current.focus();
     }
-  }, []);
+  }, [storedValue]);
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -20,7 +22,7 @@ export function Search({ handleQuery }: Props) {
     const query = formData.get('search')?.toString().trim();
 
     handleQuery(query || '');
-    queryStorage.save(query || '');
+    setStoredValue(query || '');
   };
 
   return (

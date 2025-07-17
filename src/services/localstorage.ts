@@ -1,28 +1,26 @@
-const QUERY = 'query-nom';
+import { useState, useCallback } from 'react';
 
-export class LocalStorage<T> {
-  private key: string;
-
-  constructor(key: string) {
-    this.key = key;
-  }
-
-  save(data: T): void {
-    localStorage.setItem(this.key, JSON.stringify(data));
-  }
-
-  get(): T | null {
+export function useLocalStorage<T>(key: string, initialValue: T): [T, (value: T) => void, () => void] {
+  const [storedValue, setStoredValue] = useState<T>(() => {
     try {
-      const item = localStorage.getItem(this.key);
-      return item ? JSON.parse(item) : null;
+      const item = localStorage.getItem(key);
+      return item ? (JSON.parse(item) as T) : initialValue;
     } catch {
-      return null;
+      return initialValue;
     }
-  }
+  });
 
-  clear(): void {
-    localStorage.removeItem(this.key);
-  }
+  const setValue = useCallback(
+    (value: T) => {
+      setStoredValue(value);
+      localStorage.setItem(key, JSON.stringify(value));
+    },
+    [key]
+  );
+
+  const clearValue = useCallback(() => {
+    localStorage.removeItem(key);
+  }, [key]);
+
+  return [storedValue, setValue, clearValue];
 }
-
-export const queryStorage = new LocalStorage<string>(QUERY);

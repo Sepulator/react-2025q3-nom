@@ -2,18 +2,20 @@ import { useEffect, useState } from 'react';
 
 import CardsList from '@/components/card-list';
 import { getMovieList, getNowPLaying } from '@/services/api';
-import { queryStorage } from '@/services/localstorage';
+import { useLocalStorage } from '@/services/localstorage';
 import type { MoviesList } from '@/types/interfaces';
 import Search from '@/components/search';
-import { httpMessages } from '@/consts';
+import { httpMessages, QUERY } from '@/consts';
 
 interface State {
   moviesList: MoviesList;
   loading: boolean;
+  query: string;
   error: string | null;
 }
 
 export function Main() {
+  const [storedValue] = useLocalStorage<string>(QUERY, '');
   const [state, setState] = useState<State>({
     moviesList: {
       page: 1,
@@ -21,31 +23,32 @@ export function Main() {
       total_pages: 0,
       total_results: 0,
     },
+    query: storedValue,
     loading: false,
     error: null,
   });
 
   useEffect(() => {
-    const query = queryStorage.get();
-    if (query === null) {
-      getMoviesList('');
-    } else {
-      getMoviesList(query);
+    async function fetchMovies() {
+      setState((prevState) => ({ ...prevState, loading: true, error: null }));
+
+      try {
+        const moviesList = state.query ? await getMovieList(state.query) : await getNowPLaying();
+        setState((prevState) => ({ ...prevState, moviesList, loading: false }));
+      } catch (error) {
+        setState((prevState) => ({
+          ...prevState,
+          error: error instanceof Error ? error.message : 'Failed to fetch movies',
+          loading: false,
+        }));
+      }
     }
-  }, []);
+
+    fetchMovies();
+  }, [state.query]);
 
   const getMoviesList = async (query: string) => {
-    setState((prevState) => ({ ...prevState, loading: true, error: null }));
-    try {
-      const moviesList = query ? await getMovieList(query) : await getNowPLaying();
-      setState((prevState) => ({ ...prevState, moviesList, loading: false }));
-    } catch (error) {
-      setState((prevState) => ({
-        ...prevState,
-        error: error instanceof Error ? error.message : 'Failed to fetch movies',
-        loading: false,
-      }));
-    }
+    setState((prevState) => ({ ...prevState, query }));
   };
 
   return (
