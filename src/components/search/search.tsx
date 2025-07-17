@@ -1,38 +1,32 @@
-import { Component, createRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { queryStorage } from '@/services/localstorage';
 
 interface Props {
   handleQuery: (query: string) => void;
 }
+export function Search({ handleQuery }: Props) {
+  const ref = useRef<HTMLInputElement>(null);
 
-interface State {
-  searchValue: string;
-}
-
-export class Search extends Component<Props, State> {
-  ref = createRef<HTMLInputElement>();
-
-  componentDidMount(): void {
-    if (this.ref.current) {
-      this.ref.current.value = queryStorage.get() || '';
-      this.ref.current.focus();
+  useEffect(() => {
+    if (ref.current) {
+      ref.current.value = queryStorage.get() || '';
+      ref.current.focus();
     }
-  }
+  }, []);
 
-  handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
     const query = formData.get('search')?.toString().trim();
-    this.props.handleQuery(query || '');
+
+    handleQuery(query || '');
     queryStorage.save(query || '');
   };
 
-  render() {
-    return (
-      <form role="group" className="search" onSubmit={this.handleSubmit}>
-        <input name="search" type="text" placeholder="Search movie" ref={this.ref} />
-        <button type="submit">Search</button>
-      </form>
-    );
-  }
+  return (
+    <form role="group" className="search" onSubmit={handleSubmit}>
+      <input name="search" type="text" placeholder="Search movie" ref={ref} />
+      <button type="submit">Search</button>
+    </form>
+  );
 }

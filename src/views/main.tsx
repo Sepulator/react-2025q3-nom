@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import { useEffect, useState } from 'react';
 
 import CardsList from '@/components/card-list';
 import { getMovieList, getNowPLaying } from '@/services/api';
@@ -13,10 +13,8 @@ interface State {
   error: string | null;
 }
 
-type Props = object;
-
-export class Main extends Component<Props, State> {
-  state: State = {
+export function Main() {
+  const [state, setState] = useState<State>({
     moviesList: {
       page: 1,
       results: [],
@@ -25,48 +23,47 @@ export class Main extends Component<Props, State> {
     },
     loading: false,
     error: null,
-  };
+  });
 
-  async componentDidMount() {
+  useEffect(() => {
     const query = queryStorage.get();
     if (query === null) {
-      await this.getMoviesList('');
+      getMoviesList('');
     } else {
-      await this.getMoviesList(query);
+      getMoviesList(query);
     }
-  }
+  }, []);
 
-  getMoviesList = async (query: string) => {
-    this.setState({ loading: true });
+  const getMoviesList = async (query: string) => {
+    setState((prevState) => ({ ...prevState, loading: true, error: null }));
     try {
       const moviesList = query ? await getMovieList(query) : await getNowPLaying();
-      this.setState({ moviesList, loading: false });
+      setState((prevState) => ({ ...prevState, moviesList, loading: false }));
     } catch (error) {
-      this.setState({
+      setState((prevState) => ({
+        ...prevState,
         error: error instanceof Error ? error.message : 'Failed to fetch movies',
         loading: false,
-      });
+      }));
     }
   };
 
-  render() {
-    return (
-      <main className="container main">
-        <h1>The Movie Database API</h1>
-        <Search handleQuery={this.getMoviesList} />
-        {this.state.error ? (
-          <article style={{ color: 'var(--pico-del-color)' }}>
-            Error: {this.state.error + ' '}
-            {httpMessages.find((code) => code.status.toString() === this.state.error)?.message}
-          </article>
-        ) : this.state.loading ? (
-          <article aria-busy="true">Loading</article>
-        ) : this.state.moviesList.results.length ? (
-          <CardsList movieList={this.state.moviesList.results} />
-        ) : (
-          <span>Nothing to display. Type to search movie.</span>
-        )}
-      </main>
-    );
-  }
+  return (
+    <main className="container main">
+      <h1>The Movie Database API</h1>
+      <Search handleQuery={getMoviesList} />
+      {state.error ? (
+        <article style={{ color: 'var(--pico-del-color)' }}>
+          Error: {state.error + ' '}
+          {httpMessages.find((code) => code.status.toString() === state.error)?.message}
+        </article>
+      ) : state.loading ? (
+        <article aria-busy="true">Loading</article>
+      ) : state.moviesList.results.length ? (
+        <CardsList movieList={state.moviesList.results} />
+      ) : (
+        <span>Nothing to display. Type to search movie.</span>
+      )}
+    </main>
+  );
 }

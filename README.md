@@ -1,13 +1,16 @@
-# React: Unit Testing
+# React: Routing and Hooks
 
 The Movie Database API created with Vite, React, TypeScript and PicoCSS.
 
 Key pages in the application include:
 
-- Class components
+- Functional components using React hooks
 - Error boundary
 - Search input
 - Card list
+- Card detailed view
+- Pagination with URL synchronization
+- React Router for navigation and URL management
 
 The application is powered by [The Movie Database (TMDB) API](https://developer.themoviedb.org/docs/getting-started)
 
@@ -19,6 +22,7 @@ The application is powered by [The Movie Database (TMDB) API](https://developer.
 - 🎊 [CSS Framework](https://picocss.com/): Minimal CSS Framework for semantic HTML.
 - 🛍️ [REST API](https://developer.themoviedb.org/docs/getting-started): The API service is for those of you interested in movie, TV show or actor data in your application.
 - 🔥 [Vite-native](https://vitest.dev/): A Vite-native testing framework. It's fast!.
+- 📌 [React router](https://reactrouter.com/):A user‑obsessed, standards‑focused, multi‑strategy router you can deploy anywhere.
 
 ## Getting Started
 
