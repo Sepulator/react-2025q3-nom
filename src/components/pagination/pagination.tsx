@@ -10,7 +10,11 @@ export function Pagination({ moviesList }: Props) {
   const [, setSearchParams] = useSearchParams();
 
   const handlePageChange = (newPage: number) => {
-    setSearchParams({ page: newPage.toString() });
+    setSearchParams((searchParams) => {
+      const updatedSearchParams = new URLSearchParams(searchParams);
+      updatedSearchParams.set('page', newPage.toString());
+      return updatedSearchParams;
+    });
   };
 
   const renderPageButtons = () => {

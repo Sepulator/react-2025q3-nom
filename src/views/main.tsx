@@ -31,10 +31,16 @@ export function Main() {
   });
 
   useEffect(() => {
-    setSearchParams({ query: storedValue, page: '1' });
-    // eslint-disable-next-line react-compiler/react-compiler
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    setSearchParams((searchParams) => {
+      const updatedSearchParams = new URLSearchParams(searchParams);
+      if (!updatedSearchParams.has('query')) {
+        updatedSearchParams.set('query', storedValue);
+        updatedSearchParams.set('page', '1');
+      }
+
+      return updatedSearchParams;
+    });
+  }, [setSearchParams, storedValue]);
 
   useEffect(() => {
     async function fetchMovies() {
@@ -72,7 +78,7 @@ export function Main() {
       ) : (
         <span>Nothing to display. Type to search movie.</span>
       )}
-      <Pagination moviesList={state.moviesList} />
+      {state.moviesList.results.length > 0 && <Pagination moviesList={state.moviesList} />}
     </>
   );
 }

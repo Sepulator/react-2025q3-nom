@@ -4,16 +4,16 @@ import { QUERY } from '@/consts';
 import { useSearchParams } from 'react-router';
 
 export function Search() {
-  const [, setSearchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
   const [storedValue, setStoredValue] = useLocalStorage<string>(QUERY, '');
   const ref = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     if (ref.current) {
-      ref.current.value = storedValue;
+      ref.current.value = searchParams.get('query') || storedValue;
       ref.current.focus();
     }
-  }, [storedValue]);
+  }, [searchParams, storedValue]);
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -21,8 +21,10 @@ export function Search() {
     const query = formData.get('search')?.toString().trim();
 
     setSearchParams((searchParams) => {
-      searchParams.set('query', query || '');
-      return searchParams;
+      const updatedSearchParams = new URLSearchParams(searchParams);
+      updatedSearchParams.set('query', query || '');
+      updatedSearchParams.set('page', '1');
+      return updatedSearchParams;
     });
     setStoredValue(query || '');
   };
