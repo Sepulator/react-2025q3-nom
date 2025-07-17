@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link } from 'react-router';
+import { NavLink } from 'react-router';
 
 export function Header() {
   const [isError, setIsError] = useState(false);
@@ -19,9 +19,9 @@ export function Header() {
         <nav>
           <ul>
             <li>
-              <Link to="/about" className="primary" title="About">
+              <NavLink to="/about" title="About" className={({ isActive }) => (isActive ? 'contrast' : '')}>
                 About
-              </Link>
+              </NavLink>
             </li>
             <li>
               <a href="https://www.themoviedb.org/" className="secondary">

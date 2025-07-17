@@ -1,11 +1,10 @@
 import { useEffect, useRef } from 'react';
 import { useLocalStorage } from '@/services/localstorage';
 import { QUERY } from '@/consts';
+import { useSearchParams } from 'react-router';
 
-interface Props {
-  handleQuery: (query: string) => void;
-}
-export function Search({ handleQuery }: Props) {
+export function Search() {
+  const [, setSearchParams] = useSearchParams();
   const [storedValue, setStoredValue] = useLocalStorage<string>(QUERY, '');
   const ref = useRef<HTMLInputElement>(null);
 
@@ -21,7 +20,10 @@ export function Search({ handleQuery }: Props) {
     const formData = new FormData(event.currentTarget);
     const query = formData.get('search')?.toString().trim();
 
-    handleQuery(query || '');
+    setSearchParams((searchParams) => {
+      searchParams.set('query', query || '');
+      return searchParams;
+    });
     setStoredValue(query || '');
   };
 
