@@ -6,7 +6,7 @@ interface Props {
 }
 
 export function Pagination({ moviesList }: Props) {
-  const { page, total_pages, total_results } = moviesList;
+  const { page, total_pages } = moviesList;
   const [, setSearchParams] = useSearchParams();
 
   const handlePageChange = (newPage: number) => {
@@ -22,11 +22,7 @@ export function Pagination({ moviesList }: Props) {
     for (let i = 1; i <= total_pages; i++) {
       buttons.push(
         <li key={i}>
-          <button
-            className={`pagination-button ${i === page ? 'active' : ''}`}
-            onClick={() => handlePageChange(i)}
-            disabled={i === page}
-          >
+          <button onClick={() => handlePageChange(i)} disabled={i === page}>
             {i}
           </button>
         </li>
@@ -34,8 +30,6 @@ export function Pagination({ moviesList }: Props) {
     }
     return buttons;
   };
-
-  if (total_results === 0) return null;
 
   return (
     <nav className="pagination">
