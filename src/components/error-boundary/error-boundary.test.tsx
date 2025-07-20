@@ -2,7 +2,7 @@ import ErrorBoundary from '@/components/error-boundary';
 import { render, screen, fireEvent } from '@testing-library/react';
 
 import { Component } from 'react';
-import { describe, expect, it, vi } from 'vitest';
+import { describe, expect, it, vi, beforeEach, afterEach } from 'vitest';
 
 class BrokenComponent extends Component<{ isError?: boolean }> {
   render() {
@@ -14,6 +14,16 @@ class BrokenComponent extends Component<{ isError?: boolean }> {
 }
 
 describe('ErrorBoundary', () => {
+  let consoleErrorSpy: ReturnType<typeof vi.spyOn>;
+
+  beforeEach(() => {
+    consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+  });
+
+  afterEach(() => {
+    consoleErrorSpy.mockRestore();
+  });
+
   it('renders error UI when child throws error', () => {
     render(
       <ErrorBoundary>
@@ -24,6 +34,7 @@ describe('ErrorBoundary', () => {
     expect(screen.getByText('Something went wrong.')).toBeInTheDocument();
     expect(screen.getByText(/Test error/)).toBeInTheDocument();
     expect(screen.getByRole('button')).toBeInTheDocument();
+    expect(consoleErrorSpy).toHaveBeenCalled();
   });
 
   it('handles reload button click', () => {
