@@ -14,7 +14,7 @@ interface MoviesState {
 export function useMovies() {
   const [storedValue] = useLocalStorage<string>(QUERY, '');
   const [searchParams, setSearchParams] = useSearchParams();
-
+  const [id, setId] = useState<number | null>(null);
   const [state, setState] = useState<MoviesState>({
     moviesList: {
       page: 1,
@@ -34,9 +34,17 @@ export function useMovies() {
         updatedSearchParams.set('page', '1');
       }
 
+      if (!updatedSearchParams.has('detail') && id) {
+        updatedSearchParams.set('detail', 'true');
+      }
+
+      if (updatedSearchParams.has('detail') && !id) {
+        updatedSearchParams.delete('detail');
+      }
+
       return updatedSearchParams;
     });
-  }, [setSearchParams, storedValue]);
+  }, [id, setSearchParams, storedValue]);
 
   useEffect(() => {
     async function fetchMovies() {
@@ -58,5 +66,5 @@ export function useMovies() {
     fetchMovies();
   }, [searchParams]);
 
-  return state;
+  return { state, id, setId };
 }

@@ -3,10 +3,11 @@ import Search from '@/components/search';
 import { httpMessages } from '@/consts';
 import { Pagination } from '@/components/pagination/pagination';
 import { useMovies } from '@/hooks/useMovies';
-import { Outlet } from 'react-router';
+import { CardDetail } from '@/components/card-detail/card-detail';
 
 export function Main() {
-  const { moviesList, loading, error } = useMovies();
+  const { state, id, setId } = useMovies();
+  const { moviesList, loading, error } = state;
 
   return (
     <>
@@ -21,8 +22,10 @@ export function Main() {
         <article aria-busy="true">Loading</article>
       ) : moviesList.results.length ? (
         <>
-          <CardsList movieList={moviesList.results} />
-          <Outlet />
+          <div className="outlet">
+            <CardsList movieList={moviesList.results} setId={setId} />
+            {id && <CardDetail id={id} setId={setId} />}
+          </div>
           <Pagination moviesList={moviesList} />
         </>
       ) : (

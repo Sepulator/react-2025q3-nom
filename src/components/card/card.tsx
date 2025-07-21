@@ -5,14 +5,15 @@ import { poster_sizes, urlImage } from '@/consts';
 
 interface Props {
   movie: Movie;
+  setId: (id: number | null) => void;
 }
 
-export function Card({ movie }: Props) {
+export function Card({ movie, setId }: Props) {
   const { title, poster_path, release_date } = movie;
 
   return (
     <>
-      <article className="card">
+      <article className="card" onClick={() => setId(movie.id)}>
         <img
           src={poster_path ? `${urlImage}/${poster_sizes[2]}/${poster_path}` : image}
           alt={poster_path ? `${title}` : `No image available for ${title}`}

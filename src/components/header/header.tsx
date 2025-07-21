@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { NavLink } from 'react-router';
+import logo from '@/assets/movie.svg';
 
 export function Header() {
   const [isError, setIsError] = useState(false);
@@ -14,7 +15,7 @@ export function Header() {
     <header>
       <div className="container">
         <a aria-label="The Movie Database API homepage" href="/">
-          <img src="movie.svg" className="logo" alt="Movie logo" />
+          <img src={logo} className="logo" alt="Movie logo" />
         </a>
         <nav>
           <ul>

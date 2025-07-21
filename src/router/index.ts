@@ -1,4 +1,3 @@
-import { CardDetail } from '@/components/card-detail/card-detail';
 import { AppLayout } from '@/layouts/app-layout';
 import { About } from '@/views/about';
 import { Main } from '@/views/main';
@@ -9,7 +8,7 @@ export const routes: RouteObject[] = [
   {
     Component: AppLayout,
     children: [
-      { path: '/', Component: Main, children: [{ path: 'movie/:id', Component: CardDetail }] },
+      { path: '/', Component: Main },
       { path: 'about', Component: About },
       { path: '*', Component: NotFound },
     ],

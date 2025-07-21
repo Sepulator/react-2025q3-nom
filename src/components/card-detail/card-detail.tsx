@@ -1,41 +1,43 @@
 import image from '@/assets/image.svg';
-import type { MovieDetail } from '@/types/interfaces';
 import { formatDate } from '@/services/utils';
-import { poster_sizes, urlImage } from '@/consts';
-import { useParams } from 'react-router';
-import { useEffect, useState } from 'react';
-import { getMovie } from '@/services/api';
+import { httpMessages, poster_sizes, urlImage } from '@/consts';
+import { useDetail } from '@/hooks/useDetail';
 
-export function CardDetail() {
-  const { id } = useParams();
-  const [movie, setMovie] = useState<MovieDetail | null>(null);
-  useEffect(() => {
-    async function fetchMovie() {
-      if (id) {
-        try {
-          const response = await getMovie(Number(id));
-          setMovie(response);
-        } catch (error) {
-          console.error('Failed to fetch movie details:', error);
-        }
-      }
-    }
-    fetchMovie();
-  }, [id]);
+interface Props {
+  id: number;
+  setId: (id: number | null) => void;
+}
+
+export function CardDetail({ id, setId }: Props) {
+  const { movie, isLoading, isError } = useDetail(id);
 
   return (
     <>
-      <article className="card">
-        <img
-          src={movie?.poster_path ? `${urlImage}/${poster_sizes[2]}/${movie?.poster_path}` : image}
-          alt={movie?.poster_path ? `${movie?.title}` : `No image available for ${movie?.title}`}
-          className="card-img"
-        ></img>
-        <div>
-          <p>{movie?.title}</p>
-          <span>{movie?.release_date && formatDate(movie?.release_date)}</span>
-        </div>
-      </article>
+      {isError ? (
+        <article style={{ color: 'var(--pico-del-color)' }}>
+          Error: {isError + ' '}
+          {httpMessages.find((code) => code.status.toString() === isError)?.message}
+        </article>
+      ) : isLoading ? (
+        <article aria-busy="true" className="loading">
+          Loading
+        </article>
+      ) : (
+        <article className="card-detail">
+          <img
+            src={movie?.poster_path ? `${urlImage}/${poster_sizes[3]}/${movie?.poster_path}` : image}
+            alt={movie?.poster_path ? `${movie?.title}` : `No image available for ${movie?.title}`}
+          ></img>
+          <div>
+            <p>{movie?.title}</p>
+            <span>{movie?.release_date && formatDate(movie?.release_date)}</span>
+            <p>{movie?.overview}</p>
+            <p>Rating: {movie?.vote_average}</p>
+          </div>
+
+          <button onClick={() => setId(null)}>Close</button>
+        </article>
+      )}
     </>
   );
 }
