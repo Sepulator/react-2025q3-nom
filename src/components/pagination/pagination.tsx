@@ -1,3 +1,4 @@
+import { MAX_BUTTONS } from '@/consts';
 import type { MoviesList } from '@/types/interfaces';
 import { useSearchParams } from 'react-router';
 
@@ -17,17 +18,54 @@ export function Pagination({ moviesList }: Props) {
     });
   };
 
+  const renderPageButton = (pageNumber: number) => (
+    <li key={pageNumber}>
+      <button onClick={() => handlePageChange(pageNumber)} disabled={pageNumber === page}>
+        {pageNumber}
+      </button>
+    </li>
+  );
+
   const renderPageButtons = () => {
     const buttons = [];
-    for (let i = 1; i <= total_pages; i++) {
-      buttons.push(
-        <li key={i}>
-          <button onClick={() => handlePageChange(i)} disabled={i === page}>
-            {i}
-          </button>
-        </li>
-      );
+
+    if (total_pages <= MAX_BUTTONS) {
+      for (let i = 1; i <= total_pages; i++) {
+        buttons.push(renderPageButton(i));
+      }
+
+      return buttons;
     }
+
+    buttons.push(renderPageButton(1));
+
+    let startPage = Math.max(2, page - 2);
+    let endPage = Math.min(total_pages - 1, page + 2);
+
+    if (page <= 4) {
+      startPage = 2;
+      endPage = 5;
+    }
+
+    if (page >= total_pages - 3) {
+      startPage = total_pages - 4;
+      endPage = total_pages - 1;
+    }
+
+    if (startPage > 2) {
+      buttons.push(<li key="start-ellipsis">...</li>);
+    }
+
+    for (let i = startPage; i <= endPage; i++) {
+      buttons.push(renderPageButton(i));
+    }
+
+    if (endPage < total_pages - 1) {
+      buttons.push(<li key="end-ellipsis">...</li>);
+    }
+
+    buttons.push(renderPageButton(total_pages));
+
     return buttons;
   };
 

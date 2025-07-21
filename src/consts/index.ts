@@ -1,6 +1,7 @@
 import { getKey } from '@/services/utils';
 import { httpMessages } from '@/consts/http-status-code';
 
+export const MAX_BUTTONS = 8;
 export const QUERY = 'query-nom';
 export const urlImage = 'https://image.tmdb.org/t/p/';
 export const poster_sizes = ['w92', 'w154', 'w185', 'w342', 'w500', 'w780', 'original'];
