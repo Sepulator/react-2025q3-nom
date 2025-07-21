@@ -1,15 +1,30 @@
 import '@testing-library/jest-dom';
-import React, { type ReactElement } from 'react';
-import { render, type RenderOptions } from '@testing-library/react';
-import ErrorBoundary from '@/components/error-boundary';
+import userEvent from '@testing-library/user-event';
+import { render } from '@testing-library/react';
+import { createMemoryRouter, RouterProvider, type RouteObject } from 'react-router';
+import { routes } from '@/router';
 
-const customRender = (ui: ReactElement, options?: Omit<RenderOptions, 'wrapper'>) =>
-  render(ui, {
-    wrapper: ({ children }: { children: React.ReactNode }) => {
-      return <ErrorBoundary>{children}</ErrorBoundary>;
-    },
-    ...options,
+interface RenderOptions {
+  initialEntries?: string[];
+  routes?: RouteObject[];
+}
+
+const defaultRoutes: RouteObject[] = routes;
+
+const customRender = (options: RenderOptions = {}) => {
+  const { initialEntries = ['/'], routes = defaultRoutes } = options;
+
+  const router = createMemoryRouter(routes, {
+    initialEntries,
+    initialIndex: 0,
   });
+
+  return {
+    router,
+    user: userEvent.setup(),
+    ...render(<RouterProvider router={router} />),
+  };
+};
 
 export { customRender as render };
 // eslint-disable-next-line react-refresh/only-export-components

@@ -14,6 +14,8 @@ class BrokenComponent extends Component<{ isError?: boolean }> {
 }
 
 describe('ErrorBoundary', () => {
+  vi.spyOn(console, 'error').mockImplementation(() => {});
+
   it('renders error UI when child throws error', () => {
     render(
       <ErrorBoundary>

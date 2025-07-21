@@ -1,45 +1,56 @@
-import { beforeEach, describe, expect, it, vi } from 'vitest';
-
-import { render, fireEvent, screen } from '@/__tests__/test-utils';
-
-import { queryStorage } from '@/services/localstorage';
-import Search from '@/components/search';
-
-vi.mock('@/services/localstorage', () => ({
-  queryStorage: {
-    get: vi.fn(),
-    save: vi.fn(),
-  },
-}));
+import { beforeEach, describe, expect, it } from 'vitest';
+import { render, screen } from '@/__tests__/test-utils';
+import { Search } from './search';
+import { QUERY } from '@/consts';
 
 describe('Search Component', () => {
-  const handleQuery = vi.fn();
-
   beforeEach(() => {
-    vi.clearAllMocks();
+    localStorage.clear();
   });
 
-  it('renders search input and search button', () => {
-    render(<Search handleQuery={handleQuery} />);
+  const searchRoute = {
+    path: '/',
+    element: <Search />,
+  };
 
-    expect(screen.getByRole('textbox')).toBeInTheDocument();
-    expect(screen.getByRole('button')).toBeInTheDocument();
+  it('renders search input and button', () => {
+    render({ routes: [searchRoute] });
+
+    expect(screen.getByPlaceholderText('Search movie')).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Search' })).toBeInTheDocument();
   });
 
-  it('shows empty input when no saved term exists', () => {
-    render(<Search handleQuery={handleQuery} />);
-    const form = screen.getByRole('group');
+  it('initializes with query from URL params', () => {
+    render({
+      routes: [searchRoute],
+      initialEntries: ['/?query=test+movie'],
+    });
 
-    fireEvent.submit(form);
-
-    expect(handleQuery).toHaveBeenCalledWith('');
-    expect(queryStorage.save).toHaveBeenCalledWith('');
+    expect(screen.getByPlaceholderText('Search movie')).toHaveValue('test movie');
   });
 
-  it('displays search term from localStorage on mount', () => {
-    vi.mocked(queryStorage.get).mockReturnValue('batman');
-    render(<Search handleQuery={handleQuery} />);
+  it('initializes with value from localStorage when no URL query', () => {
+    localStorage.setItem(QUERY, JSON.stringify('stored movie'));
 
-    expect(screen.getByRole('textbox')).toHaveValue('batman');
+    render({
+      routes: [searchRoute],
+    });
+
+    expect(screen.getByPlaceholderText('Search movie')).toHaveValue('stored movie');
+  });
+
+  it('handles empty search query', async () => {
+    const { user, router } = render({
+      routes: [searchRoute],
+    });
+
+    const submitButton = screen.getByRole('button', { name: 'Search' });
+    await user.click(submitButton);
+
+    expect(JSON.parse(localStorage.getItem(QUERY) || '')).toBe('');
+
+    const searchParams = new URLSearchParams(router.state.location.search);
+    expect(searchParams.get('query')).toBe('');
+    expect(searchParams.get('page')).toBe('1');
   });
 });
