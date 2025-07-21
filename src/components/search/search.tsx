@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import { useLocalStorage } from '@/services/localstorage';
+import { useLocalStorage } from '@/hooks/useLocalStorage';
 import { QUERY } from '@/consts';
 import { useSearchParams } from 'react-router';
 

@@ -1,84 +1,29 @@
-import { useEffect, useState } from 'react';
-
 import CardsList from '@/components/card-list';
-import { getMovieList, getNowPLaying } from '@/services/api';
-import { useLocalStorage } from '@/services/localstorage';
-import type { MoviesList } from '@/types/interfaces';
 import Search from '@/components/search';
-import { httpMessages, QUERY } from '@/consts';
+import { httpMessages } from '@/consts';
 import { Pagination } from '@/components/pagination/pagination';
-import { useSearchParams } from 'react-router';
-
-interface State {
-  moviesList: MoviesList;
-  loading: boolean;
-  error: string | null;
-}
+import { useMovies } from '@/hooks/useMovies';
 
 export function Main() {
-  const [storedValue] = useLocalStorage<string>(QUERY, '');
-  const [searchParams, setSearchParams] = useSearchParams();
-
-  const [state, setState] = useState<State>({
-    moviesList: {
-      page: 1,
-      results: [],
-      total_pages: 0,
-      total_results: 0,
-    },
-    loading: false,
-    error: null,
-  });
-
-  useEffect(() => {
-    setSearchParams((searchParams) => {
-      const updatedSearchParams = new URLSearchParams(searchParams);
-      if (!updatedSearchParams.has('query')) {
-        updatedSearchParams.set('query', storedValue);
-        updatedSearchParams.set('page', '1');
-      }
-
-      return updatedSearchParams;
-    });
-  }, [setSearchParams, storedValue]);
-
-  useEffect(() => {
-    async function fetchMovies() {
-      setState((prevState) => ({ ...prevState, loading: true, error: null }));
-
-      try {
-        const query = searchParams.get('query');
-        const moviesList = query ? await getMovieList(query, searchParams.get('page') || '1') : await getNowPLaying();
-        setState((prevState) => ({ ...prevState, moviesList, loading: false }));
-      } catch (error) {
-        setState((prevState) => ({
-          ...prevState,
-          error: error instanceof Error ? error.message : 'Failed to fetch movies',
-          loading: false,
-        }));
-      }
-    }
-
-    fetchMovies();
-  }, [searchParams]);
+  const { moviesList, loading, error } = useMovies();
 
   return (
     <>
       <h1>The Movie Database API</h1>
       <Search />
-      {state.error ? (
+      {error ? (
         <article style={{ color: 'var(--pico-del-color)' }}>
-          Error: {state.error + ' '}
-          {httpMessages.find((code) => code.status.toString() === state.error)?.message}
+          Error: {error + ' '}
+          {httpMessages.find((code) => code.status.toString() === error)?.message}
         </article>
-      ) : state.loading ? (
+      ) : loading ? (
         <article aria-busy="true">Loading</article>
-      ) : state.moviesList.results.length ? (
-        <CardsList movieList={state.moviesList.results} />
+      ) : moviesList.results.length ? (
+        <CardsList movieList={moviesList.results} />
       ) : (
         <span>Nothing to display. Type to search movie.</span>
       )}
-      {state.moviesList.results.length > 0 && <Pagination moviesList={state.moviesList} />}
+      {moviesList.results.length > 0 && <Pagination moviesList={moviesList} />}
     </>
   );
 }
