@@ -1,3 +1,4 @@
+import { CardDetail } from '@/components/card-detail/card-detail';
 import { AppLayout } from '@/layouts/app-layout';
 import { About } from '@/views/about';
 import { Main } from '@/views/main';
@@ -6,10 +7,9 @@ import { createBrowserRouter, type RouteObject } from 'react-router';
 
 export const routes: RouteObject[] = [
   {
-    path: '/',
     Component: AppLayout,
     children: [
-      { index: true, Component: Main },
+      { path: '/', Component: Main, children: [{ path: 'movie/:id', Component: CardDetail }] },
       { path: 'about', Component: About },
       { path: '*', Component: NotFound },
     ],

@@ -3,6 +3,7 @@ import Search from '@/components/search';
 import { httpMessages } from '@/consts';
 import { Pagination } from '@/components/pagination/pagination';
 import { useMovies } from '@/hooks/useMovies';
+import { Outlet } from 'react-router';
 
 export function Main() {
   const { moviesList, loading, error } = useMovies();
@@ -19,11 +20,14 @@ export function Main() {
       ) : loading ? (
         <article aria-busy="true">Loading</article>
       ) : moviesList.results.length ? (
-        <CardsList movieList={moviesList.results} />
+        <>
+          <CardsList movieList={moviesList.results} />
+          <Outlet />
+          <Pagination moviesList={moviesList} />
+        </>
       ) : (
         <span>Nothing to display. Type to search movie.</span>
       )}
-      {moviesList.results.length > 0 && <Pagination moviesList={moviesList} />}
     </>
   );
 }
