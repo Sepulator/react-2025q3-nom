@@ -15,9 +15,7 @@ describe('Main Component', () => {
   });
 
   it('handles search query and updates movies list', async () => {
-    const { router } = render({
-      initialEntries: ['/?query=batman'],
-    });
+    const { router } = render({ initialEntries: ['/?query=batman'] });
 
     await waitFor(() => {
       expect(screen.getByText('Batman')).toBeInTheDocument();
@@ -38,9 +36,7 @@ describe('Main Component', () => {
   });
 
   it('displays empty state message when no results', async () => {
-    render({
-      initialEntries: ['/?query=not batman'],
-    });
+    render({ initialEntries: ['/?query=not batman'] });
 
     await waitFor(() => {
       expect(screen.getByText('Nothing to display. Type to search movie.')).toBeInTheDocument();
@@ -48,9 +44,7 @@ describe('Main Component', () => {
   });
 
   it('handles pagination changes', async () => {
-    const { user, router } = render({
-      initialEntries: ['/?query=batman&page=1'],
-    });
+    const { user, router } = render({ initialEntries: ['/?query=batman&page=1'] });
 
     await waitFor(() => {
       expect(screen.getByText('Batman')).toBeInTheDocument();

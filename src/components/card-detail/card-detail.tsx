@@ -29,12 +29,13 @@ export function CardDetail() {
           {httpMessages.find((code) => code.status.toString() === isError)?.message}
         </article>
       ) : isLoading ? (
-        <article aria-busy="true" className="loading">
+        <article aria-busy="true" className="loading" data-testid="card-detail-loading">
           Loading
         </article>
       ) : (
         <article ref={ref} className="card-detail">
           <img
+            aria-label="Movie poster"
             src={movie?.poster_path ? `${urlImage}/${poster_sizes[3]}/${movie?.poster_path}` : image}
             alt={movie?.poster_path ? `${movie?.title}` : `No image available for ${movie?.title}`}
           ></img>

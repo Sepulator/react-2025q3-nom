@@ -22,7 +22,7 @@ export function Main() {
         <article aria-busy="true">Loading</article>
       ) : moviesList.results.length ? (
         <>
-          <div className="outlet">
+          <div className={detail ? 'outlet-detail' : 'outlet'}>
             <CardsList movieList={moviesList.results} />
             {detail && <CardDetail />}
           </div>

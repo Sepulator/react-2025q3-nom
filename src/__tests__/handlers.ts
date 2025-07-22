@@ -1,5 +1,34 @@
-import type { MoviesList } from '@/types/interfaces';
+import type { MovieDetail, MoviesList } from '@/types/interfaces';
 import { http, HttpResponse } from 'msw';
+
+export const mockMovie: MovieDetail = {
+  title: 'Test Movie Detail',
+  overview: 'Test overview Detail',
+  release_date: '2023-07-22',
+  vote_average: 8.5,
+  poster_path: '/test-poster-detail.jpg',
+  adult: false,
+  backdrop_path: '/backdrop-detail.jpg',
+  belongs_to_collection: null,
+  budget: 1000000,
+  genres: [{ id: 1, name: 'Action' }],
+  homepage: 'https://test.com',
+  id: 123,
+  imdb_id: 'tt1234567',
+  original_language: 'en',
+  original_title: 'Test Movie',
+  origin_country: ['US'],
+  popularity: 100,
+  production_companies: [],
+  production_countries: [],
+  revenue: 2000000,
+  runtime: 120,
+  spoken_languages: [],
+  status: 'Released',
+  tagline: 'Test tagline',
+  video: false,
+  vote_count: 1000,
+};
 
 export const mockMoviesList: MoviesList = {
   page: 1,
