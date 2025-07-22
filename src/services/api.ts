@@ -7,8 +7,8 @@ export const getMovieList = async (query: string, page: string) => {
   if (!response.ok) throw new Error(response.status.toString());
   return data;
 };
-export const getNowPLaying = async () => {
-  const response = await fetch(`${urlNowPLaying}`);
+export const getNowPLaying = async (page: string) => {
+  const response = await fetch(`${urlNowPLaying}&page=${page}`);
   const data = (await response.json()) as MoviesList;
 
   if (!response.ok) throw new Error(response.status.toString());

@@ -6,7 +6,7 @@ import { useMovies } from '@/hooks/useMovies';
 import { CardDetail } from '@/components/card-detail/card-detail';
 
 export function Main() {
-  const { state, id, setId } = useMovies();
+  const { state, detail } = useMovies();
   const { moviesList, loading, error } = state;
 
   return (
@@ -23,8 +23,8 @@ export function Main() {
       ) : moviesList.results.length ? (
         <>
           <div className="outlet">
-            <CardsList movieList={moviesList.results} setId={setId} />
-            {id && <CardDetail id={id} setId={setId} />}
+            <CardsList movieList={moviesList.results} />
+            {detail && <CardDetail />}
           </div>
           <Pagination moviesList={moviesList} />
         </>

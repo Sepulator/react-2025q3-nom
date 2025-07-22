@@ -14,7 +14,6 @@ interface MoviesState {
 export function useMovies() {
   const [storedValue] = useLocalStorage<string>(QUERY, '');
   const [searchParams, setSearchParams] = useSearchParams();
-  const [id, setId] = useState<number | null>(null);
   const [state, setState] = useState<MoviesState>({
     moviesList: {
       page: 1,
@@ -34,37 +33,43 @@ export function useMovies() {
         updatedSearchParams.set('page', '1');
       }
 
-      if (!updatedSearchParams.has('detail') && id) {
-        updatedSearchParams.set('detail', 'true');
-      }
-
-      if (updatedSearchParams.has('detail') && !id) {
-        updatedSearchParams.delete('detail');
-      }
-
       return updatedSearchParams;
     });
-  }, [id, setSearchParams, storedValue]);
+  }, [setSearchParams, storedValue]);
+
+  const query = searchParams.get('query') ?? '';
+  const page = searchParams.get('page') ?? '1';
+  const detail = searchParams.get('detail');
 
   useEffect(() => {
+    let isMounted = true;
+
     async function fetchMovies() {
       setState((prevState) => ({ ...prevState, loading: true, error: null }));
 
       try {
-        const query = searchParams.get('query');
-        const moviesList = query ? await getMovieList(query, searchParams.get('page') || '1') : await getNowPLaying();
-        setState((prevState) => ({ ...prevState, moviesList, loading: false }));
+        const moviesList = query ? await getMovieList(query, page) : await getNowPLaying(page);
+
+        if (isMounted) {
+          setState((prevState) => ({ ...prevState, moviesList, loading: false }));
+        }
       } catch (error) {
-        setState((prevState) => ({
-          ...prevState,
-          error: error instanceof Error ? error.message : 'Failed to fetch movies',
-          loading: false,
-        }));
+        if (isMounted) {
+          setState((prevState) => ({
+            ...prevState,
+            error: error instanceof Error ? error.message : 'Failed to fetch movies',
+            loading: false,
+          }));
+        }
       }
     }
 
     fetchMovies();
-  }, [searchParams]);
 
-  return { state, id, setId };
+    return () => {
+      isMounted = false;
+    };
+  }, [query, page]);
+
+  return { state, detail };
 }

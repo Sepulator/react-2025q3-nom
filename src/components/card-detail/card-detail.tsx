@@ -2,14 +2,19 @@ import image from '@/assets/image.svg';
 import { formatDate } from '@/services/utils';
 import { httpMessages, poster_sizes, urlImage } from '@/consts';
 import { useDetail } from '@/hooks/useDetail';
+import { useSearchParams } from 'react-router';
 
-interface Props {
-  id: number;
-  setId: (id: number | null) => void;
-}
+export function CardDetail() {
+  const { movie, isLoading, isError } = useDetail();
+  const [, setSearchParams] = useSearchParams();
 
-export function CardDetail({ id, setId }: Props) {
-  const { movie, isLoading, isError } = useDetail(id);
+  const handleClick = () => {
+    setSearchParams((searchParams) => {
+      const updatedSearchParams = new URLSearchParams(searchParams);
+      updatedSearchParams.delete('detail');
+      return updatedSearchParams;
+    });
+  };
 
   return (
     <>
@@ -32,10 +37,10 @@ export function CardDetail({ id, setId }: Props) {
             <p>{movie?.title}</p>
             <span>{movie?.release_date && formatDate(movie?.release_date)}</span>
             <p>{movie?.overview}</p>
-            <p>Rating: {movie?.vote_average}</p>
+            <p>Rating: {movie?.vote_average.toFixed(2)}</p>
           </div>
 
-          <button onClick={() => setId(null)}>Close</button>
+          <button onClick={handleClick}>Close</button>
         </article>
       )}
     </>
