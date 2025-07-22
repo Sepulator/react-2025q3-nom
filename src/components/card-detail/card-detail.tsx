@@ -2,6 +2,7 @@ import image from '@/assets/image.svg';
 import { formatDate } from '@/services/utils';
 import { httpMessages, poster_sizes, urlImage } from '@/consts';
 import { useDetail } from '@/hooks/useDetail';
+import { useClickOutside } from '@/hooks/useClickOutside';
 import { useSearchParams } from 'react-router';
 
 export function CardDetail() {
@@ -16,6 +17,10 @@ export function CardDetail() {
     });
   };
 
+  const ref = useClickOutside(() => {
+    handleClick();
+  });
+
   return (
     <>
       {isError ? (
@@ -28,7 +33,7 @@ export function CardDetail() {
           Loading
         </article>
       ) : (
-        <article className="card-detail">
+        <article ref={ref} className="card-detail">
           <img
             src={movie?.poster_path ? `${urlImage}/${poster_sizes[3]}/${movie?.poster_path}` : image}
             alt={movie?.poster_path ? `${movie?.title}` : `No image available for ${movie?.title}`}
