@@ -1,16 +1,7 @@
-import { useState } from 'react';
 import { NavLink } from 'react-router';
 import logo from '@/assets/movie.svg';
 
 export function Header() {
-  const [isError, setIsError] = useState(false);
-
-  const handleError = () => {
-    setIsError(true);
-  };
-
-  if (isError) throw new Error('Error Happen');
-
   return (
     <header>
       <div className="container">
@@ -25,12 +16,9 @@ export function Header() {
               </NavLink>
             </li>
             <li>
-              <a href="https://www.themoviedb.org/" className="secondary">
+              <a href="https://www.themoviedb.org/" className="secondary" target="_blank" rel="noreferrer">
                 TMDB API
               </a>
-            </li>
-            <li>
-              <button onClick={handleError}>throw error</button>
             </li>
           </ul>
         </nav>
