@@ -1,13 +1,13 @@
-import { NavLink } from 'react-router';
+import { Link, NavLink } from 'react-router';
 import logo from '@/assets/movie.svg';
 
 export function Header() {
   return (
     <header>
       <div className="container">
-        <a aria-label="The Movie Database API homepage" href="/">
+        <Link to={'/'} aria-label="The Movie Database API homepage">
           <img src={logo} className="logo" alt="Movie logo" />
-        </a>
+        </Link>
         <nav>
           <ul>
             <li>
