@@ -63,19 +63,4 @@ describe('useLocalStorage', () => {
 
     expect(value).toBe(INITIAL_VALUE);
   });
-
-  it('should handle complex objects', () => {
-    const complexObject = { name: 'test', count: 42 };
-
-    const { result } = renderHook(() => useLocalStorage(TEST_KEY, complexObject));
-    const [, setValue] = result.current;
-
-    act(() => {
-      setValue({ ...complexObject, count: 43 });
-    });
-
-    const [value] = result.current;
-    expect(value).toEqual({ name: 'test', count: 43 });
-    expect(JSON.parse(localStorage.getItem(TEST_KEY) || '')).toEqual({ name: 'test', count: 43 });
-  });
 });

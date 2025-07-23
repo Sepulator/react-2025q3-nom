@@ -1,6 +1,9 @@
+import { setupServer } from 'msw/node';
+import { handlers } from './handlers.js';
 import { beforeAll, afterEach, afterAll } from 'vitest';
 import '@testing-library/jest-dom';
-import { server } from './node.js';
+
+const server = setupServer(...handlers);
 
 beforeAll(() => server.listen());
 afterEach(() => server.resetHandlers());

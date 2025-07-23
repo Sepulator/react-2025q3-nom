@@ -34,7 +34,7 @@ export const mockMoviesList: MoviesList = {
   page: 1,
   results: [
     {
-      id: 1,
+      id: 123,
       title: 'Test Movie',
       overview: 'Test Overview',
       poster_path: '/test.jpg',
@@ -84,7 +84,7 @@ export const mockBatmanMovie: MoviesList = {
       id: 2,
       title: 'Batman_2',
       overview: 'Batman_2',
-      poster_path: '/poster_batman_2.jpg',
+      poster_path: null,
       release_date: '2020-06-16',
       vote_average: 7.5,
       adult: false,
@@ -123,5 +123,17 @@ export const handlers = [
 
   http.get('https://api.themoviedb.org/3/movie/now_playing', () => {
     return HttpResponse.json(mockMoviesList);
+  }),
+
+  http.get<{ id: string }>('https://api.themoviedb.org/3/movie/:id', ({ params }) => {
+    const { id } = params;
+
+    if (id === '123') return HttpResponse.json(mockMovie);
+
+    if (id === '000')
+      return new HttpResponse(null, {
+        status: 404,
+        statusText: 'Invalid id: The pre-requisite id is invalid or not found.',
+      });
   }),
 ];

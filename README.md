@@ -22,7 +22,7 @@ The application is powered by [The Movie Database (TMDB) API](https://developer.
 - 🎊 [CSS Framework](https://picocss.com/): Minimal CSS Framework for semantic HTML.
 - 🛍️ [REST API](https://developer.themoviedb.org/docs/getting-started): The API service is for those of you interested in movie, TV show or actor data in your application.
 - 🔥 [Vite-native](https://vitest.dev/): A Vite-native testing framework. It's fast!.
-- 📌 [React router](https://reactrouter.com/):A user‑obsessed, standards‑focused, multi‑strategy router you can deploy anywhere.
+- 📌 [React router](https://reactrouter.com/): A user‑obsessed, standards‑focused, multi‑strategy router you can deploy anywhere.
 
 ## Getting Started
 
@@ -34,10 +34,10 @@ The application is powered by [The Movie Database (TMDB) API](https://developer.
   git clone https://github.com/Sepulator/react-2025q3-nom
 ```
 
-#### 2. Switch to `unit-testing` branch
+#### 2. Switch to `hooks-and-routing` branch
 
 ```bash copy
-  git switch unit-testing
+  git switch hooks-and-routing
 ```
 
 #### 3. Open project directory and install dependencies
