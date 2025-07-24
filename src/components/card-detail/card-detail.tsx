@@ -43,7 +43,9 @@ export function CardDetail() {
             <p>Rating: {movie?.vote_average.toFixed(2)}</p>
           </div>
 
-          <Link to={createRootPath(['detail'])}>Close</Link>
+          <Link to={createRootPath(['detail'])} role="button">
+            Close
+          </Link>
         </article>
       )}
     </>

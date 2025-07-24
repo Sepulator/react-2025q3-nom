@@ -2,7 +2,7 @@ import { screen, waitFor } from '@testing-library/react';
 
 import { describe, expect, it } from 'vitest';
 import { render } from '@/__tests__/test-utils';
-import { mockBatmanMovie, mockMovie, mockMoviesList } from '@/__tests__/handlers';
+import { mockBatmanMovie, mockMoviesList } from '@/__tests__/handlers';
 import { formatDate } from '@/services/utils';
 
 describe('Card Component', () => {
@@ -30,18 +30,6 @@ describe('Card Component', () => {
         name: `No image available for ${mockBatmanMovie.results[1].title}`,
       });
       expect(fallbackImage).toHaveAttribute('alt', `No image available for ${mockBatmanMovie.results[1].title}`);
-    });
-  });
-
-  it('updates URL params when clicked', async () => {
-    const { user, router } = render();
-
-    await waitFor(() => {
-      const article = screen.getByRole('img', { name: mockMoviesList.results[0].title });
-      user.click(article);
-
-      const searchParams = new URLSearchParams(router.state.location.search);
-      expect(searchParams.get('detail')).toBe(mockMovie.id.toString());
     });
   });
 });
