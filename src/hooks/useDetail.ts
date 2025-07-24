@@ -1,21 +1,20 @@
 import { getMovie } from '@/services/api';
 import type { MovieDetail } from '@/types/interfaces';
 import { useEffect, useState } from 'react';
-import { useSearchParams } from 'react-router';
+import { useParams } from 'react-router';
 
 export function useDetail() {
   const [movie, setMovie] = useState<MovieDetail | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isError, setIsError] = useState<string | null>(null);
-  const [searchParams] = useSearchParams();
-  const id = searchParams.get('detail');
+  const { movieId } = useParams();
 
   useEffect(() => {
-    if (!id) return;
+    if (!movieId) return;
     setIsLoading(true);
     async function fetchMovie() {
       try {
-        const response = await getMovie(Number(id));
+        const response = await getMovie(Number(movieId));
         setMovie(response);
       } catch (error) {
         setIsError(error instanceof Error ? error.message : 'Failed to fetch movie');
@@ -24,7 +23,7 @@ export function useDetail() {
       }
     }
     fetchMovie();
-  }, [id]);
+  }, [movieId]);
 
   return { movie, isLoading, isError };
 }

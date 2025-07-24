@@ -9,6 +9,7 @@ export function Header() {
         <Link to={'/'} aria-label="The Movie Database API homepage">
           <img src={logo} className="logo" alt="Movie logo" />
         </Link>
+
         <nav>
           <ul>
             <li>
