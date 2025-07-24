@@ -4,6 +4,7 @@ import { httpMessages } from '@/consts';
 import { Pagination } from '@/components/pagination/pagination';
 import { useMovies } from '@/hooks/useMovies';
 import { CardDetail } from '@/components/card-detail/card-detail';
+import Flyout from '@/components/flyout';
 
 export function Main() {
   const { state, detail } = useMovies();
@@ -31,6 +32,7 @@ export function Main() {
       ) : (
         <span>Nothing to display. Type to search movie.</span>
       )}
+      <Flyout />
     </>
   );
 }

@@ -40,6 +40,7 @@ header {
 }
 
 .main {
+  position: relative;
   display: flex;
   flex-direction: column;
   place-items: center start;
@@ -158,4 +159,27 @@ header {
   margin: 0;
   position: absolute;
   padding: 0.25rem;
+}
+
+.flyout {
+  z-index: 2;
+  position: fixed;
+  padding: 0.5rem;
+  border-radius: 8px;
+  background-color: var(--pico-tooltip-background-color);
+  right: 10%;
+  bottom: 5%;
+
+  & h4 {
+    text-align: center;
+    color: var(--pico-primary);
+  }
+
+  & button {
+    padding: 0.5rem;
+  }
+
+  & h4 + button {
+    margin-right: 1rem;
+  }
 }

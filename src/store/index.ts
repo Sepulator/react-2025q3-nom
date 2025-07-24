@@ -5,9 +5,10 @@ interface MoviesStore {
   movies: Movie[];
   addMovie: (movie: Movie) => void;
   removeMovie: (id: number) => void;
+  reset: () => void;
 }
 
-export const useMoviesStore = create<MoviesStore>((set) => ({
+export const useMoviesStore = create<MoviesStore>((set, _, store) => ({
   movies: [],
   addMovie: (movie) =>
     set((state) => ({
@@ -17,4 +18,7 @@ export const useMoviesStore = create<MoviesStore>((set) => ({
     set((state) => ({
       movies: state.movies.filter((movie) => movie.id !== id),
     })),
+  reset: () => {
+    set(store.getInitialState());
+  },
 }));
