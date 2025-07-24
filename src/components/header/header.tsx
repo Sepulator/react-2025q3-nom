@@ -1,5 +1,6 @@
 import { Link, NavLink } from 'react-router';
 import logo from '@/assets/movie.svg';
+import ThemeSwitch from '@/components/theme-switch';
 
 export function Header() {
   return (
@@ -19,6 +20,9 @@ export function Header() {
               <a href="https://www.themoviedb.org/" className="secondary" target="_blank" rel="noreferrer">
                 TMDB API
               </a>
+            </li>
+            <li className="theme-toggle-wrapper">
+              <ThemeSwitch />
             </li>
           </ul>
         </nav>
