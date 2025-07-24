@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useSearchParams } from 'react-router';
+import { useLocation, useSearchParams } from 'react-router';
 import { useLocalStorage } from '@/hooks/useLocalStorage';
 import { getMovieList, getNowPLaying } from '@/services/api';
 import type { MoviesList } from '@/types/interfaces';
@@ -13,6 +13,7 @@ interface MoviesState {
 
 export function useMovies() {
   const [storedValue] = useLocalStorage<string>(QUERY, '');
+  const location = useLocation();
   const [searchParams, setSearchParams] = useSearchParams();
   const [state, setState] = useState<MoviesState>({
     moviesList: {
@@ -39,7 +40,7 @@ export function useMovies() {
 
   const query = searchParams.get('query') ?? '';
   const page = searchParams.get('page') ?? '1';
-  const detail = searchParams.get('detail');
+  const details = location.pathname.includes('details');
 
   useEffect(() => {
     let isMounted = true;
@@ -71,5 +72,5 @@ export function useMovies() {
     };
   }, [query, page]);
 
-  return { state, detail };
+  return { state, details };
 }

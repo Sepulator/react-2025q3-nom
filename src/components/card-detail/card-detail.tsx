@@ -3,23 +3,20 @@ import { formatDate } from '@/services/utils';
 import { httpMessages, poster_sizes, urlImage } from '@/consts';
 import { useDetail } from '@/hooks/useDetail';
 import { useClickOutside } from '@/hooks/useClickOutside';
-import { useSearchParams } from 'react-router';
+import { Link, useNavigate } from 'react-router';
+import { useQueryParams } from '@/hooks/useQueryParams';
 
 export function CardDetail() {
+  const navigate = useNavigate();
   const { movie, isLoading, isError } = useDetail();
-  const [, setSearchParams] = useSearchParams();
+  const { createRootPath } = useQueryParams();
 
-  const handleClick = () => {
-    setSearchParams((searchParams) => {
-      const updatedSearchParams = new URLSearchParams(searchParams);
-      updatedSearchParams.delete('detail');
-      return updatedSearchParams;
-    });
+  const handleClose = () => {
+    const rootPath = createRootPath(['detail']);
+    navigate(rootPath);
   };
 
-  const ref = useClickOutside(() => {
-    handleClick();
-  });
+  const ref = useClickOutside(handleClose);
 
   return (
     <>
@@ -46,7 +43,7 @@ export function CardDetail() {
             <p>Rating: {movie?.vote_average.toFixed(2)}</p>
           </div>
 
-          <button onClick={handleClick}>Close</button>
+          <Link to={createRootPath(['detail'])}>Close</Link>
         </article>
       )}
     </>

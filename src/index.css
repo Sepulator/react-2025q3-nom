@@ -68,6 +68,11 @@ header {
   flex-direction: column;
   justify-content: space-between;
   overflow: hidden;
+  height: 100%;
+}
+
+.card-link {
+  --pico-text-decoration: none;
 }
 
 .card-detail,
