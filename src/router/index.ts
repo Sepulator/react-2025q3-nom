@@ -1,4 +1,4 @@
-import { CardDetail } from '@/components/card-detail/card-detail';
+import CardDetail from '@/components/card-detail';
 import { AppLayout } from '@/layouts/app-layout';
 import { About } from '@/views/about';
 import { Main } from '@/views/main';
