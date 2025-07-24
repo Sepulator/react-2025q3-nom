@@ -1,5 +1,6 @@
-import { describe, it, expect } from 'vitest';
-import { formatDate, getKey } from './utils';
+import { describe, it, expect, vi } from 'vitest';
+import { formatDate, getDownloadMovieURL, getKey } from './utils';
+import { mockBatmanMovie } from '@/__tests__/handlers';
 
 describe('formatDate', () => {
   it('format ISO date string correctly', () => {
@@ -14,6 +15,7 @@ describe('formatDate', () => {
     expect(result).toBe('Dec 25, 2023');
   });
 });
+
 describe('getKey', () => {
   it('return empty string for empty input', () => {
     expect(getKey('')).toBe('');
@@ -25,5 +27,13 @@ describe('getKey', () => {
 
   it('reverse string with multiple characters', () => {
     expect(getKey('helloabc123test!@#')).toBe('#@!tset321cbaolleh');
+  });
+});
+
+describe('CSV utils', () => {
+  it('should generate url link to download csv', () => {
+    global.URL.createObjectURL = vi.fn(() => 'blob:http://localhost/blob');
+    const url = getDownloadMovieURL(mockBatmanMovie.results);
+    expect(url).toMatch(/^blob:/);
   });
 });

@@ -57,7 +57,7 @@ export function Card({ movie }: Props) {
         </div>
 
         <label className="card-favorite">
-          <input type="checkbox" name="favorite" onChange={handleFavoriteClick} checked={isFavorite} />
+          <input type="checkbox" name={`favorite-${movie.id}`} onChange={handleFavoriteClick} checked={isFavorite} />
         </label>
       </article>
     </>

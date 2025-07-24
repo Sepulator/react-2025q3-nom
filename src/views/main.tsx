@@ -1,10 +1,12 @@
 import CardsList from '@/components/card-list';
 import Search from '@/components/search';
 import { httpMessages } from '@/consts';
-import { Pagination } from '@/components/pagination/pagination';
+
 import { useMovies } from '@/hooks/useMovies';
-import { CardDetail } from '@/components/card-detail/card-detail';
+
 import Flyout from '@/components/flyout';
+import Pagination from '@/components/pagination';
+import CardDetail from '@/components/card-detail';
 
 export function Main() {
   const { state, detail } = useMovies();
