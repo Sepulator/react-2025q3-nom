@@ -9,7 +9,13 @@ export const useClickOutside = (handler: Handler) => {
     const listener = (event: MouseEvent) => {
       const target = event.target as HTMLElement;
 
-      if (!ref.current || ref.current.contains(target) || target.closest('.card')) {
+      if (
+        !ref.current ||
+        ref.current.contains(target) ||
+        target.closest('.card') ||
+        !target.closest('#root') ||
+        target.closest('.search')
+      ) {
         return;
       }
       handler(event);
