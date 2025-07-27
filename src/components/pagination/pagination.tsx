@@ -1,6 +1,6 @@
 import { MAX_BUTTONS } from '@/consts';
 import type { MoviesList } from '@/types/interfaces';
-import { useSearchParams } from 'react-router';
+import { Link, useSearchParams } from 'react-router';
 
 interface Props {
   moviesList: MoviesList;
@@ -8,23 +8,25 @@ interface Props {
 
 export function Pagination({ moviesList }: Props) {
   const { page, total_pages } = moviesList;
-  const [, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
 
-  const handlePageChange = (newPage: number) => {
-    setSearchParams((searchParams) => {
-      const updatedSearchParams = new URLSearchParams(searchParams);
-      updatedSearchParams.set('page', newPage.toString());
-      return updatedSearchParams;
-    });
+  const renderPageButton = (pageNumber: number) => {
+    const updatedSearchParams = new URLSearchParams(searchParams);
+    updatedSearchParams.set('page', pageNumber.toString());
+
+    return (
+      <li key={pageNumber}>
+        <Link
+          to={`?${updatedSearchParams.toString()}`}
+          className={pageNumber === page ? 'contrast' : ''}
+          role="button"
+          aria-current={pageNumber === page ? 'page' : undefined}
+        >
+          {pageNumber}
+        </Link>
+      </li>
+    );
   };
-
-  const renderPageButton = (pageNumber: number) => (
-    <li key={pageNumber}>
-      <button onClick={() => handlePageChange(pageNumber)} disabled={pageNumber === page}>
-        {pageNumber}
-      </button>
-    </li>
-  );
 
   const renderPageButtons = () => {
     const buttons = [];

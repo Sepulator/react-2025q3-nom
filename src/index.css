@@ -60,6 +60,10 @@ header {
   grid-template-columns: repeat(4, 1fr);
   gap: 2rem;
   max-width: 960px;
+
+  &:has(+ .card-detail) {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
 
 .card {

@@ -26,9 +26,11 @@ export function CardDetail() {
           {httpMessages.find((code) => code.status.toString() === isError)?.message}
         </article>
       ) : isLoading ? (
-        <article aria-busy="true" className="loading" data-testid="card-detail-loading">
-          Loading
-        </article>
+        <div className="card-detail">
+          <article aria-busy="true" className="loading " data-testid="card-detail-loading">
+            Loading
+          </article>
+        </div>
       ) : (
         <article ref={ref} className="card-detail">
           <img
