@@ -37,9 +37,10 @@ describe('CardDetail', () => {
 
   it('should close detail view when clicking outside', async () => {
     const { user, router } = render({ initialEntries: ['/details/123?query=&page=1'] });
-
-    await user.click(document.body);
-
-    expect(router.state.location.pathname).not.toContain('/details/123');
+    waitFor(async () => {
+      const heading = screen.getByRole('heading', { name: 'The Movie Database API' });
+      await user.click(heading);
+      expect(router.state.location.pathname).not.toContain('/details/123');
+    });
   });
 });
