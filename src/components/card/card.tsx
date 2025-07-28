@@ -44,7 +44,13 @@ export function Card({ movie }: Props) {
         </div>
       </Link>
       <label className="card-favorite">
-        <input type="checkbox" name={`favorite-${movie.id}`} onChange={handleFavoriteClick} checked={isFavorite} />
+        <input
+          type="checkbox"
+          name={`favorite-${movie.id}`}
+          onChange={handleFavoriteClick}
+          checked={isFavorite}
+          placeholder="Select movie as favorite"
+        />
       </label>
     </article>
   );

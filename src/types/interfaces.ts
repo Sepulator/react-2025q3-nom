@@ -3,6 +3,9 @@ export interface MoviesList {
   results: Movie[];
   total_pages: number;
   total_results: number;
+  status_code?: number;
+  status_message?: string;
+  success?: boolean;
 }
 
 export interface Movie {
@@ -49,6 +52,9 @@ export interface MovieDetail {
   video: boolean;
   vote_average: number;
   vote_count: number;
+  status_code?: number;
+  status_message?: string;
+  success?: boolean;
 }
 
 export interface Genre {
