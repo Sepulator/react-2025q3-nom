@@ -3,21 +3,22 @@ import type { MovieDetail, MoviesList } from '@/types/interfaces';
 
 export const getMovieList = async (query: string, page: string) => {
   const response = await fetch(`${urlSearchMovie}&query=${query}&page=${page}`);
-  const data = (await response.json()) as MoviesList;
   if (!response.ok) throw new Error(response.status.toString());
+
+  const data = (await response.json()) as MoviesList;
   return data;
 };
 export const getNowPLaying = async (page: string) => {
   const response = await fetch(`${urlNowPLaying}&page=${page}`);
-  const data = (await response.json()) as MoviesList;
-
   if (!response.ok) throw new Error(response.status.toString());
+
+  const data = (await response.json()) as MoviesList;
   return data;
 };
 export const getMovie = async (id: number) => {
   const response = await fetch(`${urlMovie}${id}?api_key=${key}`);
-  const data = (await response.json()) as MovieDetail;
-
   if (!response.ok) throw new Error(response.status.toString());
+
+  const data = (await response.json()) as MovieDetail;
   return data;
 };
