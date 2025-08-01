@@ -4,7 +4,7 @@ import type { Movie } from '@/types/interfaces';
 interface MoviesStore {
   movies: Movie[];
   addMovie: (movie: Movie) => void;
-  removeMovie: (id: number) => void;
+  removeMovie: (id: string) => void;
   reset: () => void;
 }
 
@@ -16,7 +16,7 @@ export const useMoviesStore = create<MoviesStore>((set, _, store) => ({
     })),
   removeMovie: (id) =>
     set((state) => ({
-      movies: state.movies.filter((movie) => movie.id !== id),
+      movies: state.movies.filter((movie) => movie.imdbID !== id),
     })),
   reset: () => {
     set(store.getInitialState());

@@ -23,10 +23,10 @@ export function Main() {
         </article>
       ) : loading ? (
         <article aria-busy="true">Loading</article>
-      ) : moviesList.results.length ? (
+      ) : moviesList.Search.length ? (
         <>
           <div className={details ? 'outlet-detail' : 'outlet'}>
-            <CardsList movieList={moviesList.results} />
+            <CardsList movieList={moviesList.Search} />
             {details && <Outlet />}
           </div>
           <Pagination moviesList={moviesList} />

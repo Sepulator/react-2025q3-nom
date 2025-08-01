@@ -3,8 +3,8 @@ import { useMoviesStore } from './index';
 import { mockBatmanMovie } from '@/__tests__/handlers';
 
 describe('useMoviesStore', () => {
-  const mockMovie = mockBatmanMovie.results[0];
-  const mockMovie2 = mockBatmanMovie.results[1];
+  const mockMovie = mockBatmanMovie.Search[0];
+  const mockMovie2 = mockBatmanMovie.Search[1];
 
   afterEach(() => {
     const { reset } = useMoviesStore.getState();
@@ -31,7 +31,7 @@ describe('useMoviesStore', () => {
     addMovie(mockMovie);
     addMovie(mockMovie2);
 
-    removeMovie(mockMovie2.id);
+    removeMovie(mockMovie2.imdbID);
 
     const state = useMoviesStore.getState();
     expect(state.movies).toHaveLength(1);
