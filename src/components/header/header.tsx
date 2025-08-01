@@ -21,8 +21,8 @@ export function Header() {
               </NavLink>
             </li>
             <li>
-              <a href="https://www.themoviedb.org/" className="secondary" target="_blank" rel="noreferrer">
-                TMDB API
+              <a href="https://www.omdbapi.com/" className="secondary" target="_blank" rel="noreferrer">
+                OMDb API
               </a>
             </li>
             <li>

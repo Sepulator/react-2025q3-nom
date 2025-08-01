@@ -10,17 +10,9 @@ export const getKey = (arr: string) => {
   return result;
 };
 
-export const formatDate = (date: string) => {
-  return new Intl.DateTimeFormat('en-US', {
-    month: 'short',
-    day: '2-digit',
-    year: 'numeric',
-  }).format(new Date(date));
-};
-
 const generateMovieCSV = (movies: Movie[]) =>
   movies.reduce((prev, movie) => {
-    return prev + `${movie.id}; ${movie.title}; ${movie.release_date}; ${movie.vote_average} \n`;
+    return prev + `${movie.imdbID}; ${movie.Title}; ${movie.Year}; ${movie.imdbID} \n`;
   }, 'id; title; release date; vote average \n');
 
 export const getDownloadMovieURL = (movies: Movie[]) => {

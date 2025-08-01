@@ -19,10 +19,10 @@ export function Main() {
         <ErrorInfo error={error} status_message={data?.status_message || ''} />
       ) : status === 'pending' ? (
         <article aria-busy="true">Loading</article>
-      ) : data && data.results.length ? (
+      ) : data && data.Search.length ? (
         <>
           <div className={details ? 'outlet-detail' : 'outlet'}>
-            <CardsList movieList={data.results} />
+            <CardsList movieList={data.Search} />
             {details && <Outlet />}
           </div>
           <Pagination moviesList={data} />

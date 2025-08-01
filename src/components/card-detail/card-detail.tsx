@@ -1,6 +1,3 @@
-import image from '@/assets/image.svg';
-import { formatDate } from '@/services/utils';
-import { poster_sizes, urlImage } from '@/consts';
 import { useDetail } from '@/hooks/useDetail';
 import { useClickOutside } from '@/hooks/useClickOutside';
 import { Link, useNavigate } from 'react-router';
@@ -31,16 +28,12 @@ export function CardDetail() {
         </div>
       ) : (
         <article ref={ref} className="card-detail">
-          <img
-            aria-label="Movie poster"
-            src={data?.poster_path ? `${urlImage}/${poster_sizes[3]}/${data?.poster_path}` : image}
-            alt={data?.poster_path ? `${data?.title}` : `No image available for ${data?.title}`}
-          ></img>
+          <img aria-label="Movie poster" src={data?.Poster} alt={data?.Title}></img>
           <div>
-            <p>{data?.title}</p>
-            <span>{data?.release_date && formatDate(data?.release_date)}</span>
-            <p>{data?.overview}</p>
-            <p>Rating: {data?.vote_average.toFixed(2)}</p>
+            <p>{data?.Title}</p>
+            <span>{data?.Released}</span>
+            <p>{data?.Plot}</p>
+            <p>Rating: {data?.imdbRating}</p>
           </div>
 
           <Link to={createRootPath(['detail'])} role="button">

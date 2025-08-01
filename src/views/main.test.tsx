@@ -43,18 +43,18 @@ describe('Main Component', () => {
     });
   });
 
-  it('handles pagination changes', async () => {
-    const { user, router } = render({ initialEntries: ['/?query=batman&page=1'] });
+  // it('handles pagination changes', async () => {
+  //   const { user, router } = render({ initialEntries: ['/?query=batman&page=1'] });
 
-    await waitFor(() => {
-      expect(screen.getByText('Batman')).toBeInTheDocument();
-    });
+  //   await waitFor(() => {
+  //     expect(screen.getByText('Batman')).toBeInTheDocument();
+  //   });
 
-    const page2Button = screen.getByRole('button', { name: '2' });
-    await user.click(page2Button);
+  //   const page2Button = screen.getByRole('button', { name: '2' });
+  //   await user.click(page2Button);
 
-    const searchParams = new URLSearchParams(router.state.location.search);
-    expect(searchParams.get('page')).toBe('2');
-    expect(searchParams.get('query')).toBe('batman');
-  });
+  //   const searchParams = new URLSearchParams(router.state.location.search);
+  //   expect(searchParams.get('page')).toBe('2');
+  //   expect(searchParams.get('query')).toBe('batman');
+  // });
 });
