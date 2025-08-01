@@ -12,7 +12,7 @@ export const useQueryParams = () => {
     return searchString ? `?${searchString}` : '';
   };
 
-  const createDetailPath = (id: number) => {
+  const createDetailPath = (id: string) => {
     const searchString = getSearchString();
     return `/details/${id}${searchString}`;
   };

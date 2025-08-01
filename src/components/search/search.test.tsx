@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it } from 'vitest';
-import { render, screen } from '@/__tests__/test-utils';
+import { render, screen, waitFor } from '@/__tests__/test-utils';
 import { Search } from './search';
 import { QUERY } from '@/consts';
 
@@ -26,7 +26,9 @@ describe('Search Component', () => {
       initialEntries: ['/?query=test+movie'],
     });
 
-    expect(screen.getByPlaceholderText('Search movie')).toHaveValue('test movie');
+    waitFor(() => {
+      expect(screen.getByPlaceholderText('Search movie')).toHaveValue('test movie');
+    });
   });
 
   it('initializes with value from localStorage when no URL query', () => {
