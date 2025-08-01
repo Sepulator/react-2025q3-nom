@@ -1,12 +1,12 @@
-import { httpMessages } from '@/consts';
 import { useDetail } from '@/hooks/useDetail';
 import { useClickOutside } from '@/hooks/useClickOutside';
 import { Link, useNavigate } from 'react-router';
 import { useQueryParams } from '@/hooks/useQueryParams';
+import ErrorInfo from '@/components/error-info';
 
 export function CardDetail() {
   const navigate = useNavigate();
-  const { movie, isLoading, isError } = useDetail();
+  const { movie, isLoading, error } = useDetail();
   const { createRootPath } = useQueryParams();
 
   const handleClose = () => {
@@ -18,11 +18,8 @@ export function CardDetail() {
 
   return (
     <>
-      {isError ? (
-        <article style={{ color: 'var(--pico-del-color)' }}>
-          Error: {isError + ' '}
-          {httpMessages.find((code) => code.status.toString() === isError)?.message}
-        </article>
+      {error || movie?.Error ? (
+        <ErrorInfo error={error} status_message={movie?.Error} />
       ) : isLoading ? (
         <div className="card-detail">
           <article aria-busy="true" className="loading " data-testid="card-detail-loading">

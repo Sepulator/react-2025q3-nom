@@ -1,12 +1,11 @@
-import CardsList from '@/components/card-list';
-import Search from '@/components/search';
-import { httpMessages } from '@/consts';
-
-import { useMovies } from '@/hooks/useMovies';
 import { Outlet } from 'react-router';
 
+import CardsList from '@/components/card-list';
+import Search from '@/components/search';
 import Flyout from '@/components/flyout';
 import Pagination from '@/components/pagination';
+import ErrorInfo from '@/components/error-info';
+import { useMovies } from '@/hooks/useMovies';
 
 export function Main() {
   const { state, details } = useMovies();
@@ -16,11 +15,8 @@ export function Main() {
     <>
       <h1>The Movie Database API</h1>
       <Search />
-      {error ? (
-        <article style={{ color: 'var(--pico-del-color)' }}>
-          Error: {error + ' '}
-          {httpMessages.find((code) => code.status.toString() === error)?.message}
-        </article>
+      {error || moviesList.Error ? (
+        <ErrorInfo error={error} status_message={moviesList?.Error} />
       ) : loading ? (
         <article aria-busy="true">Loading</article>
       ) : moviesList.Search.length ? (
