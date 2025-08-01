@@ -18,8 +18,8 @@ export function CardDetail() {
 
   return (
     <>
-      {status === 'error' ? (
-        <ErrorInfo error={error} status_message={data?.status_message || ''} />
+      {status === 'error' || data?.Error ? (
+        <ErrorInfo error={error} status_message={data?.Error || ''} />
       ) : status === 'pending' ? (
         <div className="card-detail">
           <article aria-busy="true" className="loading " data-testid="card-detail-loading">

@@ -7,7 +7,7 @@ export function useDetail() {
 
   const { status, data, error } = useQuery({
     queryKey: ['movie', movieId],
-    queryFn: () => getMovie(Number(movieId)),
+    queryFn: () => getMovie(movieId || ''),
   });
 
   return { status, data, error };

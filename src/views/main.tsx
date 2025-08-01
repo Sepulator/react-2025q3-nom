@@ -15,8 +15,8 @@ export function Main() {
     <>
       <h1>The Movie Database API</h1>
       <Search />
-      {status === 'error' ? (
-        <ErrorInfo error={error} status_message={data?.status_message || ''} />
+      {status === 'error' || data?.Error ? (
+        <ErrorInfo error={error} status_message={data?.Error || ''} />
       ) : status === 'pending' ? (
         <article aria-busy="true">Loading</article>
       ) : data && data.Search.length ? (
