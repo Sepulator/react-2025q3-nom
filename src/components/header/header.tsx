@@ -26,10 +26,7 @@ export function Header() {
               </a>
             </li>
             <li>
-              <button
-                onClick={() => queryClient.invalidateQueries({ queryKey: ['movie', 'movies'] })}
-                title="Query Invalidation"
-              >
+              <button onClick={() => queryClient.invalidateQueries()} title="Query Invalidation">
                 Refresh
               </button>
             </li>

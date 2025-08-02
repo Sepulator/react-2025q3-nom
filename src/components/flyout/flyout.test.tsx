@@ -51,7 +51,7 @@ describe('Flyout', () => {
   });
 
   it('should call reset checkboxes when unselect button is clicked', async () => {
-    useMoviesStore.getState().movies = mockBatmanMovie.results;
+    useMoviesStore.getState().movies = mockBatmanMovie.Search;
     const { user } = render({ initialEntries: ['/?query=batman&page=1'] });
 
     waitFor(async () => {
@@ -62,7 +62,7 @@ describe('Flyout', () => {
   });
 
   it('should render download link with correct attributes', () => {
-    useMoviesStore.getState().movies = mockBatmanMovie.results;
+    useMoviesStore.getState().movies = mockBatmanMovie.Search;
     render({ initialEntries: ['/?query=batman&page=1'] });
 
     waitFor(async () => {

@@ -77,7 +77,9 @@ export const handlers = [
     const search = url.searchParams.get('s');
     const id = url.searchParams.get('i');
 
-    if (id === '123') return HttpResponse.json(mockMovie);
+    if (id === '123') {
+      return HttpResponse.json(mockMovie);
+    }
 
     if (search === 'not batman') {
       return HttpResponse.json(mockEmptyMovies);
