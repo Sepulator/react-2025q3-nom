@@ -2,7 +2,6 @@ import CardsList from '@/components/card-list';
 import Search from '@/components/search';
 
 import { useMovies } from '@/hooks/useMovies';
-import { Outlet } from 'react-router';
 
 import Flyout from '@/components/flyout';
 import Pagination from '@/components/pagination';
@@ -23,7 +22,7 @@ export function Main() {
         <>
           <div className={details ? 'outlet-detail' : 'outlet'}>
             <CardsList movieList={data.Search} />
-            {details && <Outlet />}
+            {/* {details && <Outlet />} */}
           </div>
           <Pagination moviesList={data} />
         </>
