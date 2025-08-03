@@ -1,9 +1,11 @@
+import photo from '@/assets/photo.webp';
+
 export function About() {
   return (
     <section className="about">
       <h1 style={{ textAlign: 'center' }}>About</h1>
       <article className="about-article">
-        <img src="./src/assets/photo.webp" alt="Photo" className="about-img" />
+        <img src={photo.src} alt="Photo" className="about-img" />
         <div>
           <p>
             This web application was created as part of <strong>RS&nbsp;School</strong> study program. More information
