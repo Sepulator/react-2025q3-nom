@@ -1,35 +1,29 @@
-import { Link, NavLink } from 'react-router';
-import logo from '@/assets/movie.svg';
+import Link from 'next/link';
+import Image from 'next/image';
+
 import ThemeSwitch from '@/components/theme-switch';
-import { useQueryClient } from '@tanstack/react-query';
 
 export function Header() {
-  const queryClient = useQueryClient();
-
   return (
     <header>
       <div className="container">
-        <Link to={'/'} aria-label="The Movie Database API homepage">
-          <img src={logo.src} className="logo" alt="Movie logo" />
+        <Link href={'/'} aria-label="The Movie Database API homepage">
+          <Image src="movie.svg" className="logo" alt="Movie logo" width={40} height={40} />
         </Link>
 
         <nav>
           <ul>
             <li>
-              <NavLink to="/about" title="About" className={({ isActive }) => (isActive ? 'contrast' : '')}>
+              <Link href="/about" title="About">
                 About
-              </NavLink>
+              </Link>
             </li>
             <li>
-              <a href="https://www.omdbapi.com/" className="secondary" target="_blank" rel="noreferrer">
+              <Link href="https://www.omdbapi.com/" className="secondary" target="_blank" rel="noreferrer">
                 OMDb API
-              </a>
+              </Link>
             </li>
-            <li>
-              <button onClick={() => queryClient.invalidateQueries()} title="Query Invalidation">
-                Refresh
-              </button>
-            </li>
+
             <li className="theme-toggle-wrapper">
               <ThemeSwitch />
             </li>

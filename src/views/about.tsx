@@ -1,11 +1,11 @@
-import photo from '@/assets/photo.webp';
+import Image from 'next/image';
 
 export function About() {
   return (
     <section className="about">
       <h1 style={{ textAlign: 'center' }}>About</h1>
       <article className="about-article">
-        <img src={photo.src} alt="Photo" className="about-img" />
+        <Image src="/photo.webp" alt="Photo" className="about-img" width={300} height={300} />
         <div>
           <p>
             This web application was created as part of <strong>RS&nbsp;School</strong> study program. More information

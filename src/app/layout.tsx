@@ -1,14 +1,28 @@
+import { Inter } from 'next/font/google';
 import '../index.css';
+import Header from '@/components/header';
+import Footer from '@/components/footer';
+import ThemeProvider from '@/components/theme-provider';
+
+const inter = Inter({
+  subsets: ['latin'],
+  display: 'swap',
+});
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" data-theme="dark">
+    <html lang="en" data-theme="dark" className={inter.className}>
       <head>
-        <link rel="icon" type="image/svg+xml" href="/movie.svg" />
         <title>The Movie Database API</title>
       </head>
       <body>
-        <div id="root">{children}</div>
+        <div id="root">
+          <ThemeProvider>
+            <Header />
+            <main className="container main">{children}</main>
+            <Footer />
+          </ThemeProvider>
+        </div>
       </body>
     </html>
   );
