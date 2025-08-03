@@ -1,3 +1,5 @@
+'use client';
+
 import { getDownloadMovieURL } from '@/services/utils';
 import { useMoviesStore } from '@/store';
 

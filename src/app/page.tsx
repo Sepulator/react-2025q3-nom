@@ -1,5 +1,7 @@
 import CardsList from '@/components/card-list';
 import ErrorInfo from '@/components/error-info';
+import Flyout from '@/components/flyout';
+import Pagination from '@/components/pagination';
 import Search from '@/components/search';
 import { getMovieList, getNowPLaying } from '@/services/api';
 
@@ -23,6 +25,8 @@ export default async function Page({ searchParams }: Props) {
       <div className="outlet">
         <CardsList movieList={data.Search} />
       </div>
+      <Pagination totalResults={data.totalResults} />
+      <Flyout />
     </>
   );
 }

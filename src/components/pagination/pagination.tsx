@@ -1,25 +1,28 @@
+'use client';
+
+import Link from 'next/link';
+import { usePathname, useSearchParams } from 'next/navigation';
+
 import { MAX_BUTTONS, MAX_PAGES } from '@/consts';
-import type { MoviesList } from '@/types/interfaces';
-import { Link, useSearchParams } from 'react-router';
 
 interface Props {
-  moviesList: MoviesList;
+  totalResults: string;
 }
 
-export function Pagination({ moviesList }: Props) {
-  const [searchParams] = useSearchParams();
-  const { totalResults } = moviesList;
+export function Pagination({ totalResults }: Props) {
+  const searchParams = useSearchParams();
+  const pathname = usePathname();
   const total_pages = Math.ceil(Number(totalResults) / MAX_PAGES);
   const page = Number(searchParams.get('page') ?? '1');
 
   const renderPageButton = (pageNumber: number) => {
-    const updatedSearchParams = new URLSearchParams(searchParams);
-    updatedSearchParams.set('page', pageNumber.toString());
+    const params = new URLSearchParams(searchParams);
+    params.set('page', pageNumber.toString());
 
     return (
       <li key={pageNumber}>
         <Link
-          to={`?${updatedSearchParams.toString()}`}
+          href={`${pathname}?${params.toString()}`}
           className={pageNumber === page ? 'contrast' : ''}
           role="button"
           aria-current={pageNumber === page ? 'page' : undefined}
