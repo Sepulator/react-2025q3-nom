@@ -9,7 +9,7 @@ export function Footer() {
         </a>
         <span>{new Date().getFullYear() + '©️'}</span>
         <a href="https://rs.school/" target="_blank" rel="noreferrer">
-          <Image src="/github-mark.svg" alt="RS School logo" width={40} height={40} />
+          <Image src="/github-mark.svg" alt="GitHub logo" width={40} height={40} />
         </a>
       </nav>
     </footer>

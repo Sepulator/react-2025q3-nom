@@ -1,7 +1,9 @@
-import { useSearchParams } from 'react-router';
+'use client';
+
+import { useSearchParams } from 'next/navigation';
 
 export const useQueryParams = () => {
-  const [searchParams] = useSearchParams();
+  const searchParams = useSearchParams();
 
   const getSearchString = (excludeParams: string[] = []) => {
     const searchString = Array.from(searchParams.entries())
