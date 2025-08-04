@@ -1,46 +1,28 @@
-import { useDetail } from '@/hooks/useDetail';
-import { useClickOutside } from '@/hooks/useClickOutside';
-import { Link, useNavigate } from 'react-router';
-import { useQueryParams } from '@/hooks/useQueryParams';
+import Link from 'next/link';
 import ErrorInfo from '@/components/error-info';
+import { MovieDetail } from '@/types/interfaces';
 
-export function CardDetail() {
-  const navigate = useNavigate();
-  const { status, data, error } = useDetail();
-  const { createRootPath } = useQueryParams();
+interface Props {
+  data: string | MovieDetail;
+}
 
-  const handleClose = () => {
-    const rootPath = createRootPath(['detail']);
-    navigate(rootPath);
-  };
-
-  const ref = useClickOutside(handleClose);
+export function CardDetail({ data }: Props) {
+  if (typeof data === 'string') return <ErrorInfo error={data} status_message={null} />;
+  if (data.Error) return <ErrorInfo error={null} status_message={data.Error} />;
 
   return (
-    <>
-      {status === 'error' || data?.Error ? (
-        <ErrorInfo error={error} status_message={data?.Error || ''} />
-      ) : status === 'pending' ? (
-        <div className="card-detail">
-          <article aria-busy="true" className="loading " data-testid="card-detail-loading">
-            Loading
-          </article>
-        </div>
-      ) : (
-        <article ref={ref} className="card-detail">
-          <img aria-label="Movie poster" src={data?.Poster} alt={data?.Title}></img>
-          <div>
-            <p>{data?.Title}</p>
-            <span>{data?.Released}</span>
-            <p>{data?.Plot}</p>
-            <p>Rating: {data?.imdbRating}</p>
-          </div>
+    <article className="card-detail">
+      <img aria-label="Movie poster" src={data?.Poster} alt={data?.Title}></img>
+      <div>
+        <p>{data?.Title}</p>
+        <span>{data?.Released}</span>
+        <p>{data?.Plot}</p>
+        <p>Rating: {data?.imdbRating}</p>
+      </div>
 
-          <Link to={createRootPath(['detail'])} role="button">
-            Close
-          </Link>
-        </article>
-      )}
-    </>
+      <Link href={'/'} role="button">
+        Close
+      </Link>
+    </article>
   );
 }

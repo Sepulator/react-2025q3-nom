@@ -8,7 +8,7 @@ export function Header() {
     <header>
       <div className="container">
         <Link href={'/'} aria-label="The Movie Database API homepage">
-          <Image src="movie.svg" className="logo" alt="Movie logo" width={40} height={40} />
+          <Image src="/movie.svg" className="logo" alt="Movie logo" width={40} height={40} />
         </Link>
 
         <nav>

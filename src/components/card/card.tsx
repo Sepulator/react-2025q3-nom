@@ -11,7 +11,7 @@ export function Card({ movie }: Props) {
 
   return (
     <article className="card">
-      <Link href={`details/${movie.imdbID}`} className="card-link">
+      <Link href={`/details/${movie.imdbID}`} className="card-link">
         <img src={Poster} alt={Title} className="card-img"></img>
         <div>
           <p>{Title}</p>
