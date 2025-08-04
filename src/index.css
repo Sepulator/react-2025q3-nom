@@ -147,16 +147,15 @@ header {
 }
 
 .card-detail {
-  width: 100%;
   padding: 0;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: flex-start;
   overflow: hidden;
-  height: fit-content;
 
   & img {
-    width: 100%;
+    max-width: 256px;
+    height: 379px;
   }
 }
 

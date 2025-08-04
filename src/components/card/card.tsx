@@ -6,14 +6,15 @@ import type { Movie } from '@/types/interfaces';
 
 interface Props {
   movie: Movie;
+  query: { query: string; page: string };
 }
 
-export function Card({ movie }: Props) {
+export function Card({ movie, query }: Props) {
   const { Title, Poster, Year } = movie;
 
   return (
     <article className="card">
-      <Link href={`/details/${movie.imdbID}`} className="card-link">
+      <Link href={{ pathname: `/details/${movie.imdbID}`, query }} className="card-link">
         <Image
           src={Poster === 'N/A' ? './placeholder.svg' : Poster}
           alt={Title}

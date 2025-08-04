@@ -1,16 +1,14 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import ErrorInfo from '@/components/error-info';
+
 import { MovieDetail } from '@/types/interfaces';
 
 interface Props {
-  data: string | MovieDetail;
+  data: MovieDetail;
+  query: { query: string; page: string };
 }
 
-export function CardDetail({ data }: Props) {
-  if (typeof data === 'string') return <ErrorInfo error={data} status_message={null} />;
-  if (data.Error) return <ErrorInfo error={null} status_message={data.Error} />;
-
+export function CardDetail({ data, query }: Props) {
   return (
     <article className="card-detail">
       <Image
@@ -25,11 +23,10 @@ export function CardDetail({ data }: Props) {
         <span>{data?.Released}</span>
         <p>{data?.Plot}</p>
         <p>Rating: {data?.imdbRating}</p>
+        <Link href={{ pathname: '/', query }} role="button">
+          Close
+        </Link>
       </div>
-
-      <Link href={'/'} role="button">
-        Close
-      </Link>
     </article>
   );
 }

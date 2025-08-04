@@ -1,22 +1,16 @@
-import CardDetail from '@/components/card-detail';
 import CardsList from '@/components/card-list';
 import ErrorInfo from '@/components/error-info';
 import Flyout from '@/components/flyout';
 import Pagination from '@/components/pagination';
 import Search from '@/components/search';
-import { getMovie, getMovieList, getNowPLaying } from '@/services/api';
+import { getMovieList, getNowPLaying } from '@/services/api';
 
 interface Props {
   searchParams: Promise<{ query?: string; page?: string }>;
-  params: Promise<{ slug: string[] }>;
 }
 
-export default async function Page({ searchParams, params }: Props) {
+export default async function Page({ searchParams }: Props) {
   const { page = '1', query = '' } = await searchParams;
-  const { slug } = await params;
-
-  const [pathname, imdbId] = slug ? slug : ['', ''];
-  const movie = imdbId ? await getMovie(imdbId) : null;
 
   const data = query ? await getMovieList(query, page) : await getNowPLaying(page);
 
@@ -28,9 +22,8 @@ export default async function Page({ searchParams, params }: Props) {
     <>
       <h1>The Movie Database API</h1>
       <Search />
-      <div className={pathname === 'details' ? 'outlet-detail' : 'outlet'}>
-        <CardsList movieList={data.Search} />
-        {movie && <CardDetail data={movie} />}
+      <div className="outlet">
+        <CardsList movieList={data.Search} query={{ query, page }} />
       </div>
       <Pagination totalResults={data.totalResults} />
       <Flyout />
