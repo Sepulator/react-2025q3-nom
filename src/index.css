@@ -125,37 +125,32 @@ header {
   border-radius: 10px;
 }
 
-.outlet,
-.outlet-detail {
+.outlet {
   display: grid;
+  grid-template-columns: 1fr;
   gap: 2rem;
   transition: all 0.3s ease-in-out;
   opacity: 1;
 }
 
-.outlet {
-  grid-template-columns: 1fr;
-}
-
-.outlet-detail {
+.outlet:has(.card-detail) {
   grid-template-columns: 2fr 1fr;
 }
 
-.outlet > *,
-.outlet-detail > * {
+.outlet > * {
   transition: opacity 0.3s ease-in-out;
 }
 
 .card-detail {
   padding: 0;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: flex-start;
   overflow: hidden;
+  height: fit-content;
 
   & img {
-    max-width: 256px;
-    height: 379px;
+    width: 100%;
   }
 }
 

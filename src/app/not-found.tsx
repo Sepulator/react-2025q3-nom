@@ -1,5 +1,5 @@
 import { NotFound } from '@/views/not-found';
 
-export default async function Page() {
+export default async function NotFoundPage() {
   return <NotFound />;
 }

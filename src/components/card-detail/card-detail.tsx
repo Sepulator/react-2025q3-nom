@@ -5,7 +5,7 @@ import { MovieDetail } from '@/types/interfaces';
 
 interface Props {
   data: MovieDetail;
-  query: { query: string; page: string };
+  query?: { query: string; page: string };
 }
 
 export function CardDetail({ data, query }: Props) {
@@ -23,10 +23,10 @@ export function CardDetail({ data, query }: Props) {
         <span>{data?.Released}</span>
         <p>{data?.Plot}</p>
         <p>Rating: {data?.imdbRating}</p>
-        <Link href={{ pathname: '/', query }} role="button">
-          Close
-        </Link>
       </div>
+      <Link href={{ pathname: '/', query }} role="button">
+        Close
+      </Link>
     </article>
   );
 }

@@ -9,7 +9,7 @@ interface Props {
   searchParams: Promise<{ query?: string; page?: string }>;
 }
 
-export default async function Page({ searchParams }: Props) {
+export default async function HomePage({ searchParams }: Props) {
   const { page = '1', query = '' } = await searchParams;
 
   const data = query ? await getMovieList(query, page) : await getNowPLaying(page);

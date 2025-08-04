@@ -1,24 +1,24 @@
-import CardDetail from '@/components/card-detail';
+import CardsList from '@/components/card-list';
 import ErrorInfo from '@/components/error-info';
-import { getMovie } from '@/services/api';
+
+import { getMovieList, getNowPLaying } from '@/services/api';
 
 interface Props {
   searchParams: Promise<{ query?: string; page?: string }>;
-  params: Promise<{ slug: string }>;
 }
 
-export default async function Page({ params, searchParams }: Props) {
-  const { slug } = await params;
+export default async function CardDetailPage({ searchParams }: Props) {
   const { page = '1', query = '' } = await searchParams;
 
-  const movie = await getMovie(slug);
+  const data = query ? await getMovieList(query, page) : await getNowPLaying(page);
 
-  if (typeof movie === 'string') return <ErrorInfo error={movie} status_message={null} />;
-  if (movie.Error) return <ErrorInfo error={null} status_message={movie.Error} />;
+  if (typeof data === 'string') return <ErrorInfo error={data} status_message={null} />;
+  if (data.Error) return <ErrorInfo error={null} status_message={data.Error} />;
+  if (data.Search.length === 0) return <span>Nothing to display. Type to search movie.</span>;
 
   return (
     <>
-      <CardDetail data={movie} query={{ query, page }} />
+      <CardsList movieList={data.Search} query={{ query, page }} />
     </>
   );
 }
