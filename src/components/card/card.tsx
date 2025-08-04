@@ -1,6 +1,8 @@
+import Image from 'next/image';
+import Link from 'next/link';
+
 import { Favorite } from '@/components/favorite/favorite';
 import type { Movie } from '@/types/interfaces';
-import Link from 'next/link';
 
 interface Props {
   movie: Movie;
@@ -12,7 +14,13 @@ export function Card({ movie }: Props) {
   return (
     <article className="card">
       <Link href={`/details/${movie.imdbID}`} className="card-link">
-        <img src={Poster} alt={Title} className="card-img"></img>
+        <Image
+          src={Poster === 'N/A' ? './placeholder.svg' : Poster}
+          alt={Title}
+          className="card-img"
+          width={256}
+          height={379}
+        ></Image>
         <div>
           <p>{Title}</p>
           <span>{Year}</span>

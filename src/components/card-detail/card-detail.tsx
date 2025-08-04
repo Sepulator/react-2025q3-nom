@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import ErrorInfo from '@/components/error-info';
 import { MovieDetail } from '@/types/interfaces';
 
@@ -12,7 +13,13 @@ export function CardDetail({ data }: Props) {
 
   return (
     <article className="card-detail">
-      <img aria-label="Movie poster" src={data?.Poster} alt={data?.Title}></img>
+      <Image
+        aria-label="Movie poster"
+        src={data.Poster === 'N/A' ? './placeholder.svg' : data.Poster}
+        alt={data?.Title}
+        width={256}
+        height={379}
+      ></Image>
       <div>
         <p>{data?.Title}</p>
         <span>{data?.Released}</span>
