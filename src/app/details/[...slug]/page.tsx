@@ -1,5 +1,6 @@
 import CardsList from '@/components/card-list';
 import ErrorInfo from '@/components/error-info';
+import Pagination from '@/components/pagination';
 
 import { getMovieList, getNowPLaying } from '@/services/api';
 
@@ -19,6 +20,7 @@ export default async function CardDetailPage({ searchParams }: Props) {
   return (
     <>
       <CardsList movieList={data.Search} query={{ query, page }} />
+      <Pagination totalResults={data.totalResults} />
     </>
   );
 }

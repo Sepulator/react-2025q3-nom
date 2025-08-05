@@ -14,11 +14,14 @@
 }
 
 #root {
-  max-width: 1280px;
-  margin: 0 auto;
   min-height: 100vh;
   display: grid;
   grid-template-rows: auto 1fr auto;
+}
+
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
 }
 
 header .container {
@@ -57,7 +60,7 @@ header {
   gap: 2rem;
   max-width: 960px;
 
-  &:has(+ .card-detail) {
+  &:has(~ .card-detail) {
     grid-template-columns: repeat(3, 1fr);
   }
 }
@@ -68,6 +71,12 @@ header {
   display: flex;
   overflow: hidden;
   height: 100%;
+}
+
+.pagination {
+  order: 3;
+  justify-self: center;
+  grid-column: 1 / -1;
 }
 
 .card-link {

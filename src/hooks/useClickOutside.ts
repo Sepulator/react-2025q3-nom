@@ -1,22 +1,19 @@
-import { useEffect, useRef } from 'react';
+import { useEffect } from 'react';
 
 type Handler = (event: MouseEvent) => void;
 
 export const useClickOutside = (handler: Handler) => {
-  const ref = useRef<HTMLElement>(null);
-
   useEffect(() => {
     const listener = (event: MouseEvent) => {
       const target = event.target as HTMLElement;
 
       if (
-        !ref.current ||
-        ref.current.contains(target) ||
         target.closest('.card') ||
         target.closest('.flyout') ||
         !target.closest('#root') ||
         target.closest('.search') ||
-        target.closest('.theme-toggle')
+        target.closest('.theme-toggle') ||
+        target.closest('.card-detail')
       ) {
         return;
       }
@@ -29,6 +26,4 @@ export const useClickOutside = (handler: Handler) => {
       document.removeEventListener('mousedown', listener);
     };
   }, [handler]);
-
-  return ref;
 };

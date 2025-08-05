@@ -1,14 +1,14 @@
-import Link from 'next/link';
 import Image from 'next/image';
 
 import { MovieDetail } from '@/types/interfaces';
+import CloseButton from '@/components/close-button';
 
 interface Props {
   data: MovieDetail;
   query?: { query: string; page: string };
 }
 
-export function CardDetail({ data, query }: Props) {
+export function CardDetail({ data }: Props) {
   return (
     <article className="card-detail">
       <Image
@@ -24,9 +24,7 @@ export function CardDetail({ data, query }: Props) {
         <p>{data?.Plot}</p>
         <p>Rating: {data?.imdbRating}</p>
       </div>
-      <Link href={{ pathname: '/', query }} role="button">
-        Close
-      </Link>
+      <CloseButton />
     </article>
   );
 }
