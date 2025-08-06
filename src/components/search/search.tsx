@@ -4,12 +4,14 @@ import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
 import { useLocalStorage } from '@/hooks/useLocalStorage';
 import { QUERY } from '@/consts';
+import { useTranslations } from 'next-intl';
 
 export function Search() {
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const { replace } = useRouter();
   const [, setStoredValue] = useLocalStorage<string>(QUERY, '');
+  const t = useTranslations('Search');
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -28,10 +30,10 @@ export function Search() {
       <input
         name="search"
         type="text"
-        placeholder="Search movie"
+        placeholder={t('placeholder')}
         defaultValue={searchParams.get('query')?.toString()}
       />
-      <button type="submit">Search</button>
+      <button type="submit">{t('title')}</button>
     </form>
   );
 }

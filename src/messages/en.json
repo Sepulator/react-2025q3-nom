@@ -4,5 +4,29 @@
   },
   "LocaleLayout": {
     "title": "The Movie Database API"
+  },
+  "Search": {
+    "placeholder": "Search movie",
+    "title": "Search"
+  },
+  "Header": {
+    "about": "About author",
+    "api": "OMDb API page",
+    "home": "Home page"
+  },
+  "AboutPage": {
+    "title": "About",
+    "description": "<p>This web application was created as part of <important>RS School</important> study program. More information about <important>React</important> course can be viewed on the school site <link>rs.school</link>.</p>",
+    "author": "Author Yuri Skrypal",
+    "and": " and "
+  },
+  "Flyout": {
+    "one": "item is selected",
+    "more": "items are selected",
+    "load": "Download CSV",
+    "unselect": "Unselect all"
+  },
+  "Close": {
+    "title": "Close"
   }
 }

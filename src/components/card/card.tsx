@@ -1,8 +1,8 @@
 import Image from 'next/image';
-import Link from 'next/link';
 
 import { Favorite } from '@/components/favorite/favorite';
 import type { Movie } from '@/types/interfaces';
+import { Link } from '@/i18n/navigation';
 
 interface Props {
   movie: Movie;

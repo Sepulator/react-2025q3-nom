@@ -1,12 +1,15 @@
 'use client';
 
+import { Link } from '@/i18n/navigation';
+
 import { useClickOutside } from '@/hooks/useClickOutside';
-import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
+import { useTranslations } from 'next-intl';
 
 export function CloseButton() {
   const searchParams = useSearchParams();
   const router = useRouter();
+  const t = useTranslations('Close');
 
   useClickOutside(() => router.push(`/?${searchParams.toString()}`));
 
@@ -15,7 +18,7 @@ export function CloseButton() {
 
   return (
     <Link href={{ pathname: '/', query: { query, page } }} role="button">
-      Close
+      {t('title')}
     </Link>
   );
 }

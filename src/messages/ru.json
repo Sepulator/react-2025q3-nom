@@ -4,5 +4,29 @@
   },
   "LocaleLayout": {
     "title": "База данных фильмов"
+  },
+  "Search": {
+    "placeholder": "Поиск фильма",
+    "title": "Поиск"
+  },
+  "Header": {
+    "about": "Об авторе",
+    "api": "OMDb API",
+    "home": "Домашняя страница"
+  },
+  "AboutPage": {
+    "title": "Об авторе",
+    "description": "<p>Это веб-приложение создано в рамках учебной программы школы <important>RS School</important>. Подробнее о курсе <important>React</important> можно узнать на сайте <link>rs.school</link>.</p>",
+    "author": "Автор Юрий Скрипаль",
+    "and": " и "
+  },
+  "Flyout": {
+    "one": "фильм выбран",
+    "more": "фильмов выбрано",
+    "load": "Скачать CSV",
+    "unselect": "Отменить"
+  },
+  "Close": {
+    "title": "Закрыть"
   }
 }

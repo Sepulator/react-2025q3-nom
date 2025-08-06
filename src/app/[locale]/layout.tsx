@@ -20,17 +20,6 @@ interface Props {
   params: Promise<{ locale: string }>;
 }
 
-// eslint-disable-next-line react-refresh/only-export-components
-export async function generateMetadata(props: Omit<Props, 'children'>) {
-  const { locale } = await props.params;
-
-  const t = await getTranslations({ locale, namespace: 'LocaleLayout' });
-
-  return {
-    title: t('title'),
-  };
-}
-
 export default async function LocaleLayout({ children, params }: Props) {
   const { locale } = await params;
 
@@ -40,16 +29,19 @@ export default async function LocaleLayout({ children, params }: Props) {
 
   setRequestLocale(locale);
 
+  const t = await getTranslations({ locale, namespace: 'LocaleLayout' });
+
   return (
     <html lang={locale} data-theme="dark" className={inter.className}>
       <head>
+        <title>{t('title')}</title>
         <link rel="icon" href="/movie.svg" />
       </head>
       <body>
         <div id="root">
           <NextIntlClientProvider>
             <ThemeProvider>
-              <Header />
+              <Header locale={locale} />
               <main className="container main">{children}</main>
               <Footer />
             </ThemeProvider>
