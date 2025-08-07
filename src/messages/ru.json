@@ -28,5 +28,8 @@
   },
   "Close": {
     "title": "Закрыть"
+  },
+  "LocaleSwitcher": {
+    "locale": "{locale, select, ru {ru Русский} en {en Английский} other {Unknown}}"
   }
 }

@@ -10,8 +10,8 @@
     "title": "Search"
   },
   "Header": {
-    "about": "About author",
-    "api": "OMDb API page",
+    "about": "About",
+    "api": "OMDb API",
     "home": "Home page"
   },
   "AboutPage": {
@@ -28,5 +28,8 @@
   },
   "Close": {
     "title": "Close"
+  },
+  "LocaleSwitcher": {
+    "locale": "{locale, select, ru {ru Russian} en {en English} other {Unknown}}"
   }
 }

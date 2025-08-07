@@ -3,6 +3,7 @@ import Image from 'next/image';
 import ThemeSwitch from '@/components/theme-switch';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { Link } from '@/i18n/navigation';
+import LocaleSwitcher from '@/components/locale-switcher';
 
 interface Props {
   locale: string;
@@ -31,7 +32,9 @@ export async function Header({ locale }: Props) {
                 {t('api')}
               </Link>
             </li>
-
+            <li>
+              <LocaleSwitcher />
+            </li>
             <li className="theme-toggle-wrapper">
               <ThemeSwitch />
             </li>
