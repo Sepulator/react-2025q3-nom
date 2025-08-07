@@ -1,10 +1,10 @@
 'use client';
 
+import { useTranslations } from 'next-intl';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
 import { useLocalStorage } from '@/hooks/useLocalStorage';
 import { QUERY } from '@/consts';
-import { useTranslations } from 'next-intl';
 
 export function Search() {
   const searchParams = useSearchParams();

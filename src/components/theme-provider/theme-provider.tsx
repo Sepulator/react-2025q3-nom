@@ -1,7 +1,7 @@
 'use client';
 
-import { ThemeContext, type Theme } from '@/services/theme-context';
 import { useState, type ReactNode } from 'react';
+import { ThemeContext, type Theme } from '@/services/theme-context';
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
   const [theme, setTheme] = useState<Theme>('dark');

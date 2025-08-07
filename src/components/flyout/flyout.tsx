@@ -1,8 +1,9 @@
 'use client';
 
-import { useMovieCsvDownloader } from '@/hooks/useMovieCsvDownloader';
-import { useMoviesStore } from '@/store';
 import { useTranslations } from 'next-intl';
+
+import { useMoviesStore } from '@/store';
+import { useMovieCsvDownloader } from '@/hooks/useMovieCsvDownloader';
 
 export function Flyout() {
   const { isLoading, downloadCsv } = useMovieCsvDownloader();

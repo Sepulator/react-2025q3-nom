@@ -1,6 +1,6 @@
+import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import { setRequestLocale } from 'next-intl/server';
-import Image from 'next/image';
 
 interface Props {
   locale: string;

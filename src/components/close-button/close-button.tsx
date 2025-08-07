@@ -1,10 +1,10 @@
 'use client';
 
-import { Link } from '@/i18n/navigation';
-
-import { useClickOutside } from '@/hooks/useClickOutside';
-import { useRouter, useSearchParams } from 'next/navigation';
 import { useTranslations } from 'next-intl';
+import { useRouter, useSearchParams } from 'next/navigation';
+
+import { Link } from '@/i18n/navigation';
+import { useClickOutside } from '@/hooks/useClickOutside';
 
 export function CloseButton() {
   const searchParams = useSearchParams();

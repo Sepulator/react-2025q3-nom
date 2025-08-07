@@ -1,8 +1,8 @@
 import Image from 'next/image';
+import { Link } from '@/i18n/navigation';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 
 import ThemeSwitch from '@/components/theme-switch';
-import { getTranslations, setRequestLocale } from 'next-intl/server';
-import { Link } from '@/i18n/navigation';
 import LocaleSwitcher from '@/components/locale-switcher';
 
 interface Props {
