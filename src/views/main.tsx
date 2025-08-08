@@ -10,9 +10,11 @@ export default function MainView() {
     <>
       <Header />
       <main className="container main">
-        <Dialog isOpen={isDialogOpen} handleClose={closeDialog} title="React From">
-          <h4>React form body</h4>
-        </Dialog>
+        {isDialogOpen && (
+          <Dialog isOpen={isDialogOpen} handleClose={closeDialog} title="React From">
+            <h4>React form body</h4>
+          </Dialog>
+        )}
       </main>
       <Footer />
     </>

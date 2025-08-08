@@ -13,21 +13,31 @@ export function Dialog({ children, isOpen, handleClose, title }: Props) {
 
   useEffect(() => {
     const dialogNode = dialogRef.current;
-
-    if (!dialogNode) {
-      return;
-    }
-
     if (isOpen) {
-      dialogNode.showModal();
-      dialogNode.open = true;
+      dialogNode?.showModal();
     } else {
-      dialogNode.close();
+      dialogNode?.close();
     }
   }, [isOpen]);
 
+  useEffect(() => {
+    const dialogNode = dialogRef.current;
+
+    dialogNode?.addEventListener('close', handleClose);
+
+    return () => {
+      dialogNode?.removeEventListener('close', handleClose);
+    };
+  }, [handleClose]);
+
+  const handleBackdropClick = (event: React.MouseEvent<HTMLDialogElement>) => {
+    if (event.target === dialogRef.current) {
+      handleClose();
+    }
+  };
+
   return createPortal(
-    <dialog ref={dialogRef}>
+    <dialog ref={dialogRef} onClick={handleBackdropClick}>
       <article>
         <header>
           <button aria-label="Close" rel="prev" onClick={handleClose}></button>
