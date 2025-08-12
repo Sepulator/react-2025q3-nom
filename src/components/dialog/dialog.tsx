@@ -44,12 +44,6 @@ export function Dialog({ children, isOpen, handleClose, title }: Props) {
           <h3>{title}</h3>
         </header>
         {children}
-        <footer>
-          <button className="secondary" onClick={handleClose}>
-            Cancel
-          </button>
-          <button onClick={handleClose}>Confirm</button>
-        </footer>
       </article>
     </dialog>,
     document.body

@@ -40,6 +40,12 @@ header {
   border-bottom: var(--pico-border-width) solid transparent;
 }
 
+small {
+  display: block;
+  height: calc(var(--pico-line-height) * 1rem);
+  margin-bottom: 0;
+}
+
 .main {
   display: flex;
   flex-direction: column;
