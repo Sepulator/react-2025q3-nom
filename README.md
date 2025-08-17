@@ -1,6 +1,6 @@
 # React 2025Q3
 
-## Series if task created as as part of course [React 2025 Q3](https://rs.school/courses/reactjs)
+## Series of tasks created as as part of course [React 2025 Q3](https://rs.school/courses/reactjs)
 
 - branch `class-components` [Class components. Error boundary.](https://github.com/rolling-scopes-school/tasks/blob/master/react/modules/tasks/class-components.md)
 - branch `unit-testing` [Unit Testing](https://github.com/rolling-scopes-school/tasks/blob/master/react/modules/tasks/tests.md)
