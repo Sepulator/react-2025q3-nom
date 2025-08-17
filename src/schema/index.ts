@@ -1,44 +1,45 @@
-import { z } from 'zod';
+import * as yup from 'yup';
 
-const passwordSchema = z
+const passwordSchema = yup
   .string()
   .min(8, 'Password must be at least 8 characters')
-  .refine((val) => /\d/.test(val), 'Password must contain at least 1 number')
-  .refine((val) => /[A-Z]/.test(val), 'Password must contain at least 1 uppercase letter')
-  .refine((val) => /[a-z]/.test(val), 'Password must contain at least 1 lowercase letter')
-  .refine((val) => /[!@#$%^&*(),.?":{}|<>]/.test(val), 'Password must contain at least 1 special character');
+  .test('has-number', 'Password must contain at least 1 number', (val) => /\d/.test(val || ''))
+  .test('has-uppercase', 'Password must contain at least 1 uppercase letter', (val) => /[A-Z]/.test(val || ''))
+  .test('has-lowercase', 'Password must contain at least 1 lowercase letter', (val) => /[a-z]/.test(val || ''))
+  .test('has-special', 'Password must contain at least 1 special character', (val) =>
+    /[!@#$%^&*(),.?":{}|<>]/.test(val || '')
+  );
 
-export const formSchema = z
-  .object({
-    name: z
-      .string()
-      .min(1, 'Name is required')
-      .refine((val) => /^[A-Z]/.test(val), 'Name must start with an uppercase letter'),
-    age: z.number({ error: 'Age must be a number' }).min(1, 'Age cannot be negative'),
-    email: z.email(),
-    password: passwordSchema,
-    confirmPassword: z.string(),
-    gender: z.enum(['male', 'female', 'other'], { error: 'Please select a gender' }),
-    acceptTerms: z.boolean().refine((val) => val === true, 'You must accept the terms and conditions'),
-    picture: z
-      .instanceof(FileList)
-      .refine((list) => list.length > 0, 'No files selected')
-      .refine((list) => list.length && list[0].size <= 1 * 1024 * 1024, 'File size must be less than 1MB')
-      .refine(
-        (list) => list.length && ['image/png', 'image/jpeg'].includes(list[0].type),
-        'Only PNG and JPEG files are allowed'
-      ),
-    country: z.string().min(1, 'Please select a country'),
-  })
-  .refine((data) => data.password === data.confirmPassword, {
-    error: 'Passwords do not match',
-    path: ['confirmPassword'],
-  });
+export const formSchema = yup.object({
+  name: yup
+    .string()
+    .required('Name is required')
+    .test('starts-uppercase', 'Name must start with an uppercase letter', (val) => /^[A-Z]/.test(val || '')),
+  age: yup.number().typeError('Age must be a number').min(1, 'Age cannot be negative').required(),
+  email: yup.string().email().required(),
+  password: passwordSchema.required(),
+  confirmPassword: yup
+    .string()
+    .required('Please confirm your password')
+    .oneOf([yup.ref('password')], 'Passwords do not match'),
+  gender: yup.string().oneOf(['male', 'female', 'other'], 'Please select a gender').required(),
+  acceptTerms: yup.boolean().oneOf([true], 'You must accept the terms and conditions').required(),
+  picture: yup
+    .mixed<FileList>()
+    .required('No files selected')
+    .test('fileSize', 'File size must be less than 1MB', (val) => {
+      return val && val.length > 0 && val[0].size <= 1 * 1024 * 1024;
+    })
+    .test('fileType', 'Only PNG and JPEG files are allowed', (val) => {
+      return val && val.length > 0 && ['image/png', 'image/jpeg'].includes(val[0].type);
+    }),
+});
 
-export type FormData = z.infer<typeof formSchema>;
+export type FormData = yup.InferType<typeof formSchema>;
 
 export const getPasswordStrength = (password: string): number => {
   let strength = 0;
+  if (password.length >= 8) strength++;
   if (/\d/.test(password)) strength++;
   if (/[A-Z]/.test(password)) strength++;
   if (/[a-z]/.test(password)) strength++;

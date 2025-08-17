@@ -61,3 +61,8 @@ small {
 .logo:hover {
   filter: drop-shadow(0 0 2em #646cffaa);
 }
+
+.error {
+  margin-top: 5px;
+  color: var(--pico-del-color);
+}
