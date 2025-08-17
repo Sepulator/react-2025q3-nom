@@ -1,22 +1,24 @@
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { formSchema, type FormData, getPasswordStrength } from '@/schema';
-import { countries } from '@/consts';
+import { formSchemaControlled, type FormDataControlled, getPasswordStrength } from '@/schema';
+import { useFormStore } from '@/store';
 
-export function ControlledForm() {
+export function HookForm() {
   const {
     register,
     handleSubmit,
     watch,
-    formState: { errors },
-  } = useForm<FormData>({
-    resolver: yupResolver(formSchema),
+    formState: { errors, isValid },
+  } = useForm<FormDataControlled>({
+    resolver: yupResolver(formSchemaControlled),
+    mode: 'all',
   });
 
   const password = watch('password', '');
   const passwordStrength = getPasswordStrength(password);
+  const { countries } = useFormStore();
 
-  const onSubmit = (data: FormData) => {
+  const onSubmit = (data: FormDataControlled) => {
     console.log('Form data:', data);
   };
 
@@ -24,7 +26,7 @@ export function ControlledForm() {
     <form onSubmit={handleSubmit(onSubmit)}>
       <label>
         Name
-        <input {...register('name')} aria-invalid={!!errors.name} />
+        <input {...register('name')} aria-invalid={!!errors.name} autoComplete="on" />
         <small>{errors.name?.message}</small>
       </label>
 
@@ -36,7 +38,7 @@ export function ControlledForm() {
 
       <label>
         Email
-        <input type="email" {...register('email')} aria-invalid={!!errors.email} />
+        <input type="email" {...register('email')} aria-invalid={!!errors.email} autoComplete="on" />
         <small>{errors.email?.message}</small>
       </label>
 
@@ -77,19 +79,24 @@ export function ControlledForm() {
       </label>
 
       <label htmlFor="country">Country</label>
-      <select aria-label="Select country" autoComplete="on" {...register('country')} aria-invalid={!!errors.country}>
-        <option selected disabled value="">
-          Select country
-        </option>
+      <input
+        id="country"
+        list="countries"
+        placeholder="Select or type country"
+        autoComplete="country"
+        {...register('country')}
+        aria-invalid={!!errors.country}
+      />
+      <datalist id="countries">
         {countries.map((country) => (
-          <option key={country} value={country}>
-            {country}
-          </option>
+          <option key={country} value={country} />
         ))}
-      </select>
+      </datalist>
       <small>{errors.country?.message}</small>
 
-      <button type="submit">Submit</button>
+      <button type="submit" disabled={!isValid}>
+        Submit
+      </button>
     </form>
   );
 }

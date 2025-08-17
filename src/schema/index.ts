@@ -1,4 +1,5 @@
 import * as yup from 'yup';
+import { countries } from '@/consts';
 
 const passwordSchema = yup
   .string()
@@ -10,7 +11,27 @@ const passwordSchema = yup
     /[!@#$%^&*(),.?":{}|<>]/.test(val || '')
   );
 
-export const formSchema = yup.object({
+const pictureSchemaControlled = yup
+  .mixed<FileList>()
+  .required('No files selected')
+  .test('fileSize', 'File size must be less than 1MB', (val) => {
+    return val && val.length > 0 && val[0].size <= 1 * 1024 * 1024;
+  })
+  .test('fileType', 'Only PNG and JPEG files are allowed', (val) => {
+    return val && val.length > 0 && ['image/png', 'image/jpeg'].includes(val[0].type);
+  });
+
+const pictureSchemaUnControlled = yup
+  .mixed<File>()
+  .required('No files selected')
+  .test('fileSize', 'File size must be less than 1MB', (val) => {
+    return val && val.size <= 1 * 1024 * 1024;
+  })
+  .test('fileType', 'Only PNG and JPEG files are allowed', (val) => {
+    return val && ['image/png', 'image/jpeg'].includes(val.type);
+  });
+
+const formSchema = yup.object({
   name: yup
     .string()
     .required('Name is required')
@@ -24,19 +45,19 @@ export const formSchema = yup.object({
     .oneOf([yup.ref('password')], 'Passwords do not match'),
   gender: yup.string().oneOf(['male', 'female', 'other'], 'Please select a gender').required(),
   acceptTerms: yup.boolean().oneOf([true], 'You must accept the terms and conditions').required(),
-  picture: yup
-    .mixed<FileList>()
-    .required('No files selected')
-    .test('fileSize', 'File size must be less than 1MB', (val) => {
-      return val && val.length > 0 && val[0].size <= 1 * 1024 * 1024;
-    })
-    .test('fileType', 'Only PNG and JPEG files are allowed', (val) => {
-      return val && val.length > 0 && ['image/png', 'image/jpeg'].includes(val[0].type);
-    }),
-  country: yup.string().required('Please select a country'),
+  country: yup.string().required('Please select a country').oneOf(countries, 'Please select a valid country'),
 });
 
-export type FormData = yup.InferType<typeof formSchema>;
+export const formSchemaUncontrolled = formSchema.shape({
+  picture: pictureSchemaUnControlled,
+});
+
+export const formSchemaControlled = formSchema.shape({
+  picture: pictureSchemaControlled,
+});
+
+export type FormDataControlled = yup.InferType<typeof formSchemaControlled>;
+export type FormDataUncontrolled = yup.InferType<typeof formSchemaUncontrolled>;
 
 export const getPasswordStrength = (password: string): number => {
   let strength = 0;

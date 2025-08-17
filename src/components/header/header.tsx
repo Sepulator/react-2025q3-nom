@@ -9,7 +9,11 @@ export function Header() {
       <nav className="container">
         <ul>
           <li>
-            <button onClick={openDialog}>Dialog</button>
+            <button onClick={() => openDialog(true)}>React Hook Form</button>
+          </li>
+
+          <li>
+            <button onClick={() => openDialog(false)}>Uncontrolled Form</button>
           </li>
         </ul>
         <ul>
