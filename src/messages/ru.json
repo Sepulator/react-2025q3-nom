@@ -31,5 +31,10 @@
   },
   "LocaleSwitcher": {
     "locale": "{locale, select, ru {ru Русский} en {en Английский} other {Unknown}}"
+  },
+  "NotFound": {
+    "title": "404 - Страница не найдена",
+    "info": "Страница, которую вы ищете, не существует.",
+    "link": "Вернуться домой"
   }
 }

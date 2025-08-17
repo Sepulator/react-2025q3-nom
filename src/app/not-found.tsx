@@ -1,5 +1,13 @@
-import { NotFound } from '@/views/not-found';
+'use client';
 
-export default async function NotFoundPage() {
-  return <NotFound />;
+import Error from 'next/error';
+
+export default function NotFound() {
+  return (
+    <html lang="en">
+      <body>
+        <Error statusCode={404} withDarkMode />
+      </body>
+    </html>
+  );
 }
