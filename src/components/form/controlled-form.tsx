@@ -1,6 +1,7 @@
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { formSchema, type FormData, getPasswordStrength } from '@/schema';
+import { countries } from '@/consts';
 
 export function ControlledForm() {
   const {
@@ -14,7 +15,6 @@ export function ControlledForm() {
 
   const password = watch('password', '');
   const passwordStrength = getPasswordStrength(password);
-  const passwordLabel = ['weak', 'fair', 'solid', 'good', 'strong'][passwordStrength - 1];
 
   const onSubmit = (data: FormData) => {
     console.log('Form data:', data);
@@ -44,11 +44,7 @@ export function ControlledForm() {
         Password
         <input type="password" {...register('password')} aria-invalid={!!errors.password} />
         <small>{errors.password?.message}</small>
-        {password && (
-          <small className={`strength-${passwordLabel}`}>
-            Strength: {passwordStrength}/5 - {passwordLabel || 'very weak'}
-          </small>
-        )}
+        {password && <meter max={5} value={passwordStrength}></meter>}
       </label>
 
       <label>
@@ -79,6 +75,19 @@ export function ControlledForm() {
         <input type="file" accept=".png,.jpeg,.jpg" {...register('picture')} aria-invalid={!!errors.picture} />
         <small>{errors.picture?.message}</small>
       </label>
+
+      <label htmlFor="country">Country</label>
+      <select aria-label="Select country" autoComplete="on" {...register('country')} aria-invalid={!!errors.country}>
+        <option selected disabled value="">
+          Select country
+        </option>
+        {countries.map((country) => (
+          <option key={country} value={country}>
+            {country}
+          </option>
+        ))}
+      </select>
+      <small>{errors.country?.message}</small>
 
       <button type="submit">Submit</button>
     </form>

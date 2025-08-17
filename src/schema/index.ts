@@ -33,6 +33,7 @@ export const formSchema = yup.object({
     .test('fileType', 'Only PNG and JPEG files are allowed', (val) => {
       return val && val.length > 0 && ['image/png', 'image/jpeg'].includes(val[0].type);
     }),
+  country: yup.string().required('Please select a country'),
 });
 
 export type FormData = yup.InferType<typeof formSchema>;
