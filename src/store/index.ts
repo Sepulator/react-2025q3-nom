@@ -17,7 +17,7 @@ export const useFormStore = create<FormStore>((set) => ({
   isHookForm: true,
   openDialog: (type: boolean) => set({ isDialogOpen: true, isHookForm: type }),
   closeDialog: () => set({ isDialogOpen: false }),
-  addFormValue: (formValue: FormValue) => set((state) => ({ formValues: [...state.formValues, formValue] })),
+  addFormValue: (formValue: FormValue) => set((state) => ({ formValues: [formValue, ...state.formValues] })),
   countries,
   formValues: [],
 }));

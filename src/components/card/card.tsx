@@ -1,8 +1,12 @@
 import type { FormValue } from '@/types';
 
-export function Card({ age, email, name, picture, country, gender }: FormValue) {
+interface CardProps extends FormValue {
+  className?: string;
+}
+
+export function Card({ age, email, name, picture, country, gender, className }: CardProps) {
   return (
-    <article className="card">
+    <article className={`card ${className || ''}`}>
       <img src={picture} alt={name} />
       <div>
         <p>

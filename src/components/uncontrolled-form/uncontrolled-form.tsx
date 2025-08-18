@@ -22,7 +22,6 @@ export function UncontrolledForm() {
       await formSchemaUncontrolled.validate(data, { abortEarly: false });
       const base64 = URL.createObjectURL(data.picture as File);
       addFormValue({ ...(data as unknown as FormValue), picture: base64 });
-      console.log('Form data:', data);
       closeDialog();
     } catch (err) {
       const validationErrors: Record<string, string> = {};
@@ -43,7 +42,7 @@ export function UncontrolledForm() {
     <form ref={formRef} onSubmit={handleSubmit}>
       <label>
         Name
-        <input name="name" aria-invalid={!!errors.name} />
+        <input name="name" aria-invalid={!!errors.name} autoComplete="on" />
         <small>{errors.name}</small>
       </label>
 
@@ -55,7 +54,7 @@ export function UncontrolledForm() {
 
       <label>
         Email
-        <input type="email" name="email" aria-invalid={!!errors.email} />
+        <input type="email" name="email" aria-invalid={!!errors.email} autoComplete="on" />
         <small>{errors.email}</small>
       </label>
 
@@ -101,7 +100,7 @@ export function UncontrolledForm() {
       </label>
 
       <label htmlFor="country">Country</label>
-      <select name="country" aria-invalid={!!errors.country}>
+      <select id="country" name="country" aria-invalid={!!errors.country} autoComplete="off">
         <option value="">Select country</option>
         {countries.map((country) => (
           <option key={country} value={country}>

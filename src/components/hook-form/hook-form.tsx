@@ -23,7 +23,6 @@ export function HookForm() {
     const picture = data.picture[0];
     const base64 = URL.createObjectURL(picture);
     addFormValue({ ...data, picture: base64 });
-    console.log('Form data:', data);
     closeDialog();
   };
 
@@ -88,7 +87,7 @@ export function HookForm() {
         id="country"
         list="countries"
         placeholder="Select or type country"
-        autoComplete="country"
+        autoComplete="off"
         {...register('country')}
         aria-invalid={!!errors.country}
       />

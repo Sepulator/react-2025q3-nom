@@ -30,14 +30,14 @@ export function Dialog({ children, isOpen, handleClose, title }: Props) {
     };
   }, [handleClose]);
 
-  // const handleBackdropClick = (event: React.MouseEvent<HTMLDialogElement>) => {
-  //   if (event.target === dialogRef.current && event.type === 'mouseup') {
-  //     handleClose();
-  //   }
-  // };
+  const handleBackdropClick = (event: React.MouseEvent<HTMLDialogElement>) => {
+    if (event.target === dialogRef.current) {
+      handleClose();
+    }
+  };
 
   return createPortal(
-    <dialog ref={dialogRef}>
+    <dialog ref={dialogRef} onClick={handleBackdropClick}>
       <article>
         <header>
           <button aria-label="Close" rel="prev" onClick={handleClose}></button>
