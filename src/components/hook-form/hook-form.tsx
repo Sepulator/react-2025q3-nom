@@ -3,6 +3,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 
 import { formSchemaControlled, type FormDataControlled, getPasswordStrength } from '@/schema';
 import { useFormStore } from '@/store';
+import { convertImageToBase64 } from '@/utils';
 
 export function HookForm() {
   const {
@@ -19,9 +20,9 @@ export function HookForm() {
   const passwordStrength = getPasswordStrength(password);
   const { countries, addFormValue, closeDialog } = useFormStore();
 
-  const onSubmit = (data: FormDataControlled) => {
+  const onSubmit = async (data: FormDataControlled) => {
     const picture = data.picture[0];
-    const base64 = URL.createObjectURL(picture);
+    const base64 = await convertImageToBase64(picture);
     addFormValue({ ...data, picture: base64 });
     closeDialog();
   };

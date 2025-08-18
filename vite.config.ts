@@ -26,7 +26,6 @@ export default defineConfig({
         'src/App.{js,jsx,ts,tsx}',
         'src/__tests__/setup-tests.{js,ts,tsx}',
         'src/__tests__/test-utils.{js,ts,tsx}',
-        'src/__tests__/handlers.{js,ts,tsx}',
         'src/**/*.d.ts',
       ],
     },

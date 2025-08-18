@@ -4,6 +4,7 @@ import { ValidationError } from 'yup';
 import { formSchemaUncontrolled, getPasswordStrength } from '@/schema';
 import type { FormValue } from '@/types';
 import { useFormStore } from '@/store';
+import { convertImageToBase64 } from '@/utils';
 
 export function UncontrolledForm() {
   const formRef = useRef<HTMLFormElement>(null);
@@ -20,7 +21,7 @@ export function UncontrolledForm() {
 
     try {
       await formSchemaUncontrolled.validate(data, { abortEarly: false });
-      const base64 = URL.createObjectURL(data.picture as File);
+      const base64 = await convertImageToBase64(data.picture as File);
       addFormValue({ ...(data as unknown as FormValue), picture: base64 });
       closeDialog();
     } catch (err) {
