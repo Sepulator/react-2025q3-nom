@@ -1,12 +1,15 @@
 import { useRef, useState, type FormEvent } from 'react';
-import { formSchemaUncontrolled, getPasswordStrength } from '@/schema';
-import { countries } from '@/consts';
 import { ValidationError } from 'yup';
+
+import { formSchemaUncontrolled, getPasswordStrength } from '@/schema';
+import type { FormValue } from '@/types';
+import { useFormStore } from '@/store';
 
 export function UncontrolledForm() {
   const formRef = useRef<HTMLFormElement>(null);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [password, setPassword] = useState('');
+  const { countries, addFormValue, closeDialog } = useFormStore();
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -17,8 +20,10 @@ export function UncontrolledForm() {
 
     try {
       await formSchemaUncontrolled.validate(data, { abortEarly: false });
+      const base64 = URL.createObjectURL(data.picture as File);
+      addFormValue({ ...(data as unknown as FormValue), picture: base64 });
       console.log('Form data:', data);
-      setErrors({});
+      closeDialog();
     } catch (err) {
       const validationErrors: Record<string, string> = {};
       if (err instanceof ValidationError) {
@@ -80,13 +85,13 @@ export function UncontrolledForm() {
         <label htmlFor="female">Female</label>
         <input type="radio" id="other" name="gender" value="other" aria-invalid={!!errors.gender} />
         <label htmlFor="other">Other</label>
-        <small>{errors.gender}</small>
+        <small className="error">{errors.gender}</small>
       </fieldset>
 
       <label>
-        <input type="checkbox" name="acceptTerms" aria-invalid={!!errors.acceptTerms} />I accept the Terms and
-        Conditions
-        <small>{errors.acceptTerms}</small>
+        <input type="checkbox" value="on" name="acceptTerms" aria-invalid={!!errors.acceptTerms} />I accept the Terms
+        and Conditions
+        <small className="error">{errors.acceptTerms}</small>
       </label>
 
       <label>

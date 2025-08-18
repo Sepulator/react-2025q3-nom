@@ -37,15 +37,18 @@ const formSchema = yup.object({
     .required('Name is required')
     .test('starts-uppercase', 'Name must start with an uppercase letter', (val) => /^[A-Z]/.test(val || '')),
   age: yup.number().typeError('Age must be a number').min(1, 'Age cannot be negative').required(),
-  email: yup.string().email().required(),
-  password: passwordSchema.required(),
+  email: yup.string().email().required('Type email'),
+  password: passwordSchema.required('Type password'),
   confirmPassword: yup
     .string()
     .required('Please confirm your password')
     .oneOf([yup.ref('password')], 'Passwords do not match'),
-  gender: yup.string().oneOf(['male', 'female', 'other'], 'Please select a gender').required(),
-  acceptTerms: yup.boolean().oneOf([true], 'You must accept the terms and conditions').required(),
-  country: yup.string().required('Please select a country').oneOf(countries, 'Please select a valid country'),
+  gender: yup.string().oneOf(['male', 'female', 'other'], 'Please select a gender').required('Please select a gender'),
+  acceptTerms: yup
+    .string()
+    .oneOf(['on'], 'You must accept the terms and conditions')
+    .required('You must accept the terms and conditions'),
+  country: yup.string().oneOf(countries, 'Please select a valid country').required(),
 });
 
 export const formSchemaUncontrolled = formSchema.shape({

@@ -1,4 +1,5 @@
 import { countries } from '@/consts';
+import type { FormValue } from '@/types';
 import { create } from 'zustand';
 
 interface FormStore {
@@ -6,7 +7,9 @@ interface FormStore {
   isHookForm: boolean;
   openDialog: (type: boolean) => void;
   closeDialog: () => void;
+  addFormValue: (formValue: FormValue) => void;
   countries: string[];
+  formValues: FormValue[];
 }
 
 export const useFormStore = create<FormStore>((set) => ({
@@ -14,5 +17,7 @@ export const useFormStore = create<FormStore>((set) => ({
   isHookForm: true,
   openDialog: (type: boolean) => set({ isDialogOpen: true, isHookForm: type }),
   closeDialog: () => set({ isDialogOpen: false }),
+  addFormValue: (formValue: FormValue) => set((state) => ({ formValues: [...state.formValues, formValue] })),
   countries,
+  formValues: [],
 }));
