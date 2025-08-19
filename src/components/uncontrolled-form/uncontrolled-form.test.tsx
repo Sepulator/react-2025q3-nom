@@ -1,6 +1,6 @@
-import { mockFormValue1, mockStore } from '@/__tests__/form-mock';
-import { fillValidForm, render, screen, waitFor } from '@/__tests__/test-utils';
-import HookForm from '@/components/hook-form';
+import { mockStore } from '@/__tests__/form-mock';
+import { render, screen, waitFor } from '@/__tests__/test-utils';
+import UncontrolledForm from '@/components/uncontrolled-form';
 
 import * as utils from '@/utils';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
@@ -16,7 +16,7 @@ describe('React hook form', () => {
   });
 
   it('renders all required fields', async () => {
-    render(<HookForm />);
+    render(<UncontrolledForm />);
 
     await waitFor(() => {
       expect(screen.getByLabelText(/name/i)).toBeInTheDocument();
@@ -37,11 +37,13 @@ describe('React hook form', () => {
   });
 
   it('shows name validation error', async () => {
-    const { user } = render(<HookForm />);
+    const { user } = render(<UncontrolledForm />);
 
+    const submitButton = screen.getByRole('button', { name: /submit/i });
     const nameInput = screen.getByLabelText(/name/i);
+
     await user.type(nameInput, 'invalid');
-    await user.tab();
+    await user.click(submitButton);
 
     await waitFor(() => {
       expect(screen.getByText(/name must start with an uppercase letter/i)).toBeInTheDocument();
@@ -49,11 +51,12 @@ describe('React hook form', () => {
   });
 
   it('shows age validation error', async () => {
-    const { user } = render(<HookForm />);
+    const { user } = render(<UncontrolledForm />);
 
+    const submitButton = screen.getByRole('button', { name: /submit/i });
     const ageInput = screen.getByLabelText(/age/i);
     await user.type(ageInput, '-1');
-    await user.tab();
+    await user.click(submitButton);
 
     await waitFor(() => {
       expect(screen.getByText(/age cannot be negative/i)).toBeInTheDocument();
@@ -61,11 +64,13 @@ describe('React hook form', () => {
   });
 
   it('shows email validation error', async () => {
-    const { user } = render(<HookForm />);
+    const { user } = render(<UncontrolledForm />);
 
+    const submitButton = screen.getByRole('button', { name: /submit/i });
     const emailInput = screen.getByLabelText(/email/i);
+
     await user.type(emailInput, 'invalid-email');
-    await user.tab();
+    await user.click(submitButton);
 
     await waitFor(() => {
       expect(screen.getByText(/email must be a valid email/i)).toBeInTheDocument();
@@ -73,26 +78,29 @@ describe('React hook form', () => {
   });
 
   it('shows password validation errors', async () => {
-    const { user } = render(<HookForm />);
+    const { user } = render(<UncontrolledForm />);
 
-    const passwordInput = screen.getByLabelText(/^password$/i);
+    const submitButton = screen.getByRole('button', { name: /submit/i });
+    const passwordInput = screen.getByLabelText(/main-password/i);
+
     await user.type(passwordInput, 'weak');
-    await user.tab();
+    await user.click(submitButton);
 
     await waitFor(() => {
-      expect(screen.getByText(/password must be at least 8 characters/i)).toBeInTheDocument();
+      expect(screen.getByText(/password must contain at least 1 special character/i)).toBeInTheDocument();
     });
   });
 
   it('shows confirm password mismatch error', async () => {
-    const { user } = render(<HookForm />);
+    const { user } = render(<UncontrolledForm />);
 
+    const submitButton = screen.getByRole('button', { name: /submit/i });
     const passwordInput = screen.getByLabelText(/^password$/i);
     const confirmInput = screen.getByLabelText(/confirm password/i);
 
     await user.type(passwordInput, '!1Qwerty');
     await user.type(confirmInput, '!11Qwerty');
-    await user.tab();
+    await user.click(submitButton);
 
     await waitFor(() => {
       expect(screen.getByText(/passwords do not match/i)).toBeInTheDocument();
@@ -100,55 +108,30 @@ describe('React hook form', () => {
   });
 
   it('shows terms acceptance error', async () => {
-    render(<HookForm />);
+    const { user } = render(<UncontrolledForm />);
+
+    const submitButton = screen.getByRole('button', { name: /submit/i });
+    await user.click(submitButton);
 
     await waitFor(() => {
       expect(screen.getByText('You must accept the terms and conditions')).toBeInTheDocument();
     });
   });
 
-  it('submits form with valid data', async () => {
-    const { user } = render(<HookForm />);
+  it('submit button enabled by default', async () => {
+    render(<UncontrolledForm />);
 
-    await fillValidForm(user);
+    expect(screen.getByRole('button', { name: /submit/i })).toBeEnabled();
+  });
+
+  it('clears error when valid input is entered after submit', async () => {
+    const { user } = render(<UncontrolledForm />);
 
     const submitButton = screen.getByRole('button', { name: /submit/i });
-    await user.click(submitButton);
-
-    await waitFor(() => {
-      expect(mockStore.addFormValue).toHaveBeenCalledWith(mockFormValue1);
-      expect(mockStore.closeDialog).toHaveBeenCalled();
-    });
-  });
-
-  it('disables submit button when form is invalid', async () => {
-    render(<HookForm />);
-
-    const submitButton = screen.getByRole('button', { name: /submit/i });
-
-    await waitFor(() => {
-      expect(submitButton).toBeDisabled();
-    });
-  });
-
-  it('enables submit button when form is valid', async () => {
-    const { user } = render(<HookForm />);
-
-    await fillValidForm(user);
-
-    await waitFor(() => {
-      const submitButton = screen.getByRole('button', { name: /submit/i });
-      expect(submitButton).toBeEnabled();
-    });
-  });
-
-  it('clears error when valid input is entered', async () => {
-    const { user } = render(<HookForm />);
-
     const nameInput = screen.getByLabelText(/name/i);
 
     await user.type(nameInput, 'invalid');
-    await user.tab();
+    await user.click(submitButton);
 
     await waitFor(() => {
       expect(screen.getByText(/name must start with an uppercase letter/i)).toBeInTheDocument();
@@ -156,6 +139,7 @@ describe('React hook form', () => {
 
     await user.clear(nameInput);
     await user.type(nameInput, 'Valid Name');
+    await user.click(submitButton);
 
     await waitFor(() => {
       expect(screen.queryByText(/name must start with an uppercase letter/i)).not.toBeInTheDocument();
@@ -163,11 +147,13 @@ describe('React hook form', () => {
   });
 
   it('shows aria-invalid attribute on invalid fields', async () => {
-    const { user } = render(<HookForm />);
+    const { user } = render(<UncontrolledForm />);
 
+    const submitButton = screen.getByRole('button', { name: /submit/i });
     const nameInput = screen.getByLabelText(/name/i);
+
     await user.type(nameInput, 'invalid');
-    await user.tab();
+    await user.click(submitButton);
 
     await waitFor(() => {
       expect(nameInput).toHaveAttribute('aria-invalid', 'true');

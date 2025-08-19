@@ -38,7 +38,7 @@ export function HookForm() {
     <form onSubmit={handleSubmit(onSubmit)}>
       <label>
         Name
-        <input {...register('name')} aria-invalid={!!errors.name} autoComplete="on" />
+        <input type="text" {...register('name')} aria-invalid={!!errors.name} autoComplete="on" />
         <small>{errors.name?.message}</small>
       </label>
 
@@ -50,7 +50,7 @@ export function HookForm() {
 
       <label>
         Email
-        <input type="email" {...register('email')} aria-invalid={!!errors.email} autoComplete="on" />
+        <input type="text" {...register('email')} aria-invalid={!!errors.email} autoComplete="on" />
         <small>{errors.email?.message}</small>
       </label>
 

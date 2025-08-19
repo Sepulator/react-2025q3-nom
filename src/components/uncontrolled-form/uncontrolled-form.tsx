@@ -22,8 +22,10 @@ export function UncontrolledForm() {
 
     try {
       await formSchemaUncontrolled.validate(data, { abortEarly: false });
+
       const base64 = await convertImageToBase64(data.picture as File);
       addFormValue({ ...(data as unknown as FormValue), picture: base64 });
+
       closeDialog();
     } catch (err) {
       const validationErrors: Record<string, string> = {};
@@ -44,7 +46,7 @@ export function UncontrolledForm() {
     <form ref={formRef} onSubmit={handleSubmit}>
       <label>
         Name
-        <input name="name" aria-invalid={!!errors.name} autoComplete="on" />
+        <input type="text" name="name" aria-invalid={!!errors.name} autoComplete="on" />
         <small>{errors.name}</small>
       </label>
 
@@ -56,13 +58,19 @@ export function UncontrolledForm() {
 
       <label>
         Email
-        <input type="email" name="email" aria-invalid={!!errors.email} autoComplete="on" />
+        <input type="text" name="email" aria-invalid={!!errors.email} autoComplete="on" />
         <small>{errors.email}</small>
       </label>
 
       <label>
         Password
-        <input type="password" name="password" aria-invalid={!!errors.password} ref={password} />
+        <input
+          type="password"
+          name="password"
+          aria-invalid={!!errors.password}
+          ref={password}
+          aria-label="main-password"
+        />
         <small>{errors.password}</small>
         {password && <meter max={5} value={passwordStrength}></meter>}
       </label>
@@ -92,7 +100,7 @@ export function UncontrolledForm() {
 
       <label>
         Picture
-        <input type="file" name="picture" accept=".png,.jpeg,.jpg" aria-invalid={!!errors.picture} />
+        <input type="file" name="picture" accept=".png, .jpeg, .jpg" aria-invalid={!!errors.picture} />
         <small>{errors.picture}</small>
       </label>
 

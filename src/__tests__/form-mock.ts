@@ -1,4 +1,5 @@
-import type { FormValue } from '@/types';
+import type { FormStore, FormValue } from '@/types';
+import { vi } from 'vitest';
 
 export const mockFormValue1: FormValue = {
   name: 'John Doe',
@@ -22,4 +23,14 @@ export const mockFormValue2: FormValue = {
   acceptTerms: 'on',
   country: 'Germany',
   picture: 'data:image/png;base64,mock',
+};
+
+export const mockStore: FormStore = {
+  countries: ['United States', 'Canada', 'Germany'],
+  addFormValue: vi.fn(),
+  closeDialog: vi.fn(),
+  openDialog: vi.fn(),
+  formValues: [],
+  isDialogOpen: false,
+  isHookForm: false,
 };
