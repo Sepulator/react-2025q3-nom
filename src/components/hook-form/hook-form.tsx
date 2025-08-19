@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 
@@ -10,11 +11,16 @@ export function HookForm() {
     register,
     handleSubmit,
     watch,
+    trigger,
     formState: { errors, isValid },
   } = useForm<FormDataControlled>({
     resolver: yupResolver(formSchemaControlled),
     mode: 'all',
   });
+
+  useEffect(() => {
+    trigger();
+  }, [trigger]);
 
   const password = watch('password', '');
   const passwordStrength = getPasswordStrength(password);
@@ -49,7 +55,7 @@ export function HookForm() {
 
       <label>
         Password
-        <input type="password" {...register('password')} aria-invalid={!!errors.password} />
+        <input type="password" {...register('password')} aria-invalid={!!errors.password} aria-label="main-password" />
         <small>{errors.password?.message}</small>
         {password && <meter max={5} value={passwordStrength}></meter>}
       </label>
@@ -83,21 +89,23 @@ export function HookForm() {
         <small>{errors.picture?.message}</small>
       </label>
 
-      <label htmlFor="country">Country</label>
-      <input
-        id="country"
-        list="countries"
-        placeholder="Select or type country"
-        autoComplete="off"
-        {...register('country')}
-        aria-invalid={!!errors.country}
-      />
-      <datalist id="countries">
-        {countries.map((country) => (
-          <option key={country} value={country} />
-        ))}
-      </datalist>
-      <small>{errors.country?.message}</small>
+      <label htmlFor="country">
+        Country
+        <input
+          id="country"
+          list="countries"
+          placeholder="Select or type country"
+          autoComplete="off"
+          {...register('country')}
+          aria-invalid={!!errors.country}
+        />
+        <small>{errors.country?.message}</small>
+        <datalist id="countries">
+          {countries.map((country) => (
+            <option key={country} value={country} />
+          ))}
+        </datalist>
+      </label>
 
       <button type="submit" disabled={!isValid}>
         Submit

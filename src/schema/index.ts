@@ -48,7 +48,7 @@ const formSchema = yup.object({
     .string()
     .oneOf(['on'], 'You must accept the terms and conditions')
     .required('You must accept the terms and conditions'),
-  country: yup.string().oneOf(countries, 'Please select a valid country').required(),
+  country: yup.string().oneOf(countries, 'Please select a valid country').required('Please select a valid country'),
 });
 
 export const formSchemaUncontrolled = formSchema.shape({

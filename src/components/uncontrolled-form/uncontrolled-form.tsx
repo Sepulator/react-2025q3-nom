@@ -8,8 +8,8 @@ import { convertImageToBase64 } from '@/utils';
 
 export function UncontrolledForm() {
   const formRef = useRef<HTMLFormElement>(null);
+  const password = useRef<HTMLInputElement>(null);
   const [errors, setErrors] = useState<Record<string, string>>({});
-  const [password, setPassword] = useState('');
   const { countries, addFormValue, closeDialog } = useFormStore();
 
   const handleSubmit = async (e: FormEvent) => {
@@ -37,7 +37,7 @@ export function UncontrolledForm() {
     }
   };
 
-  const passwordStrength = getPasswordStrength(password);
+  const passwordStrength = getPasswordStrength(password.current?.value || '');
 
   return (
     <form ref={formRef} onSubmit={handleSubmit}>
@@ -61,12 +61,7 @@ export function UncontrolledForm() {
 
       <label>
         Password
-        <input
-          type="password"
-          name="password"
-          aria-invalid={!!errors.password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
+        <input type="password" name="password" aria-invalid={!!errors.password} ref={password} />
         <small>{errors.password}</small>
         {password && <meter max={5} value={passwordStrength}></meter>}
       </label>
@@ -100,16 +95,22 @@ export function UncontrolledForm() {
         <small>{errors.picture}</small>
       </label>
 
-      <label htmlFor="country">Country</label>
-      <select id="country" name="country" aria-invalid={!!errors.country} autoComplete="off">
-        <option value="">Select country</option>
-        {countries.map((country) => (
-          <option key={country} value={country}>
-            {country}
-          </option>
-        ))}
-      </select>
-      <small>{errors.country}</small>
+      <label>
+        Country
+        <input
+          name="country"
+          list="countries"
+          placeholder="Select or type country"
+          autoComplete="off"
+          aria-invalid={!!errors.country}
+        />
+        <small>{errors.country}</small>
+        <datalist id="countries">
+          {countries.map((country) => (
+            <option key={country} value={country} />
+          ))}
+        </datalist>
+      </label>
 
       <button type="submit">Submit</button>
     </form>

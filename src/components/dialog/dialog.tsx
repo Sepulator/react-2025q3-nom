@@ -1,4 +1,4 @@
-import { useEffect, useRef, type ReactNode } from 'react';
+import { useEffect, useRef, type ReactNode, type MouseEvent } from 'react';
 import { createPortal } from 'react-dom';
 
 interface Props {
@@ -30,7 +30,7 @@ export function Dialog({ children, isOpen, handleClose, title }: Props) {
     };
   }, [handleClose]);
 
-  const handleBackdropClick = (event: React.MouseEvent<HTMLDialogElement>) => {
+  const handleBackdropClick = (event: MouseEvent<HTMLDialogElement>) => {
     if (event.target === dialogRef.current) {
       handleClose();
     }
