@@ -1,16 +1,6 @@
 import { countries } from '@/consts';
-import type { FormValue } from '@/types';
+import type { FormStore, FormValue } from '@/types';
 import { create } from 'zustand';
-
-interface FormStore {
-  isDialogOpen: boolean;
-  isHookForm: boolean;
-  openDialog: (type: boolean) => void;
-  closeDialog: () => void;
-  addFormValue: (formValue: FormValue) => void;
-  countries: string[];
-  formValues: FormValue[];
-}
 
 export const useFormStore = create<FormStore>((set) => ({
   isDialogOpen: false,

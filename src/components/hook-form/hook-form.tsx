@@ -2,7 +2,8 @@ import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 
-import { formSchemaControlled, type FormDataControlled, getPasswordStrength } from '@/schema';
+import { formSchemaControlled, type FormDataControlled } from '@/schema';
+import { getPasswordStrength } from '@/utils';
 import { useFormStore } from '@/store';
 import { convertImageToBase64 } from '@/utils';
 

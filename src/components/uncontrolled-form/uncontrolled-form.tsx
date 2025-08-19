@@ -1,7 +1,8 @@
 import { useRef, useState, type FormEvent } from 'react';
 import { ValidationError } from 'yup';
 
-import { formSchemaUncontrolled, getPasswordStrength } from '@/schema';
+import { formSchemaUncontrolled } from '@/schema';
+import { getPasswordStrength } from '@/utils';
 import type { FormValue } from '@/types';
 import { useFormStore } from '@/store';
 import { convertImageToBase64 } from '@/utils';

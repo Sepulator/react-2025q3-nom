@@ -9,3 +9,13 @@ export interface FormValue {
   country: string;
   picture: string;
 }
+
+export interface FormStore {
+  isDialogOpen: boolean;
+  isHookForm: boolean;
+  openDialog: (type: boolean) => void;
+  closeDialog: () => void;
+  addFormValue: (formValue: FormValue) => void;
+  countries: string[];
+  formValues: FormValue[];
+}

@@ -1,7 +1,8 @@
+import { mockFormValue1 } from '@/__tests__/form-mock';
 import { fillValidForm, render, screen, waitFor } from '@/__tests__/test-utils';
 import HookForm from '@/components/hook-form';
 
-import { getPasswordStrength } from '@/schema';
+import { getPasswordStrength } from '@/utils';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 const mockAddFormValue = vi.fn();
@@ -133,17 +134,7 @@ describe('React hook form', () => {
     await user.click(submitButton);
 
     await waitFor(() => {
-      expect(mockAddFormValue).toHaveBeenCalledWith({
-        name: 'John Doe',
-        age: 25,
-        email: 'john@example.com',
-        password: 'Password123!',
-        confirmPassword: 'Password123!',
-        gender: 'female',
-        acceptTerms: 'on',
-        country: 'United States',
-        picture: 'data:image/png;base64,mock',
-      });
+      expect(mockAddFormValue).toHaveBeenCalledWith(mockFormValue1);
       expect(mockCloseDialog).toHaveBeenCalled();
     });
   });
