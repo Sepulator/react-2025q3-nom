@@ -1,46 +1,30 @@
-import { useDetail } from '@/hooks/useDetail';
-import { useClickOutside } from '@/hooks/useClickOutside';
-import { Link, useNavigate } from 'react-router';
-import { useQueryParams } from '@/hooks/useQueryParams';
-import ErrorInfo from '@/components/error-info';
+import Image from 'next/image';
 
-export function CardDetail() {
-  const navigate = useNavigate();
-  const { status, data, error } = useDetail();
-  const { createRootPath } = useQueryParams();
+import { MovieDetail } from '@/types/interfaces';
+import CloseButton from '@/components/close-button';
 
-  const handleClose = () => {
-    const rootPath = createRootPath(['detail']);
-    navigate(rootPath);
-  };
+interface Props {
+  data: MovieDetail;
+  query?: { query: string; page: string };
+}
 
-  const ref = useClickOutside(handleClose);
-
+export function CardDetail({ data }: Props) {
   return (
-    <>
-      {status === 'error' || data?.Error ? (
-        <ErrorInfo error={error} status_message={data?.Error || ''} />
-      ) : status === 'pending' ? (
-        <div className="card-detail">
-          <article aria-busy="true" className="loading " data-testid="card-detail-loading">
-            Loading
-          </article>
-        </div>
-      ) : (
-        <article ref={ref} className="card-detail">
-          <img aria-label="Movie poster" src={data?.Poster} alt={data?.Title}></img>
-          <div>
-            <p>{data?.Title}</p>
-            <span>{data?.Released}</span>
-            <p>{data?.Plot}</p>
-            <p>Rating: {data?.imdbRating}</p>
-          </div>
-
-          <Link to={createRootPath(['detail'])} role="button">
-            Close
-          </Link>
-        </article>
-      )}
-    </>
+    <article className="card-detail">
+      <Image
+        aria-label="Movie poster"
+        src={data.Poster === 'N/A' ? './placeholder.svg' : data.Poster}
+        alt={data?.Title}
+        width={256}
+        height={379}
+      ></Image>
+      <div>
+        <p>{data?.Title}</p>
+        <span>{data?.Released}</span>
+        <p>{data?.Plot}</p>
+        <p>Rating: {data?.imdbRating}</p>
+      </div>
+      <CloseButton />
+    </article>
   );
 }

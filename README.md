@@ -1,4 +1,4 @@
-# State Management and Context API
+# Next.js. Server Side Rendering
 
 The Movie Database API created with Vite, React, TypeScript and PicoCSS.
 
@@ -10,21 +10,22 @@ Key pages in the application include:
 - Card list
 - Card detailed view
 - Pagination with URL synchronization
-- React Router for navigation and URL management
 - Favorite list
+- Using App Router
 
-The application is powered by [The Movie Database (TMDB) API](https://developer.themoviedb.org/docs/getting-started)
+The application is powered by [OMDb API](https://www.omdbapi.com/)
 
 ## Features
 
 - ⚡ [Library for web](https://react.dev/): Built with React 19.
-- 🎯 [Build tool](https://vite.dev/): Vite makes web development simple again.
+- 🎯 [Next.js](https://nextjs.org/): Everything you need to build great products on the web..
 - 💪 [Strongly typed](https://www.typescriptlang.org/): Uses TypeScript.
-- 🎊 [CSS Framework](https://picocss.com/): Minimal CSS Framework for semantic HTML.
-- 🛍️ [REST API](https://developer.themoviedb.org/docs/getting-started): The API service is for those of you interested in movie, TV show or actor data in your application.
+- 🎊 [Pico CSS](https://picocss.com/): Minimal CSS Framework for semantic HTML.
+- 🛍️ [REST API](https://www.omdbapi.com/): The Open Movie Database is a RESTful web service to obtain movie information.
 - 🔥 [Vite-native](https://vitest.dev/): A Vite-native testing framework. It's fast!.
 - 📌 [React router](https://reactrouter.com/): A user‑obsessed, standards‑focused, multi‑strategy router you can deploy anywhere.
-- 🐻 [Zustand](https://zustand-demo.pmnd.rs/): Bear necessities for state management in React
+- 🐻 [Zustand](https://zustand-demo.pmnd.rs/): Bear necessities for state management in React.
+- 🎉 [next-intl](https://next-intl.dev/): Internationalization for Next.js
 
 ## Getting Started
 
@@ -36,7 +37,7 @@ The application is powered by [The Movie Database (TMDB) API](https://developer.
   git clone https://github.com/Sepulator/react-2025q3-nom
 ```
 
-#### 2. Switch to `hooks-and-routing` branch
+#### 2. Switch to `nextjs-ssr` branch
 
 ```bash copy
   git switch hooks-and-routing

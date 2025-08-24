@@ -1,38 +1,39 @@
-import { useEffect, useRef } from 'react';
+'use client';
+
+import { useTranslations } from 'next-intl';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+
 import { useLocalStorage } from '@/hooks/useLocalStorage';
 import { QUERY } from '@/consts';
-import { useSearchParams } from 'react-router';
 
 export function Search() {
-  const [searchParams, setSearchParams] = useSearchParams();
-  const [storedValue, setStoredValue] = useLocalStorage<string>(QUERY, '');
-  const ref = useRef<HTMLInputElement>(null);
-
-  useEffect(() => {
-    if (ref.current) {
-      ref.current.value = searchParams.get('query') || storedValue;
-      ref.current.focus();
-    }
-  }, [searchParams, storedValue]);
+  const searchParams = useSearchParams();
+  const pathname = usePathname();
+  const { replace } = useRouter();
+  const [, setStoredValue] = useLocalStorage<string>(QUERY, '');
+  const t = useTranslations('Search');
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
     const query = formData.get('search')?.toString().trim();
 
-    setSearchParams((searchParams) => {
-      const updatedSearchParams = new URLSearchParams(searchParams);
-      updatedSearchParams.set('query', query || '');
-      updatedSearchParams.set('page', '1');
-      return updatedSearchParams;
-    });
+    const params = new URLSearchParams(searchParams);
+    params.set('query', query || '');
+    params.set('page', '1');
     setStoredValue(query || '');
+    replace(`${pathname}?${params.toString()}`);
   };
 
   return (
     <form role="group" className="search" onSubmit={handleSubmit}>
-      <input name="search" type="text" placeholder="Search movie" ref={ref} />
-      <button type="submit">Search</button>
+      <input
+        name="search"
+        type="text"
+        placeholder={t('placeholder')}
+        defaultValue={searchParams.get('query')?.toString()}
+      />
+      <button type="submit">{t('title')}</button>
     </form>
   );
 }

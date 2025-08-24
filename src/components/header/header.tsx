@@ -1,34 +1,39 @@
-import { Link, NavLink } from 'react-router';
-import logo from '@/assets/movie.svg';
-import ThemeSwitch from '@/components/theme-switch';
-import { useQueryClient } from '@tanstack/react-query';
+import Image from 'next/image';
+import { Link } from '@/i18n/navigation';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 
-export function Header() {
-  const queryClient = useQueryClient();
+import ThemeSwitch from '@/components/theme-switch';
+import LocaleSwitcher from '@/components/locale-switcher';
+
+interface Props {
+  locale: string;
+}
+
+export async function Header({ locale }: Props) {
+  setRequestLocale(locale);
+  const t = await getTranslations('Header');
 
   return (
     <header>
       <div className="container">
-        <Link to={'/'} aria-label="The Movie Database API homepage">
-          <img src={logo} className="logo" alt="Movie logo" />
+        <Link href={'/'} aria-label="The Movie Database API homepage" title={t('home')}>
+          <Image src="/movie.svg" className="logo" alt="Movie logo" width={40} height={40} />
         </Link>
 
         <nav>
           <ul>
             <li>
-              <NavLink to="/about" title="About" className={({ isActive }) => (isActive ? 'contrast' : '')}>
-                About
-              </NavLink>
+              <Link href="/about" title={t('about')}>
+                {t('about')}
+              </Link>
             </li>
             <li>
-              <a href="https://www.omdbapi.com/" className="secondary" target="_blank" rel="noreferrer">
-                OMDb API
-              </a>
+              <Link href="https://www.omdbapi.com/" className="secondary" target="_blank" rel="noreferrer">
+                {t('api')}
+              </Link>
             </li>
             <li>
-              <button onClick={() => queryClient.invalidateQueries()} title="Query Invalidation">
-                Refresh
-              </button>
+              <LocaleSwitcher />
             </li>
             <li className="theme-toggle-wrapper">
               <ThemeSwitch />

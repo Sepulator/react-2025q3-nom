@@ -1,50 +1,33 @@
+import Image from 'next/image';
+
+import { Favorite } from '@/components/favorite/favorite';
 import type { Movie } from '@/types/interfaces';
-import type { ChangeEvent } from 'react';
-import { useMoviesStore } from '@/store';
-import { Link } from 'react-router';
-import { useQueryParams } from '@/hooks/useQueryParams';
+import { Link } from '@/i18n/navigation';
 
 interface Props {
   movie: Movie;
+  query: { query: string; page: string };
 }
 
-export function Card({ movie }: Props) {
-  const { createDetailPath } = useQueryParams();
+export function Card({ movie, query }: Props) {
   const { Title, Poster, Year } = movie;
-  const movies = useMoviesStore((state) => state.movies);
-  const addMovie = useMoviesStore((state) => state.addMovie);
-  const removeMovie = useMoviesStore((state) => state.removeMovie);
-
-  const isFavorite = movies.some((m) => m.imdbID === movie.imdbID);
-
-  const handleFavoriteClick = (event: ChangeEvent<HTMLInputElement>) => {
-    const isChecked = event.target.checked;
-
-    if (isChecked) {
-      addMovie(movie);
-    } else {
-      removeMovie(movie.imdbID);
-    }
-  };
 
   return (
     <article className="card">
-      <Link to={createDetailPath(movie.imdbID)} className="card-link">
-        <img src={Poster} alt={Title} className="card-img"></img>
+      <Link href={{ pathname: `/details/${movie.imdbID}`, query }} className="card-link">
+        <Image
+          src={Poster === 'N/A' ? './placeholder.svg' : Poster}
+          alt={Title}
+          className="card-img"
+          width={256}
+          height={379}
+        ></Image>
         <div>
           <p>{Title}</p>
           <span>{Year}</span>
         </div>
       </Link>
-      <label className="card-favorite">
-        <input
-          type="checkbox"
-          name={`favorite-${movie.imdbID}`}
-          onChange={handleFavoriteClick}
-          checked={isFavorite}
-          placeholder="Select movie as favorite"
-        />
-      </label>
+      <Favorite movie={movie} />
     </article>
   );
 }

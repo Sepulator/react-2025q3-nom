@@ -1,0 +1,40 @@
+{
+  "HomePage": {
+    "title": "The Movie Database API"
+  },
+  "LocaleLayout": {
+    "title": "The Movie Database API"
+  },
+  "Search": {
+    "placeholder": "Search movie",
+    "title": "Search"
+  },
+  "Header": {
+    "about": "About",
+    "api": "OMDb API",
+    "home": "Home page"
+  },
+  "AboutPage": {
+    "title": "About",
+    "description": "<p>This web application was created as part of <important>RS School</important> study program. More information about <important>React</important> course can be viewed on the school site <link>rs.school</link>.</p>",
+    "author": "Author Yuri Skrypal",
+    "and": " and "
+  },
+  "Flyout": {
+    "one": "item is selected",
+    "more": "items are selected",
+    "load": "Download CSV",
+    "unselect": "Unselect all"
+  },
+  "Close": {
+    "title": "Close"
+  },
+  "LocaleSwitcher": {
+    "locale": "{locale, select, ru {ru Russian} en {en English} other {Unknown}}"
+  },
+  "NotFound": {
+    "title": "404 - Page Not Found",
+    "info": "The page you are looking for does not exist.",
+    "link": "Go to Home"
+  }
+}
