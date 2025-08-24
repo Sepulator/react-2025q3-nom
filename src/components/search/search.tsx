@@ -1,5 +1,5 @@
 import { Component, createRef } from 'react';
-import { queryStorage } from '../services/localstorage';
+import { queryStorage } from '@/services/localstorage';
 
 interface Props {
   handleQuery: (query: string) => void;

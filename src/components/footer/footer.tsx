@@ -1,5 +1,5 @@
-import rsLogo from '../assets/rss-logo.svg';
-import ghLogo from '../assets/github-mark.svg';
+import rsLogo from '@/assets/rss-logo.svg';
+import ghLogo from '@/assets/github-mark.svg';
 
 export function Footer() {
   return (

@@ -1,5 +1,5 @@
-import type { Movie } from '../types/interfaces';
-import { Card } from './card';
+import Card from '@/components/card';
+import type { Movie } from '@/types/interfaces';
 
 interface Props {
   movieList: Movie[];
