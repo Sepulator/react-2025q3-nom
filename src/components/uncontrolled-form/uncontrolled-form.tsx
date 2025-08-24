@@ -1,4 +1,4 @@
-import { useRef, useState, type FormEvent } from 'react';
+import { useEffect, useRef, useState, type FormEvent } from 'react';
 import { ValidationError } from 'yup';
 
 import { formSchemaUncontrolled } from '@/schema';
@@ -9,6 +9,7 @@ import { convertImageToBase64 } from '@/utils';
 
 export function UncontrolledForm() {
   const formRef = useRef<HTMLFormElement>(null);
+  const nameInputRef = useRef<HTMLInputElement>(null);
   const password = useRef<HTMLInputElement>(null);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const { countries, addFormValue, closeDialog } = useFormStore();
@@ -40,13 +41,17 @@ export function UncontrolledForm() {
     }
   };
 
+  useEffect(() => {
+    nameInputRef.current?.focus();
+  }, []);
+
   const passwordStrength = getPasswordStrength(password.current?.value || '');
 
   return (
     <form ref={formRef} onSubmit={handleSubmit}>
       <label>
         Name
-        <input type="text" name="name" aria-invalid={!!errors.name} autoComplete="on" />
+        <input ref={nameInputRef} type="text" name="name" aria-invalid={!!errors.name} autoComplete="on" />
         <small>{errors.name}</small>
       </label>
 

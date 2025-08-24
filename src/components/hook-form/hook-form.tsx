@@ -13,6 +13,7 @@ export function HookForm() {
     handleSubmit,
     watch,
     trigger,
+    setFocus,
     formState: { errors, isValid },
   } = useForm<FormDataControlled>({
     resolver: yupResolver(formSchemaControlled),
@@ -33,6 +34,10 @@ export function HookForm() {
     addFormValue({ ...data, picture: base64 });
     closeDialog();
   };
+
+  useEffect(() => {
+    setFocus('name');
+  }, [setFocus]);
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>

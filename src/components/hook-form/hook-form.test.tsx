@@ -173,4 +173,14 @@ describe('React hook form', () => {
       expect(nameInput).toHaveAttribute('aria-invalid', 'true');
     });
   });
+
+  it('focuses name input on mount', async () => {
+    render(<HookForm />);
+
+    const nameInput = screen.getByLabelText(/name/i);
+
+    await waitFor(() => {
+      expect(nameInput).toHaveFocus();
+    });
+  });
 });
