@@ -32,5 +32,5 @@ export const mockStore: FormStore = {
   openDialog: vi.fn(),
   formValues: [],
   isDialogOpen: false,
-  isHookForm: false,
+  isHookForm: true,
 };

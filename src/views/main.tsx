@@ -14,7 +14,7 @@ export default function MainView() {
 
   useEffect(() => {
     setNewCard('new-card');
-    const timer = setTimeout(() => setNewCard(''), 5000);
+    const timer = setTimeout(() => setNewCard(''), 4000);
     return () => clearTimeout(timer);
   }, [formValues]);
 
@@ -31,7 +31,7 @@ export default function MainView() {
             {isHookForm ? <HookForm /> : <UncontrolledForm />}
           </Dialog>
         )}
-        <section className="cards-list">
+        <section className="cards-list" role="region">
           {formValues.map((formValue, index) => (
             <Card key={index} {...formValue} className={index === 0 ? newCard : ''} />
           ))}
