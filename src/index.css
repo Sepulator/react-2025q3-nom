@@ -1,4 +1,5 @@
 @import url('./assets/pico.slate.min.css');
+@import url('./assets/classic.min.css');
 
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
@@ -40,6 +41,7 @@ header {
 }
 
 .main {
+  position: relative;
   display: flex;
   flex-direction: column;
   place-items: center start;
@@ -67,16 +69,19 @@ header {
 }
 
 .card {
+  position: relative;
   padding: 0;
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
   overflow: hidden;
   height: 100%;
 }
 
 .card-link {
   --pico-text-decoration: none;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .card-detail,
@@ -91,6 +96,7 @@ header {
 }
 
 .card-img {
+  width: 100%;
   transition: transform 0.3s ease;
 
   &:hover {
@@ -160,4 +166,33 @@ header {
 
 .loading {
   height: fit-content;
+}
+
+.card-favorite {
+  margin: 0;
+  position: absolute;
+  padding: 0.25rem;
+}
+
+.flyout {
+  z-index: 2;
+  position: fixed;
+  padding: 0.5rem;
+  border-radius: 8px;
+  background-color: var(--pico-tooltip-background-color);
+  right: 10%;
+  bottom: 5%;
+
+  & h4 {
+    text-align: center;
+    color: var(--pico-primary);
+  }
+
+  & button {
+    padding: 0.5rem;
+  }
+
+  & h4 + button {
+    margin-right: 1rem;
+  }
 }

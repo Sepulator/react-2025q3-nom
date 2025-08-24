@@ -7,7 +7,7 @@ describe('CardDetail', () => {
   beforeAll((global.window.URL.createObjectURL = vi.fn()));
 
   it('should show error state', async () => {
-    render({ initialEntries: ['/details/000?query=&page=1'] });
+    render({ initialEntries: ['/details/000?s=&page=1'] });
 
     await waitFor(() => {
       expect(screen.getByText(/Error:/)).toBeInTheDocument();
@@ -15,28 +15,18 @@ describe('CardDetail', () => {
   });
 
   it('should display movie details correctly', async () => {
-    render({ initialEntries: ['/details/123?query=&page=1'] });
+    render({ initialEntries: ['/details/123?s=&page=1'] });
     await waitFor(() => {
-      expect(screen.getByText(mockMovie.title)).toBeInTheDocument();
-      expect(screen.getByText(mockMovie.overview)).toBeInTheDocument();
-      expect(screen.getByText(/Rating: 8.50/)).toBeInTheDocument();
+      expect(screen.getByText(mockMovie.Title)).toBeInTheDocument();
+      expect(screen.getByText(mockMovie.Plot)).toBeInTheDocument();
       const image = screen.getByRole('img', { name: 'Movie poster' });
-      expect(image).toHaveAttribute('src', expect.stringContaining(mockMovie.poster_path));
-      expect(image).toHaveAttribute('alt', mockMovie.title);
-    });
-  });
-
-  it('should display fallback image when poster_path is empty', async () => {
-    render({ initialEntries: ['/details/123?query=&page=1'] });
-
-    await waitFor(() => {
-      const image = screen.getByRole('img', { name: 'Movie poster' });
-      expect(image).toHaveAttribute('alt', expect.stringContaining('No image available'));
+      expect(image).toHaveAttribute('src', expect.stringContaining(mockMovie.Poster));
+      expect(image).toHaveAttribute('alt', mockMovie.Title);
     });
   });
 
   it('should close detail view when clicking outside', async () => {
-    const { user, router } = render({ initialEntries: ['/details/123?query=&page=1'] });
+    const { user, router } = render({ initialEntries: ['/details/123?s=&page=1'] });
     waitFor(async () => {
       const heading = screen.getByRole('heading', { name: 'The Movie Database API' });
       await user.click(heading);

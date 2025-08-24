@@ -1,7 +1,6 @@
-import image from '@/assets/image.svg';
 import type { Movie } from '@/types/interfaces';
-import { formatDate } from '@/services/utils';
-import { poster_sizes, urlImage } from '@/consts';
+import type { ChangeEvent } from 'react';
+import { useMoviesStore } from '@/store';
 import { Link } from 'react-router';
 import { useQueryParams } from '@/hooks/useQueryParams';
 
@@ -11,21 +10,35 @@ interface Props {
 
 export function Card({ movie }: Props) {
   const { createDetailPath } = useQueryParams();
-  const { title, poster_path, release_date } = movie;
+  const { Title, Poster, Year } = movie;
+  const movies = useMoviesStore((state) => state.movies);
+  const addMovie = useMoviesStore((state) => state.addMovie);
+  const removeMovie = useMoviesStore((state) => state.removeMovie);
+
+  const isFavorite = movies.some((m) => m.imdbID === movie.imdbID);
+
+  const handleFavoriteClick = (event: ChangeEvent<HTMLInputElement>) => {
+    const isChecked = event.target.checked;
+
+    if (isChecked) {
+      addMovie(movie);
+    } else {
+      removeMovie(movie.imdbID);
+    }
+  };
 
   return (
-    <Link to={createDetailPath(movie.id)} className="card-link">
-      <article className="card">
-        <img
-          src={poster_path ? `${urlImage}/${poster_sizes[2]}/${poster_path}` : image}
-          alt={poster_path ? `${title}` : `No image available for ${title}`}
-          className="card-img"
-        ></img>
+    <article className="card">
+      <Link to={createDetailPath(movie.imdbID)} className="card-link">
+        <img src={Poster} alt={Title} className="card-img"></img>
         <div>
-          <p>{title}</p>
-          <span>{release_date && formatDate(release_date)}</span>
+          <p>{Title}</p>
+          <span>{Year}</span>
         </div>
-      </article>
-    </Link>
+      </Link>
+      <label className="card-favorite">
+        <input type="checkbox" name={`favorite-${movie.imdbID}`} onChange={handleFavoriteClick} checked={isFavorite} />
+      </label>
+    </article>
   );
 }

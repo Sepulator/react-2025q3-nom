@@ -1,3 +1,5 @@
+import type { Movie } from '@/types/interfaces';
+
 export const getKey = (arr: string) => {
   let result = '';
 
@@ -8,10 +10,14 @@ export const getKey = (arr: string) => {
   return result;
 };
 
-export const formatDate = (date: string) => {
-  return new Intl.DateTimeFormat('en-US', {
-    month: 'short',
-    day: '2-digit',
-    year: 'numeric',
-  }).format(new Date(date));
+const generateMovieCSV = (movies: Movie[]) =>
+  movies.reduce((prev, movie) => {
+    return prev + `${movie.imdbID}; ${movie.Title}; ${movie.Year}; ${movie.Type} \n`;
+  }, 'id; title; release date; type \n');
+
+export const getDownloadMovieURL = (movies: Movie[]) => {
+  const content = generateMovieCSV(movies);
+  const blob = new Blob([content], { type: 'text/csv; charset=utf-8' });
+  const url = URL.createObjectURL(blob);
+  return url;
 };

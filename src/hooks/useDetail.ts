@@ -6,18 +6,18 @@ import { useParams } from 'react-router';
 export function useDetail() {
   const [movie, setMovie] = useState<MovieDetail | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [isError, setIsError] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
   const { movieId } = useParams();
 
   useEffect(() => {
-    if (!movieId) return;
     setIsLoading(true);
     async function fetchMovie() {
+      if (!movieId) return;
       try {
-        const response = await getMovie(Number(movieId));
+        const response = await getMovie(movieId);
         setMovie(response);
       } catch (error) {
-        setIsError(error instanceof Error ? error.message : 'Failed to fetch movie');
+        setError(error instanceof Error ? error.message : 'Failed to fetch movie');
       } finally {
         setIsLoading(false);
       }
@@ -25,5 +25,5 @@ export function useDetail() {
     fetchMovie();
   }, [movieId]);
 
-  return { movie, isLoading, isError };
+  return { movie, isLoading, error };
 }

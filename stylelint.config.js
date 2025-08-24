@@ -1,5 +1,5 @@
 /** @type {import('stylelint').Config} */
 export default {
   extends: 'stylelint-config-standard',
-  ignoreFiles: ['**/*pico*.*', 'dist/**/*', 'node_modules/**/*'],
+  ignoreFiles: ['**/*min*.*', 'dist/**/*', 'node_modules/**/*'],
 };

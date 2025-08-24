@@ -1,4 +1,4 @@
-import { MAX_BUTTONS } from '@/consts';
+import { MAX_BUTTONS, MAX_PAGES } from '@/consts';
 import type { MoviesList } from '@/types/interfaces';
 import { Link, useSearchParams } from 'react-router';
 
@@ -7,8 +7,10 @@ interface Props {
 }
 
 export function Pagination({ moviesList }: Props) {
-  const { page, total_pages } = moviesList;
   const [searchParams] = useSearchParams();
+  const { totalResults } = moviesList;
+  const total_pages = Math.ceil(Number(totalResults) / MAX_PAGES);
+  const page = Number(searchParams.get('page') ?? '1');
 
   const renderPageButton = (pageNumber: number) => {
     const updatedSearchParams = new URLSearchParams(searchParams);

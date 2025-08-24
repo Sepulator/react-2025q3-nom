@@ -1,4 +1,4 @@
-# React: Routing and Hooks
+# State Management and Context API
 
 The Movie Database API created with Vite, React, TypeScript and PicoCSS.
 
@@ -11,6 +11,7 @@ Key pages in the application include:
 - Card detailed view
 - Pagination with URL synchronization
 - React Router for navigation and URL management
+- Favorite list
 
 The application is powered by [The Movie Database (TMDB) API](https://developer.themoviedb.org/docs/getting-started)
 
@@ -23,6 +24,7 @@ The application is powered by [The Movie Database (TMDB) API](https://developer.
 - 🛍️ [REST API](https://developer.themoviedb.org/docs/getting-started): The API service is for those of you interested in movie, TV show or actor data in your application.
 - 🔥 [Vite-native](https://vitest.dev/): A Vite-native testing framework. It's fast!.
 - 📌 [React router](https://reactrouter.com/): A user‑obsessed, standards‑focused, multi‑strategy router you can deploy anywhere.
+- 🐻 [Zustand](https://zustand-demo.pmnd.rs/): Bear necessities for state management in React
 
 ## Getting Started
 

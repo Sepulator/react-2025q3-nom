@@ -3,6 +3,7 @@ import userEvent from '@testing-library/user-event';
 import { render } from '@testing-library/react';
 import { createMemoryRouter, RouterProvider, type RouteObject } from 'react-router';
 import { routes } from '@/router';
+import ThemeProvider from '@/components/theme-provider';
 
 interface RenderOptions {
   initialEntries?: string[];
@@ -22,7 +23,11 @@ const customRender = (options: RenderOptions = {}) => {
   return {
     router,
     user: userEvent.setup(),
-    ...render(<RouterProvider router={router} />),
+    ...render(
+      <ThemeProvider>
+        <RouterProvider router={router} />
+      </ThemeProvider>
+    ),
   };
 };
 

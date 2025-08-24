@@ -13,8 +13,10 @@ export const useClickOutside = (handler: Handler) => {
         !ref.current ||
         ref.current.contains(target) ||
         target.closest('.card') ||
+        target.closest('.flyout') ||
         !target.closest('#root') ||
-        target.closest('.search')
+        target.closest('.search') ||
+        target.closest('.theme-toggle')
       ) {
         return;
       }
