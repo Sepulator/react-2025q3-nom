@@ -1,0 +1,7 @@
+/* stylelint-disable selector-class-pattern */
+.tableRow:hover {
+  --pico-background-color: var(--pico-primary-hover-background);
+  --pico-border-color: var(--pico-primary-hover-border);
+  --pico-box-shadow: var(--pico-button-hover-box-shadow, 0 0 0 rgb(0 0 0 / 0%));
+  --pico-color: var(--pico-primary-inverse);
+}

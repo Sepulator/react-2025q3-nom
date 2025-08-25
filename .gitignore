@@ -12,6 +12,7 @@ dist
 dist-ssr
 *.local
 *.min.css
+owid-co2-data.json
 
 # Editor directories and files
 .vscode/*

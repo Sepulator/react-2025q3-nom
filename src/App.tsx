@@ -1,9 +1,14 @@
+import { Footer } from '@/components/footer';
+import { Main } from '@/components/main';
+
 function App() {
   return (
     <>
-      <header>Header</header>
-      <main>Main</main>
-      <footer>Footer</footer>
+      <header>
+        <h1> CO2 and Greenhouse Gas Emissions</h1>
+      </header>
+      <Main />
+      <Footer />
     </>
   );
 }
