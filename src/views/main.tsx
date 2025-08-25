@@ -27,11 +27,7 @@ export class Main extends Component<Props, State> {
 
   async componentDidMount() {
     const query = queryStorage.get();
-    if (query === null) {
-      await this.getMoviesList('');
-    } else {
-      await this.getMoviesList(query);
-    }
+    this.getMoviesList(query ?? '');
   }
 
   getMoviesList = async (query: string) => {
