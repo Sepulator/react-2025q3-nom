@@ -1,24 +1,29 @@
-import type { EmissionsByCountry } from '@/types/emissions';
-
-import emissions from '@/assets/owid-co2-data.json' with { type: 'json' };
+import { SelectList } from '@/components/select-list';
 import { TableRow } from '@/components/table-row';
+import { useEmissionsData } from '@/hooks/useEmissionData';
 
-const emissionsData = emissions as EmissionsByCountry;
+import s from './main.module.css';
 
 export function Main() {
+  const { countries, emissions, years } = useEmissionsData();
+
   return (
     <main className="container">
       <table>
         <thead>
           <tr>
             <th scope="col">Flag</th>
-            <th scope="col">Country</th>
+            <th className={s.country} scope="col">
+              <SelectList label="country" lists={countries} placeholder="Select country" />
+            </th>
             <th scope="col">Population</th>
-            <th scope="col">Year</th>
+            <th className={s.year} scope="col">
+              <SelectList label="year" lists={years} placeholder="Year" />
+            </th>
           </tr>
         </thead>
         <tbody>
-          {Object.entries(emissionsData).map(([key, value]) => {
+          {emissions.map(([key, value]) => {
             const data = value.data.at(-1);
             if (!data) {
               return null;
