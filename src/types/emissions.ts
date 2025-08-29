@@ -39,7 +39,7 @@ export interface Emission {
   oil_co2_per_capita?: number;
   other_co2_per_capita?: number;
   other_industry_co2?: number;
-  population: number;
+  population?: number;
   primary_energy_consumption?: number;
   share_global_cement_co2?: number;
   share_global_co2?: number;

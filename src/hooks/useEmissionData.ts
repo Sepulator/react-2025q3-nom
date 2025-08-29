@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 
 import type { EmissionsByCountry } from '@/types/emissions';
 
+import { countriesByRegion } from '@/assets/countriesByRegion';
 import emissionsJson from '@/assets/owid-co2-data.json' with { type: 'json' };
 
 const emissionsData = emissionsJson as unknown as EmissionsByCountry;
@@ -10,6 +11,7 @@ const emissions = Object.entries(emissionsData);
 export const useEmissionsData = () => {
   const [selectedYear, setSelectedYear] = useState<string>('');
   const [selectedCountry, setSelectedCountry] = useState<string>('');
+  const [selectedRegion, setSelectedRegion] = useState<string>('');
   const [filteredEmissions, setFilteredEmissions] = useState(emissions);
 
   const countries = emissions.reduce<string[]>((acc, [country, data]) => {
@@ -28,6 +30,13 @@ export const useEmissionsData = () => {
       result = result.filter(([country]) => country === selectedCountry);
     }
 
+    if (selectedRegion && selectedRegion !== 'All') {
+      const filteredCountries = countriesByRegion.filter((country) => country.region === selectedRegion);
+      result = result.filter(([, emission]) =>
+        filteredCountries.some((country) => country.iso_code === emission.iso_code)
+      );
+    }
+
     if (selectedYear) {
       result = result.map(([country, data]) => [
         country,
@@ -39,14 +48,16 @@ export const useEmissionsData = () => {
     }
 
     setFilteredEmissions(result);
-  }, [selectedCountry, selectedYear]);
+  }, [selectedCountry, selectedYear, selectedRegion]);
 
   return {
     countries,
     emissions: filteredEmissions,
     selectedCountry,
+    selectedRegion,
     selectedYear,
     setSelectedCountry,
+    setSelectedRegion,
     setSelectedYear,
     years,
   };
