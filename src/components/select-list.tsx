@@ -12,6 +12,7 @@ export function SelectList({ label, list, onChange, placeholder, value }: Props)
       <input
         autoComplete="off"
         list={label}
+        name={label}
         onChange={(e) => onChange?.(e.target.value)}
         placeholder={placeholder}
         value={value}

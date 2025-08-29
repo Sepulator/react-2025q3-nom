@@ -17,8 +17,23 @@ export function Main() {
     setSelectedCountry,
     setSelectedRegion,
     setSelectedYear,
+    setSortConfig,
+    sortConfig,
     years,
   } = useEmissionsData();
+
+  const handleSort = (key: 'name' | 'population') => {
+    setSortConfig((currentSort) => {
+      return currentSort.direction === 'asc' ? { direction: 'desc', key } : { direction: 'asc', key };
+    });
+  };
+
+  const getSortIcon = (key: 'name' | 'population') => {
+    if (sortConfig?.key !== key) {
+      return '↕';
+    }
+    return sortConfig?.direction === 'desc' ? '↑' : '↓';
+  };
 
   return (
     <main className="container">
@@ -27,16 +42,20 @@ export function Main() {
           <tr>
             <th scope="col">Flag</th>
             <th className={s.country} scope="col">
-              <SelectList
-                label="country"
-                list={countries}
-                onChange={(value) => setSelectedCountry(value)}
-                placeholder="Select country"
-                value={selectedCountry}
-              />
+              <div className={s.row}>
+                <SelectList
+                  label="country"
+                  list={countries}
+                  onChange={(value) => setSelectedCountry(value)}
+                  placeholder="Select country"
+                  value={selectedCountry}
+                />
+                <span onClick={() => handleSort('name')}>{getSortIcon('name')}</span>
+              </div>
             </th>
-            <th scope="col">
+            <th className={s.region} scope="col">
               <DropDown
+                defaultValue="All"
                 label="region"
                 list={Array.from(regions)}
                 onChange={(value) => setSelectedRegion(value)}
@@ -44,9 +63,12 @@ export function Main() {
                 value={selectedRegion}
               />
             </th>
-            <th scope="col">Population</th>
+            <th className={s.population} onClick={() => handleSort('population')} scope="col">
+              Population {getSortIcon('population')}
+            </th>
             <th className={s.year} scope="col">
               <DropDown
+                defaultValue={years.at(-1) ?? ''}
                 label="year"
                 list={years}
                 onChange={(value) => setSelectedYear(value)}

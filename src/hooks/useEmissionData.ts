@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 
 import type { EmissionsByCountry } from '@/types/emissions';
+import type { SortConfig } from '@/types/sort-config';
 
 import { countriesByRegion } from '@/assets/countriesByRegion';
 import emissionsJson from '@/assets/owid-co2-data.json' with { type: 'json' };
@@ -12,6 +13,7 @@ export const useEmissionsData = () => {
   const [selectedYear, setSelectedYear] = useState<string>('');
   const [selectedCountry, setSelectedCountry] = useState<string>('');
   const [selectedRegion, setSelectedRegion] = useState<string>('');
+  const [sortConfig, setSortConfig] = useState<SortConfig>({ direction: 'asc', key: 'name' });
   const [filteredEmissions, setFilteredEmissions] = useState(emissions);
 
   const countries = emissions.reduce<string[]>((acc, [country, data]) => {
@@ -47,8 +49,23 @@ export const useEmissionsData = () => {
       ]);
     }
 
+    if (sortConfig) {
+      result.sort((a, b) => {
+        if (sortConfig.key === 'name') {
+          return sortConfig.direction === 'asc' ? a[0].localeCompare(b[0]) : b[0].localeCompare(a[0]);
+        }
+
+        if (sortConfig.key === 'population') {
+          const popA = a[1].data.at(-1)?.population || 0;
+          const popB = b[1].data.at(-1)?.population || 0;
+          return sortConfig.direction === 'asc' ? popA - popB : popB - popA;
+        }
+        return 0;
+      });
+    }
+
     setFilteredEmissions(result);
-  }, [selectedCountry, selectedYear, selectedRegion]);
+  }, [selectedCountry, selectedYear, selectedRegion, sortConfig]);
 
   return {
     countries,
@@ -59,6 +76,8 @@ export const useEmissionsData = () => {
     setSelectedCountry,
     setSelectedRegion,
     setSelectedYear,
+    setSortConfig,
+    sortConfig,
     years,
   };
 };

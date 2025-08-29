@@ -1,4 +1,5 @@
 interface Props {
+  defaultValue: string;
   label: string;
   list: string[];
   onChange?: (value: string) => void;
@@ -6,7 +7,7 @@ interface Props {
   value?: string;
 }
 
-export function DropDown({ label, list, onChange, placeholder, value }: Props) {
+export function DropDown({ defaultValue, label, list, onChange, placeholder, value }: Props) {
   return (
     <select
       aria-label={placeholder}
@@ -15,7 +16,7 @@ export function DropDown({ label, list, onChange, placeholder, value }: Props) {
       onChange={(e) => onChange?.(e.target.value)}
       value={value}
     >
-      <option defaultValue="All">All</option>
+      <option defaultValue={defaultValue}>{defaultValue}</option>
       {list.map((item) => (
         <option key={item} value={item}>
           {item}
