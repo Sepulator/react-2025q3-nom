@@ -5,7 +5,8 @@ import { useEmissionsData } from '@/hooks/useEmissionData';
 import s from './main.module.css';
 
 export function Main() {
-  const { countries, emissions, years } = useEmissionsData();
+  const { countries, emissions, selectedCountry, selectedYear, setSelectedCountry, setSelectedYear, years } =
+    useEmissionsData();
 
   return (
     <main className="container">
@@ -14,11 +15,23 @@ export function Main() {
           <tr>
             <th scope="col">Flag</th>
             <th className={s.country} scope="col">
-              <SelectList label="country" lists={countries} placeholder="Select country" />
+              <SelectList
+                label="country"
+                list={countries}
+                onChange={(value) => setSelectedCountry(value)}
+                placeholder="Select country"
+                value={selectedCountry}
+              />
             </th>
             <th scope="col">Population</th>
             <th className={s.year} scope="col">
-              <SelectList label="year" lists={years} placeholder="Year" />
+              <SelectList
+                label="year"
+                list={years}
+                onChange={(value) => setSelectedYear(value)}
+                placeholder="Year"
+                value={selectedYear}
+              />
             </th>
           </tr>
         </thead>
