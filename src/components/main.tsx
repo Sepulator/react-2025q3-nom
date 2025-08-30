@@ -1,4 +1,5 @@
 import { countriesByRegion } from '@/assets/countriesByRegion';
+import { ColumnSelector } from '@/components/column-selector';
 import { DropDown } from '@/components/drop-down';
 import { SelectList } from '@/components/select-list';
 import { TableRow } from '@/components/table-row';
@@ -11,9 +12,11 @@ export function Main() {
   const {
     countries,
     emissions,
+    selectedColumns,
     selectedCountry,
     selectedRegion,
     selectedYear,
+    setSelectedColumns,
     setSelectedCountry,
     setSelectedRegion,
     setSelectedYear,
@@ -37,6 +40,7 @@ export function Main() {
 
   return (
     <main className="container">
+      <ColumnSelector onColumnsChange={setSelectedColumns} selectedColumns={selectedColumns} />
       <table>
         <thead>
           <tr>
@@ -76,6 +80,11 @@ export function Main() {
                 value={selectedYear}
               />
             </th>
+            {selectedColumns.map((column) => (
+              <th key={column} scope="col">
+                {column.replace(/_/g, ' ')}
+              </th>
+            ))}
           </tr>
         </thead>
         <tbody>
@@ -84,10 +93,16 @@ export function Main() {
             if (!data) {
               return null;
             }
-            const { population, year } = data;
             const region = countriesByRegion.find((country) => country.iso_code === value.iso_code)?.region || 'N/A';
             return (
-              <TableRow country={key} data={{ population, year }} iso_code={value.iso_code} key={key} region={region} />
+              <TableRow
+                country={key}
+                data={data}
+                iso_code={value.iso_code}
+                key={key}
+                region={region}
+                selectedColumns={selectedColumns}
+              />
             );
           })}
         </tbody>

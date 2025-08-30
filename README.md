@@ -89,22 +89,6 @@ This command starts the dev server locally `http://localhost:5173/`.
 
 ---
 
-#### Run unit test
-
-```bash copy
-  npm run test
-```
-
----
-
-#### Test coverage
-
-```bash copy
-  npm run test:coverage
-```
-
----
-
 #### Run code format with Prettier
 
 ```bash copy

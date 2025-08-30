@@ -9,20 +9,21 @@ interface Props {
   data: Emission;
   iso_code?: string;
   region: string;
+  selectedColumns: (keyof Emission)[];
 }
 
-export function TableRow({ country, data, iso_code, region }: Props) {
+const options: Intl.NumberFormatOptions = {
+  compactDisplay: 'short',
+  notation: 'compact',
+};
+
+export function TableRow({ country, data, iso_code, region, selectedColumns }: Props) {
   if (!iso_code) {
     return null;
   }
 
   const formattedPopulation =
-    data.population !== undefined
-      ? new Intl.NumberFormat(undefined, {
-          compactDisplay: 'short',
-          notation: 'compact',
-        }).format(data.population)
-      : 'N/A';
+    data.population !== undefined ? new Intl.NumberFormat(undefined, options).format(data.population) : 'N/A';
 
   return (
     <tr className={s.tableRow}>
@@ -31,11 +32,13 @@ export function TableRow({ country, data, iso_code, region }: Props) {
       </th>
       <td>{country}</td>
       <td>{region}</td>
-      {Object.entries(data).map(([key, value]) => {
-        if (key === 'population') {
-          return <td key={key}>{formattedPopulation}</td>;
-        }
-        return <td key={key}>{value ?? 'N/A'}</td>;
+      <td>{formattedPopulation}</td>
+      <td>{data.year}</td>
+      {selectedColumns.map((column) => {
+        const value = data[column];
+        const formattedValue =
+          typeof value === 'number' ? new Intl.NumberFormat(undefined, options).format(value) : value;
+        return <td key={column}>{formattedValue ?? 'N/A'}</td>;
       })}
     </tr>
   );

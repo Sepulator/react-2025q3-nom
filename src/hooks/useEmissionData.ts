@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import type { EmissionsByCountry } from '@/types/emissions';
+import type { Emission, EmissionsByCountry } from '@/types/emissions';
 import type { SortConfig } from '@/types/sort-config';
 
 import { countriesByRegion } from '@/assets/countriesByRegion';
@@ -15,6 +15,7 @@ export const useEmissionsData = () => {
   const [selectedRegion, setSelectedRegion] = useState<string>('');
   const [sortConfig, setSortConfig] = useState<SortConfig>({ direction: 'asc', key: 'name' });
   const [filteredEmissions, setFilteredEmissions] = useState(emissions);
+  const [selectedColumns, setSelectedColumns] = useState<(keyof Emission)[]>(['co2', 'co2_per_capita']);
 
   const countries = emissions.reduce<string[]>((acc, [country, data]) => {
     if (data.iso_code) {
@@ -70,9 +71,11 @@ export const useEmissionsData = () => {
   return {
     countries,
     emissions: filteredEmissions,
+    selectedColumns,
     selectedCountry,
     selectedRegion,
     selectedYear,
+    setSelectedColumns,
     setSelectedCountry,
     setSelectedRegion,
     setSelectedYear,
