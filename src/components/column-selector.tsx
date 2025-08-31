@@ -18,23 +18,25 @@ export const ColumnSelector = memo(function ColumnSelector({ onColumnsChange, se
   };
 
   return (
-    <details className="dropdown">
-      <summary>Selected Columns ({selectedColumns.length})</summary>
-      <ul>
-        {availableColumns.map((column) => (
-          <li key={column}>
-            <label>
-              <input
-                checked={selectedColumns.includes(column)}
-                name={column}
-                onChange={() => handleColumnToggle(column)}
-                type="checkbox"
-              />
-              {column.replace(/_/g, ' ')}
-            </label>
-          </li>
-        ))}
-      </ul>
-    </details>
+    <aside>
+      <nav>
+        <summary>Selected Columns ({selectedColumns.length})</summary>
+        <ul>
+          {availableColumns.map((column) => (
+            <li key={column}>
+              <label>
+                <input
+                  checked={selectedColumns.includes(column)}
+                  name={column}
+                  onChange={() => handleColumnToggle(column)}
+                  type="checkbox"
+                />
+                {column.replace(/_/g, ' ')}
+              </label>
+            </li>
+          ))}
+        </ul>
+      </nav>
+    </aside>
   );
 });

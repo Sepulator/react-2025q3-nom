@@ -1,7 +1,8 @@
-import { useCallback } from 'react';
+import { useCallback, useState } from 'react';
 
 import { countriesByRegion } from '@/assets/countriesByRegion';
 import { ColumnSelector } from '@/components/column-selector';
+import { Dialog } from '@/components/dialog';
 import { DropDown } from '@/components/drop-down';
 import { SelectList } from '@/components/select-list';
 import { TableRow } from '@/components/table-row';
@@ -27,6 +28,8 @@ export function Main() {
     years,
   } = useEmissionsData();
 
+  const [isOpen, setIsOpen] = useState(false);
+
   const handleSort = useCallback(
     (key: 'name' | 'population') => {
       setSortConfig((currentSort) => {
@@ -48,7 +51,14 @@ export function Main() {
 
   return (
     <main className="container">
-      <ColumnSelector onColumnsChange={setSelectedColumns} selectedColumns={selectedColumns} />
+      <button className="outline" onClick={() => setIsOpen(true)}>
+        Select columns
+      </button>
+      {isOpen && (
+        <Dialog handleClose={() => setIsOpen(false)} isOpen={isOpen} title="Select table columns">
+          <ColumnSelector onColumnsChange={setSelectedColumns} selectedColumns={selectedColumns} />
+        </Dialog>
+      )}
       <table>
         <thead>
           <tr>
@@ -80,7 +90,7 @@ export function Main() {
             </th>
             <th className={s.year} scope="col">
               <DropDown
-                defaultValue={years.at(-1) ?? ''}
+                defaultValue={years.at(0) ?? ''}
                 label="year"
                 list={years}
                 onChange={(value) => setSelectedYear(value)}

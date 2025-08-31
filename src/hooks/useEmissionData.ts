@@ -24,7 +24,7 @@ export const useEmissionsData = () => {
     return acc;
   }, []);
 
-  const years = emissions[0][1].data.map((entry) => entry.year.toString());
+  const years = emissions[0][1].data.map((entry) => entry.year.toString()).reverse();
 
   const filteredAndSortedEmissions = useMemo(() => {
     let result = emissions;
