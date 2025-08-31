@@ -1,9 +1,24 @@
 import type { EmissionsByCountry } from '@/types/emissions';
 
-export const getEmissionsByCountry = async () => {
-  const response = await fetch('https://nyc3.digitaloceanspaces.com/owid-public/data/co2/owid-co2-data.json');
-  if (!response.ok) {
-    throw new Error('Failed to fetch emissions data');
+let cache: EmissionsByCountry | null = null;
+let promise: null | Promise<EmissionsByCountry> = null;
+
+export const getEmissionsByCountry = () => {
+  if (!promise) {
+    promise = fetch('https://nyc3.digitaloceanspaces.com/owid-public/data/co2/owid-co2-data.json')
+      .then((response) => response.json())
+      .then((json) => {
+        cache = json;
+        return json;
+      });
   }
-  return response.json() as Promise<EmissionsByCountry>;
+
+  return {
+    read() {
+      if (!cache) {
+        throw promise;
+      }
+      return cache;
+    },
+  };
 };

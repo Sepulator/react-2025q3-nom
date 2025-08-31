@@ -1,15 +1,15 @@
 import { useEffect, useMemo, useState } from 'react';
 
-import type { Emission, EmissionsByCountry } from '@/types/emissions';
+import type { Emission, EmissionsData } from '@/types/emissions';
 import type { SortConfig } from '@/types/sort-config';
 
 import { countriesByRegion } from '@/assets/countriesByRegion';
-import emissionsJson from '@/assets/owid-co2-data.json' with { type: 'json' };
-
-const emissionsData = emissionsJson as unknown as EmissionsByCountry;
-const emissions = Object.entries(emissionsData);
+import { getEmissionsByCountry } from '@/services/api';
 
 export const useEmissionsData = () => {
+  const emissionsData = getEmissionsByCountry().read();
+  const emissions = Object.entries(emissionsData) as [string, EmissionsData][];
+
   const [selectedYear, setSelectedYear] = useState<string>('');
   const [selectedCountry, setSelectedCountry] = useState<string>('');
   const [selectedRegion, setSelectedRegion] = useState<string>('');
@@ -27,7 +27,7 @@ export const useEmissionsData = () => {
   const years = emissions[0][1].data.map((entry) => entry.year.toString());
 
   const filteredAndSortedEmissions = useMemo(() => {
-    let result = Object.entries(emissionsData);
+    let result = emissions;
 
     if (selectedCountry) {
       result = result.filter(([country]) => country === selectedCountry);
@@ -66,7 +66,7 @@ export const useEmissionsData = () => {
     }
 
     return result;
-  }, [selectedCountry, selectedYear, selectedRegion, sortConfig]);
+  }, [emissions, selectedCountry, selectedRegion, selectedYear, sortConfig]);
 
   useEffect(() => {
     setFilteredEmissions(filteredAndSortedEmissions);
