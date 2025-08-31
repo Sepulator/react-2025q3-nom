@@ -1,3 +1,5 @@
+import { memo } from 'react';
+
 import type { Emission } from '@/types/emissions';
 
 import { availableColumns } from '@/consts/columns';
@@ -7,7 +9,7 @@ interface Props {
   selectedColumns: (keyof Emission)[];
 }
 
-export function ColumnSelector({ onColumnsChange, selectedColumns }: Props) {
+export const ColumnSelector = memo(function ColumnSelector({ onColumnsChange, selectedColumns }: Props) {
   const handleColumnToggle = (column: keyof Emission) => {
     const newColumns = selectedColumns.includes(column)
       ? selectedColumns.filter((col) => col !== column)
@@ -35,4 +37,4 @@ export function ColumnSelector({ onColumnsChange, selectedColumns }: Props) {
       </ul>
     </details>
   );
-}
+});

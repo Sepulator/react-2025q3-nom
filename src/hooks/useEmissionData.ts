@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 import type { Emission, EmissionsByCountry } from '@/types/emissions';
 import type { SortConfig } from '@/types/sort-config';
@@ -26,7 +26,7 @@ export const useEmissionsData = () => {
 
   const years = emissions[0][1].data.map((entry) => entry.year.toString());
 
-  useEffect(() => {
+  const filteredAndSortedEmissions = useMemo(() => {
     let result = Object.entries(emissionsData);
 
     if (selectedCountry) {
@@ -65,8 +65,12 @@ export const useEmissionsData = () => {
       });
     }
 
-    setFilteredEmissions(result);
+    return result;
   }, [selectedCountry, selectedYear, selectedRegion, sortConfig]);
+
+  useEffect(() => {
+    setFilteredEmissions(filteredAndSortedEmissions);
+  }, [filteredAndSortedEmissions]);
 
   return {
     countries,

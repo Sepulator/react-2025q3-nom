@@ -1,3 +1,5 @@
+import { useCallback } from 'react';
+
 import { countriesByRegion } from '@/assets/countriesByRegion';
 import { ColumnSelector } from '@/components/column-selector';
 import { DropDown } from '@/components/drop-down';
@@ -25,18 +27,24 @@ export function Main() {
     years,
   } = useEmissionsData();
 
-  const handleSort = (key: 'name' | 'population') => {
-    setSortConfig((currentSort) => {
-      return currentSort.direction === 'asc' ? { direction: 'desc', key } : { direction: 'asc', key };
-    });
-  };
+  const handleSort = useCallback(
+    (key: 'name' | 'population') => {
+      setSortConfig((currentSort) => {
+        return currentSort.direction === 'asc' ? { direction: 'desc', key } : { direction: 'asc', key };
+      });
+    },
+    [setSortConfig]
+  );
 
-  const getSortIcon = (key: 'name' | 'population') => {
-    if (sortConfig?.key !== key) {
-      return '↕';
-    }
-    return sortConfig?.direction === 'desc' ? '↑' : '↓';
-  };
+  const getSortIcon = useCallback(
+    (key: 'name' | 'population') => {
+      if (sortConfig?.key !== key) {
+        return '↕';
+      }
+      return sortConfig?.direction === 'desc' ? '↑' : '↓';
+    },
+    [sortConfig]
+  );
 
   return (
     <main className="container">
