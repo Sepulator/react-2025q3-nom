@@ -1,6 +1,6 @@
 # [React Performance](https://github.com/rolling-scopes-school/tasks/blob/master/react/modules/tasks/performance.md)
 
-Key features in the application include:
+Key features in the application includes:
 
 - Fetch and Display Data
   - Fetch CO2 emissions data by countries from a large hierarchical JSON file (~100MB)
@@ -20,22 +20,20 @@ Key features in the application include:
 
 ## Profiling with React Dev Tools Profiler
 
-Same steps done in both cases:
-
-- search Angola
-- reset country
-- filter region Asia
-- reset
-- sort population, `asc` then `desc`
-- sort country, `asc/desc`
+The optimization measurement involved sorting the country column in descending order.
 
 ### Commit `ece3737d` before optimization done
 
-![profiler](./src/assets/chrome_gK6VzRXivI.png)
+![profiler](./src/assets/chrome_B9P60ARAa3.png)
+![profiler](./src/assets/chrome_ADHV1Q8ohH.png)
 
 ### Commit `195a5a32` with optimization
 
-![profiler](./src/assets/chrome_7lGZKMdzio.png)
+![profiler](./src/assets/chrome_M9gSXrBieL.png)
+![profiler](./src/assets/chrome_mS4RpV3LPI.png)
+
+First commit rendered 3x faster after optimization: 51.3ms vs 146.6ms.
+The second commit shows an improvement in render time, reducing it from 121.7 ms to 45.7 ms.
 
 ## Features
 
