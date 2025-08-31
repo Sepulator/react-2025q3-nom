@@ -18,6 +18,23 @@ Key features in the application include:
   - React.memo to wrap components like country cards and data tables to prevent unnecessary re-renders.
   - Proper key props for lists and tables to avoid reconciliation issues.
 
+## Profiling with React Dev Tools Profiler
+
+Same steps done in both cases:
+
+- search Angola
+- reset country
+- filter region Asia
+- reset
+- sort population, in both ways
+- sort country, two ways
+
+Commit `ece3737d` before optimization done
+![profiler](./src/assets/chrome_gK6VzRXivI.png)
+
+Commit `195a5a32` with optimization
+![profiler](./src/assets/chrome_7lGZKMdzio.png)
+
 ## Features
 
 - ⚡ [Library for web](https://react.dev/): Built with React 19.
