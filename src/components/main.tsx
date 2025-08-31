@@ -25,6 +25,7 @@ export function Main() {
     setSelectedYear,
     setSortConfig,
     sortConfig,
+    yearChanged,
     years,
   } = useEmissionsData();
 
@@ -120,6 +121,7 @@ export function Main() {
                 key={key}
                 region={region}
                 selectedColumns={selectedColumns}
+                yearChanged={yearChanged}
               />
             );
           })}

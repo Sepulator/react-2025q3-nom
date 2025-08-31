@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 
 import type { Emission, EmissionsData } from '@/types/emissions';
 import type { SortConfig } from '@/types/sort-config';
@@ -16,6 +16,8 @@ export const useEmissionsData = () => {
   const [sortConfig, setSortConfig] = useState<SortConfig>({ direction: 'asc', key: 'name' });
   const [filteredEmissions, setFilteredEmissions] = useState(emissions);
   const [selectedColumns, setSelectedColumns] = useState<(keyof Emission)[]>(['co2', 'co2_per_capita']);
+  const [yearChanged, setYearChanged] = useState(false);
+  const prevYearRef = useRef<string>('');
 
   const countries = emissions.reduce<string[]>((acc, [country, data]) => {
     if (data.iso_code) {
@@ -72,6 +74,15 @@ export const useEmissionsData = () => {
     setFilteredEmissions(filteredAndSortedEmissions);
   }, [filteredAndSortedEmissions]);
 
+  useEffect(() => {
+    if (prevYearRef.current && prevYearRef.current !== selectedYear) {
+      setYearChanged(true);
+      const timer = setTimeout(() => setYearChanged(false), 1000);
+      return () => clearTimeout(timer);
+    }
+    prevYearRef.current = selectedYear;
+  }, [selectedYear]);
+
   return {
     countries,
     emissions: filteredEmissions,
@@ -85,6 +96,7 @@ export const useEmissionsData = () => {
     setSelectedYear,
     setSortConfig,
     sortConfig,
+    yearChanged,
     years,
   };
 };

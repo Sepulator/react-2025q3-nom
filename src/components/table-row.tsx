@@ -12,6 +12,7 @@ interface Props {
   iso_code?: string;
   region: string;
   selectedColumns: (keyof Emission)[];
+  yearChanged: boolean;
 }
 
 const options: Intl.NumberFormatOptions = {
@@ -19,7 +20,14 @@ const options: Intl.NumberFormatOptions = {
   notation: 'compact',
 };
 
-export const TableRow = memo(function TableRow({ country, data, iso_code, region, selectedColumns }: Props) {
+export const TableRow = memo(function TableRow({
+  country,
+  data,
+  iso_code,
+  region,
+  selectedColumns,
+  yearChanged,
+}: Props) {
   if (!iso_code) {
     return null;
   }
@@ -40,7 +48,11 @@ export const TableRow = memo(function TableRow({ country, data, iso_code, region
         const value = data[column];
         const formattedValue =
           typeof value === 'number' ? new Intl.NumberFormat(undefined, options).format(value) : value;
-        return <td key={column}>{formattedValue ?? 'N/A'}</td>;
+        return (
+          <td className={yearChanged ? s.highlight : ''} key={column}>
+            {formattedValue ?? 'N/A'}
+          </td>
+        );
       })}
     </tr>
   );
