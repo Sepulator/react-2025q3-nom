@@ -68,7 +68,7 @@ export const useEmissionsData = () => {
     }
 
     return result;
-  }, [emissions, selectedCountry, selectedRegion, selectedYear, sortConfig]);
+  }, [selectedCountry, selectedRegion, selectedYear, sortConfig]);
 
   useEffect(() => {
     setFilteredEmissions(filteredAndSortedEmissions);

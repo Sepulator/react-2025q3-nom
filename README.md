@@ -26,13 +26,15 @@ Same steps done in both cases:
 - reset country
 - filter region Asia
 - reset
-- sort population, in both ways
-- sort country, two ways
+- sort population, `asc` then `desc`
+- sort country, `asc/desc`
 
-Commit `ece3737d` before optimization done
+### Commit `ece3737d` before optimization done
+
 ![profiler](./src/assets/chrome_gK6VzRXivI.png)
 
-Commit `195a5a32` with optimization
+### Commit `195a5a32` with optimization
+
 ![profiler](./src/assets/chrome_7lGZKMdzio.png)
 
 ## Features
