@@ -42,4 +42,10 @@ describe('Search Component', () => {
 
     expect(screen.getByRole('textbox')).toHaveValue('batman');
   });
+
+  it('focuses input on component mount', () => {
+    render(<Search handleQuery={handleQuery} />);
+
+    expect(screen.getByRole('textbox')).toHaveFocus();
+  });
 });

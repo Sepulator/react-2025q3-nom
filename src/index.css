@@ -91,3 +91,8 @@ header {
   border-radius: 8px;
   box-shadow: 0 0 6px 2px rgb(241 237 237);
 }
+
+.error-boundary {
+  margin: 0 auto;
+  margin-top: 8rem;
+}

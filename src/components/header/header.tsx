@@ -4,7 +4,7 @@ interface State {
   isError: boolean;
 }
 
-type Props = object;
+type Props = Record<string, never>;
 
 export class Header extends Component<Props, State> {
   state: State = { isError: false };
