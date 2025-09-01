@@ -10,6 +10,8 @@
   text-rendering: optimizelegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  --card-box-shadow: 0 0 6px 2px rgb(241 237 237);
 }
 
 #root {
@@ -86,7 +88,7 @@ header {
   }
 
   & span {
-    color: rgb(170 153 153 / 60%);
+    color: var(--pico-blockquote-footer-color);
   }
 }
 
@@ -101,7 +103,7 @@ header {
 .card:hover {
   cursor: pointer;
   border-radius: 8px;
-  box-shadow: 0 0 6px 2px rgb(241 237 237);
+  box-shadow: var(--card-box-shadow);
 }
 
 .about {
@@ -160,4 +162,13 @@ header {
 
 .loading {
   height: fit-content;
+}
+
+.error-boundary {
+  margin: 0 auto;
+  margin-top: 8rem;
+}
+
+.error {
+  color: var(--pico-del-color);
 }

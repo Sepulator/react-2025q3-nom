@@ -4,9 +4,11 @@ import { screen, waitFor } from '@testing-library/react';
 import { mockMovie } from '@/__tests__/handlers';
 
 describe('CardDetail', () => {
-  beforeAll((global.window.URL.createObjectURL = vi.fn()));
+  beforeAll(() => {
+    global.window.URL.createObjectURL = vi.fn();
+  });
 
-  it('should show error state', async () => {
+  it('should display error in case of non-existent param id', async () => {
     render({ initialEntries: ['/details/000?query=&page=1'] });
 
     await waitFor(() => {
@@ -16,6 +18,7 @@ describe('CardDetail', () => {
 
   it('should display movie details correctly', async () => {
     render({ initialEntries: ['/details/123?query=&page=1'] });
+
     await waitFor(() => {
       expect(screen.getByText(mockMovie.title)).toBeInTheDocument();
       expect(screen.getByText(mockMovie.overview)).toBeInTheDocument();
@@ -37,6 +40,7 @@ describe('CardDetail', () => {
 
   it('should close detail view when clicking outside', async () => {
     const { user, router } = render({ initialEntries: ['/details/123?query=&page=1'] });
+
     waitFor(async () => {
       const heading = screen.getByRole('heading', { name: 'The Movie Database API' });
       await user.click(heading);

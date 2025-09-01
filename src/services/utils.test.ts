@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { formatDate, getKey } from './utils';
+import { formatDate } from './utils';
 
 describe('formatDate', () => {
   it('format ISO date string correctly', () => {
@@ -13,17 +13,19 @@ describe('formatDate', () => {
     const result = formatDate(date);
     expect(result).toBe('Dec 25, 2023');
   });
-});
-describe('getKey', () => {
-  it('return empty string for empty input', () => {
-    expect(getKey('')).toBe('');
+
+  it('return "Invalid Date" for empty string', () => {
+    const result = formatDate('');
+    expect(result).toBe('Invalid Date');
   });
 
-  it('return same character for single character input', () => {
-    expect(getKey('a')).toBe('a');
+  it('return "Invalid Date" for malformed date', () => {
+    const result = formatDate('2023-13-45');
+    expect(result).toBe('Invalid Date');
   });
 
-  it('reverse string with multiple characters', () => {
-    expect(getKey('helloabc123test!@#')).toBe('#@!tset321cbaolleh');
+  it('return "Invalid Date" for invalid date string', () => {
+    const result = formatDate('invalid-date');
+    expect(result).toBe('Invalid Date');
   });
 });

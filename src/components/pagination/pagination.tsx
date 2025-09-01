@@ -6,6 +6,13 @@ interface Props {
   moviesList: MoviesList;
 }
 
+const firstPage = 1;
+const secondPage = 2;
+const pagesAroundCurrent = 2;
+const nearStartThreshold = 4;
+const nearEndOffset = 3;
+const middleRangeSize = 4;
+
 export function Pagination({ moviesList }: Props) {
   const { page, total_pages } = moviesList;
   const [searchParams] = useSearchParams();
@@ -32,29 +39,29 @@ export function Pagination({ moviesList }: Props) {
     const buttons = [];
 
     if (total_pages <= MAX_BUTTONS) {
-      for (let i = 1; i <= total_pages; i++) {
+      for (let i = firstPage; i <= total_pages; i++) {
         buttons.push(renderPageButton(i));
       }
 
       return buttons;
     }
 
-    buttons.push(renderPageButton(1));
+    buttons.push(renderPageButton(firstPage));
 
-    let startPage = Math.max(2, page - 2);
-    let endPage = Math.min(total_pages - 1, page + 2);
+    let startPage = Math.max(secondPage, page - pagesAroundCurrent);
+    let endPage = Math.min(total_pages - 1, page + pagesAroundCurrent);
 
-    if (page <= 4) {
-      startPage = 2;
-      endPage = 5;
+    if (page <= nearStartThreshold) {
+      startPage = secondPage;
+      endPage = nearStartThreshold + 1;
     }
 
-    if (page >= total_pages - 3) {
-      startPage = total_pages - 4;
+    if (page >= total_pages - nearEndOffset) {
+      startPage = total_pages - middleRangeSize;
       endPage = total_pages - 1;
     }
 
-    if (startPage > 2) {
+    if (startPage > secondPage) {
       buttons.push(<li key="start-ellipsis">...</li>);
     }
 

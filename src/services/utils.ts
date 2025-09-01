@@ -1,14 +1,10 @@
-export const getKey = (arr: string) => {
-  let result = '';
+export const formatDate = (date: string) => {
+  const dateObj = new Date(date);
 
-  for (let i = arr.length - 1; i >= 0; i--) {
-    result += arr[i];
+  if (isNaN(dateObj.getTime())) {
+    return 'Invalid Date';
   }
 
-  return result;
-};
-
-export const formatDate = (date: string) => {
   return new Intl.DateTimeFormat('en-US', {
     month: 'short',
     day: '2-digit',
