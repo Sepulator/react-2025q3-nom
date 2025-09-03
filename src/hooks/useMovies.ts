@@ -17,9 +17,9 @@ export function useMovies() {
   const [searchParams, setSearchParams] = useSearchParams();
   const [state, setState] = useState<MoviesState>({
     moviesList: {
-      Search: [],
+      search: [],
       totalResults: '',
-      Response: 'false',
+      response: 'false',
     },
     loading: false,
     error: null,

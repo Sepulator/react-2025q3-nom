@@ -10,7 +10,7 @@ interface Props {
 
 export function Card({ movie }: Props) {
   const { createDetailPath } = useQueryParams();
-  const { Title, Poster, Year } = movie;
+  const { title, poster, year } = movie;
   const movies = useMoviesStore((state) => state.movies);
   const addMovie = useMoviesStore((state) => state.addMovie);
   const removeMovie = useMoviesStore((state) => state.removeMovie);
@@ -30,10 +30,10 @@ export function Card({ movie }: Props) {
   return (
     <article className="card">
       <Link to={createDetailPath(movie.imdbID)} className="card-link">
-        <img src={Poster} alt={Title} className="card-img"></img>
+        <img src={poster} alt={title} className="card-img"></img>
         <div>
-          <p>{Title}</p>
-          <span>{Year}</span>
+          <p>{title}</p>
+          <span>{year}</span>
         </div>
       </Link>
       <label className="card-favorite">

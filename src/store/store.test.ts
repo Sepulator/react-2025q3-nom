@@ -3,8 +3,8 @@ import { useMoviesStore } from './index';
 import { mockBatmanMovie } from '@/__tests__/handlers';
 
 describe('useMoviesStore', () => {
-  const mockMovie = mockBatmanMovie.Search[0];
-  const mockMovie2 = mockBatmanMovie.Search[1];
+  const mockMovie = mockBatmanMovie.search[0];
+  const mockMovie2 = mockBatmanMovie.search[1];
 
   afterEach(() => {
     const { reset } = useMoviesStore.getState();

@@ -11,25 +11,28 @@ export function Main() {
   const { state, details } = useMovies();
   const { moviesList, loading, error } = state;
 
+  if (error || moviesList.error) {
+    return <ErrorInfo error={error} status_message={moviesList?.error} />;
+  }
+
+  if (loading) {
+    return <article aria-busy="true">Loading</article>;
+  }
+
+  console.log(moviesList);
+  if (!moviesList.search.length) {
+    return <span>Nothing to display. Type to search movie.</span>;
+  }
+
   return (
     <>
       <h1>The Movie Database API</h1>
       <Search />
-      {error || moviesList.Error ? (
-        <ErrorInfo error={error} status_message={moviesList?.Error} />
-      ) : loading ? (
-        <article aria-busy="true">Loading</article>
-      ) : moviesList.Search.length ? (
-        <>
-          <div className={details ? 'outlet-detail' : 'outlet'}>
-            <CardsList movieList={moviesList.Search} />
-            {details && <Outlet />}
-          </div>
-          <Pagination moviesList={moviesList} />
-        </>
-      ) : (
-        <span>Nothing to display. Type to search movie.</span>
-      )}
+      <div className={details ? 'outlet-detail' : 'outlet'}>
+        <CardsList movieList={moviesList.search} />
+        {details && <Outlet />}
+      </div>
+      <Pagination moviesList={moviesList} />
       <Flyout />
     </>
   );

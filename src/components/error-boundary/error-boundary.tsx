@@ -10,11 +10,6 @@ interface State {
   errorInfo: ErrorInfo | null;
 }
 
-const styles: React.CSSProperties = {
-  margin: '0 auto',
-  marginTop: '8rem',
-};
-
 export class ErrorBoundary extends Component<Props, State> {
   state: State = { hasError: false, error: null, errorInfo: null };
 
@@ -35,7 +30,7 @@ export class ErrorBoundary extends Component<Props, State> {
     const { error, errorInfo, hasError } = this.state;
 
     return hasError ? (
-      <main style={styles}>
+      <main className="error">
         <h1>Something went wrong.</h1>
         <details>
           {error && error.toString()}
