@@ -12,6 +12,7 @@ export function useDetail() {
   useEffect(() => {
     if (!movieId) return;
     setIsLoading(true);
+    setIsError(null);
     async function fetchMovie() {
       try {
         const response = await getMovie(Number(movieId));

@@ -22,25 +22,27 @@ export function CardDetail() {
 
   return (
     <>
-      {isError && <CardError isError={isError} />}
-      {isLoading && <Loading />}
-
       <article ref={ref} className="card-detail">
-        <img
-          aria-label="Movie poster"
-          src={movie?.poster_path ? `${urlImage}/${poster_sizes[3]}/${movie?.poster_path}` : image}
-          alt={movie?.poster_path ? `${movie?.title}` : `No image available for ${movie?.title}`}
-        ></img>
-        <div>
-          <p>{movie?.title}</p>
-          <span>{movie?.release_date && formatDate(movie?.release_date)}</span>
-          <p>{movie?.overview}</p>
-          <p>Rating: {movie?.vote_average.toFixed(2)}</p>
-        </div>
-
-        <Link to={createRootPath(['detail'])} role="button">
-          Close
-        </Link>
+        {isError && <CardError isError={isError} />}
+        {isLoading && <Loading />}
+        {!isError && !isLoading && (
+          <>
+            <img
+              aria-label="Movie poster"
+              src={movie?.poster_path ? `${urlImage}/${poster_sizes[3]}/${movie?.poster_path}` : image}
+              alt={movie?.poster_path ? `${movie?.title}` : `No image available for ${movie?.title}`}
+            ></img>
+            <div>
+              <p>{movie?.title}</p>
+              <span>{movie?.release_date && formatDate(movie?.release_date)}</span>
+              <p>{movie?.overview}</p>
+              <p>Rating: {movie?.vote_average.toFixed(2)}</p>
+            </div>
+            <Link to={createRootPath(['detail'])} role="button">
+              Close
+            </Link>
+          </>
+        )}
       </article>
     </>
   );
