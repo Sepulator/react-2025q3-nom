@@ -1,5 +1,7 @@
 import { create } from 'zustand';
+
 import type { Movie } from '@/types/interfaces';
+import { createSelectors } from '@/store/store-utils';
 
 interface MoviesStore {
   movies: Movie[];
@@ -8,7 +10,7 @@ interface MoviesStore {
   reset: () => void;
 }
 
-export const useMoviesStore = create<MoviesStore>((set, _, store) => ({
+export const useMoviesBase = create<MoviesStore>((set, _, store) => ({
   movies: [],
   addMovie: (movie) =>
     set((state) => ({
@@ -22,3 +24,5 @@ export const useMoviesStore = create<MoviesStore>((set, _, store) => ({
     set(store.getInitialState());
   },
 }));
+
+export const useMoviesStore = createSelectors(useMoviesBase);

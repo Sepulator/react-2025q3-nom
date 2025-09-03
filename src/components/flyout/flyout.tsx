@@ -2,8 +2,8 @@ import { getDownloadMovieURL } from '@/services/utils';
 import { useMoviesStore } from '@/store';
 
 export function Flyout() {
-  const movies = useMoviesStore((state) => state.movies);
-  const clearMovies = useMoviesStore((state) => state.reset);
+  const movies = useMoviesStore.use.movies();
+  const clearMovies = useMoviesStore.use.reset();
   const length = movies.length;
 
   if (!length) return null;

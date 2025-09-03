@@ -1,8 +1,9 @@
 import type { Movie } from '@/types/interfaces';
 import type { ChangeEvent } from 'react';
-import { useMoviesStore } from '@/store';
+
 import { Link } from 'react-router';
 import { useQueryParams } from '@/hooks/useQueryParams';
+import { useMoviesStore } from '@/store';
 
 interface Props {
   movie: Movie;
@@ -11,9 +12,9 @@ interface Props {
 export function Card({ movie }: Props) {
   const { createDetailPath } = useQueryParams();
   const { title, poster, year } = movie;
-  const movies = useMoviesStore((state) => state.movies);
-  const addMovie = useMoviesStore((state) => state.addMovie);
-  const removeMovie = useMoviesStore((state) => state.removeMovie);
+  const movies = useMoviesStore.use.movies();
+  const addMovie = useMoviesStore.use.addMovie();
+  const removeMovie = useMoviesStore.use.removeMovie();
 
   const isFavorite = movies.some((m) => m.imdbID === movie.imdbID);
 

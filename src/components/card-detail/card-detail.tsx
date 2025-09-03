@@ -33,14 +33,13 @@ export function CardDetail() {
   return (
     <>
       <article ref={ref} className="card-detail">
-        <img aria-label="Movie poster" src={movie?.poster} alt={movie?.title}></img>
+        <img aria-label="Movie poster" src={movie?.poster} alt={movie?.title} />
         <div>
           <p>{movie?.title}</p>
           <span>{movie?.released}</span>
           <p>{movie?.plot}</p>
           <p>Rating: {movie?.imdbRating}</p>
         </div>
-
         <Link to={createRootPath(['detail'])} role="button">
           Close
         </Link>
