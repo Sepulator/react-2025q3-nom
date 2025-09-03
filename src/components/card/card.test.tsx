@@ -7,17 +7,17 @@ describe('Card Component', () => {
   it('renders movie information correctly', async () => {
     render();
     await waitFor(() => {
-      expect(screen.getByText(mockMoviesList.Search[0].Title)).toBeInTheDocument();
-      expect(screen.getByText(mockMoviesList.Search[0].Year)).toBeInTheDocument();
+      expect(screen.getByText(mockMoviesList.search[0].title)).toBeInTheDocument();
+      expect(screen.getByText(mockMoviesList.search[0].year)).toBeInTheDocument();
     });
   });
 
   it('renders movie poster with correct src and alt text', async () => {
     render();
     await waitFor(() => {
-      const poster = screen.getByRole('img', { name: mockMoviesList.Search[0].Title });
-      expect(poster).toHaveAttribute('src', expect.stringContaining(mockMoviesList.Search[0].Poster));
-      expect(poster).toHaveAttribute('alt', mockMoviesList.Search[0].Title);
+      const poster = screen.getByRole('img', { name: mockMoviesList.search[0].title });
+      expect(poster).toHaveAttribute('src', expect.stringContaining(mockMoviesList.search[0].poster));
+      expect(poster).toHaveAttribute('alt', mockMoviesList.search[0].title);
     });
   });
 });

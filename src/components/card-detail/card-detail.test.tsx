@@ -17,11 +17,11 @@ describe('CardDetail', () => {
   it('should display movie details correctly', async () => {
     render({ initialEntries: ['/details/123?s=&page=1'] });
     await waitFor(() => {
-      expect(screen.getByText(mockMovie.Title)).toBeInTheDocument();
-      expect(screen.getByText(mockMovie.Plot)).toBeInTheDocument();
+      expect(screen.getByText(mockMovie.title)).toBeInTheDocument();
+      expect(screen.getByText(mockMovie.plot)).toBeInTheDocument();
       const image = screen.getByRole('img', { name: 'Movie poster' });
-      expect(image).toHaveAttribute('src', expect.stringContaining(mockMovie.Poster));
-      expect(image).toHaveAttribute('alt', mockMovie.Title);
+      expect(image).toHaveAttribute('src', expect.stringContaining(mockMovie.poster));
+      expect(image).toHaveAttribute('alt', mockMovie.title);
     });
   });
 

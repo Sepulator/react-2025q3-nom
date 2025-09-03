@@ -1,4 +1,4 @@
-import { ThemeContext, type Theme } from '@/components/theme-provider/theme-context';
+import { ThemeContext, type Theme } from '@/providers/theme-provider/theme-context';
 import { useCallback, useState, type ReactNode } from 'react';
 
 export function ThemeProvider({ children }: { children: ReactNode }) {

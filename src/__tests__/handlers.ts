@@ -3,72 +3,72 @@ import type { MovieDetail, MoviesList } from '@/types/interfaces';
 import { http, HttpResponse } from 'msw';
 
 export const mockMovie: MovieDetail = {
-  Title: 'Test Movie Detail',
-  Year: '2017',
-  Rated: 'PG-13',
-  Released: '05 May 2017',
-  Runtime: '136 min',
-  Genre: 'Action, Adventure, Comedy',
-  Director: 'Test Director',
-  Writer: 'Test Writer',
-  Actors: 'Test Actors',
-  Plot: 'Test overview Detail',
-  Language: 'English',
-  Country: 'United States',
-  Awards: 'Test Awards',
-  Poster: '/test-poster-detail.jpg',
-  Ratings: [],
-  Metascore: '67',
+  title: 'Test Movie Detail',
+  year: '2017',
+  rated: 'PG-13',
+  released: '05 May 2017',
+  runtime: '136 min',
+  genre: 'Action, Adventure, Comedy',
+  director: 'Test Director',
+  writer: 'Test Writer',
+  actors: 'Test Actors',
+  plot: 'Test overview Detail',
+  language: 'English',
+  country: 'United States',
+  awards: 'Test Awards',
+  poster: '/test-poster-detail.jpg',
+  ratings: [],
+  metascore: '67',
   imdbRating: '7.6',
   imdbVotes: '123,123',
   imdbID: 'tt999999999999',
-  Type: 'movie',
-  DVD: 'N/A',
-  BoxOffice: '$389,813,101',
-  Production: 'N/A',
-  Website: 'N/A',
-  Response: 'True',
+  type: 'movie',
+  dvd: 'N/A',
+  boxOffice: '$389,813,101',
+  production: 'N/A',
+  website: 'N/A',
+  response: 'True',
 };
 
 export const mockMoviesList: MoviesList = {
-  Search: [
+  search: [
     {
       imdbID: '123',
-      Title: 'Test Movie',
-      Poster: '/test.jpg',
-      Type: 'movie',
-      Year: '2025',
+      title: 'Test Movie',
+      poster: '/test.jpg',
+      type: 'movie',
+      year: '2025',
     },
   ],
   totalResults: '1',
-  Response: 'True',
+  response: 'True',
 };
 
 export const mockEmptyMovies: MoviesList = {
-  Search: [],
+  search: [],
   totalResults: '0',
-  Response: 'True',
+  response: 'True',
 };
 
 export const mockBatmanMovie: MoviesList = {
-  Search: [
+  search: [
     {
       imdbID: '1',
-      Title: 'Batman',
-      Poster: '/poster_batman.jpg',
-      Year: '2020',
-      Type: 'movie',
+      title: 'Batman',
+      poster: '/poster_batman.jpg',
+      year: '2020',
+      type: 'movie',
     },
     {
       imdbID: '2',
-      Title: 'Batman_2',
-      Poster: '/poster_batman_2.jpg',
-      Year: '2022',
-      Type: 'movie',
+      title: 'Batman_2',
+      poster: '/poster_batman_2.jpg',
+      year: '2022',
+      type: 'movie',
     },
   ],
   totalResults: '2',
-  Response: 'True',
+  response: 'True',
 };
 
 export const handlers = [

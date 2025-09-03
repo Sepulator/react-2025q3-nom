@@ -3,7 +3,7 @@ import userEvent from '@testing-library/user-event';
 import { render } from '@testing-library/react';
 import { createMemoryRouter, RouterProvider, type RouteObject } from 'react-router';
 import { routes } from '@/router';
-import ThemeProvider from '@/components/theme-provider';
+import ThemeProvider from '@/providers/theme-provider';
 
 interface RenderOptions {
   initialEntries?: string[];
