@@ -6,12 +6,12 @@ interface Props {
   moviesList: MoviesList;
 }
 
-const firstPage = 1;
-const secondPage = 2;
-const pagesAroundCurrent = 2;
-const nearStartThreshold = 4;
-const nearEndOffset = 3;
-const middleRangeSize = 4;
+const FIRST_PAGE = 1;
+const SECOND_PAGE = 2;
+const PAGES_AROUND_CURRENT = 2;
+const NEAR_START_OFFSET = 4;
+const NEAR_END_OFFSET = 3;
+const MIDDLE_RANGE_SIZE = 4;
 
 export function Pagination({ moviesList }: Props) {
   const { page, total_pages } = moviesList;
@@ -39,29 +39,29 @@ export function Pagination({ moviesList }: Props) {
     const buttons = [];
 
     if (total_pages <= MAX_BUTTONS) {
-      for (let i = firstPage; i <= total_pages; i++) {
+      for (let i = FIRST_PAGE; i <= total_pages; i++) {
         buttons.push(renderPageButton(i));
       }
 
       return buttons;
     }
 
-    buttons.push(renderPageButton(firstPage));
+    buttons.push(renderPageButton(FIRST_PAGE));
 
-    let startPage = Math.max(secondPage, page - pagesAroundCurrent);
-    let endPage = Math.min(total_pages - 1, page + pagesAroundCurrent);
+    let startPage = Math.max(SECOND_PAGE, page - PAGES_AROUND_CURRENT);
+    let endPage = Math.min(total_pages - 1, page + PAGES_AROUND_CURRENT);
 
-    if (page <= nearStartThreshold) {
-      startPage = secondPage;
-      endPage = nearStartThreshold + 1;
+    if (page <= NEAR_START_OFFSET) {
+      startPage = SECOND_PAGE;
+      endPage = NEAR_START_OFFSET + 1;
     }
 
-    if (page >= total_pages - nearEndOffset) {
-      startPage = total_pages - middleRangeSize;
+    if (page >= total_pages - NEAR_END_OFFSET) {
+      startPage = total_pages - MIDDLE_RANGE_SIZE;
       endPage = total_pages - 1;
     }
 
-    if (startPage > secondPage) {
+    if (startPage > SECOND_PAGE) {
       buttons.push(<li key="start-ellipsis">...</li>);
     }
 
