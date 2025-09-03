@@ -20,10 +20,6 @@ export function CardDetail() {
 
   const ref = useClickOutside(handleClose);
 
-  if (isError) {
-    return <CardError isError={isError} />;
-  }
-
   return (
     <>
       {isError && <CardError isError={isError} />}
