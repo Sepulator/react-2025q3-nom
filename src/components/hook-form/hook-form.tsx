@@ -20,13 +20,17 @@ export function HookForm() {
     mode: 'all',
   });
 
+  const password = watch('password', '');
+  const passwordStrength = getPasswordStrength(password);
+  const { countries, addFormValue, closeDialog } = useFormStore();
+
   useEffect(() => {
     trigger();
   }, [trigger]);
 
-  const password = watch('password', '');
-  const passwordStrength = getPasswordStrength(password);
-  const { countries, addFormValue, closeDialog } = useFormStore();
+  useEffect(() => {
+    setFocus('name');
+  }, [setFocus]);
 
   const onSubmit = async (data: FormDataControlled) => {
     const picture = data.picture[0];
@@ -34,10 +38,6 @@ export function HookForm() {
     addFormValue({ ...data, picture: base64 });
     closeDialog();
   };
-
-  useEffect(() => {
-    setFocus('name');
-  }, [setFocus]);
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>

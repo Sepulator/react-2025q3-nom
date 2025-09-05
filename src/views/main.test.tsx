@@ -1,16 +1,19 @@
 import type { ReactNode } from 'react';
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 
-import { render, screen, waitFor } from '@/__tests__/test-utils';
+import { act, render, screen, waitFor } from '@/__tests__/test-utils';
 import MainView from './main';
 import { mockFormValue1, mockFormValue2, mockStore } from '@/__tests__/form-mock';
 
 vi.mock('@/components/dialog', () => ({
-  default: ({ children, title }: { children: ReactNode; title: string }) => (
-    <div data-testid="mock-dialog" data-title={title}>
-      {children}
-    </div>
-  ),
+  default: ({ children, title, isOpen }: { children: ReactNode; title: string; isOpen: boolean }) => {
+    if (!isOpen) return null;
+    return (
+      <div data-testid="mock-dialog" data-title={title}>
+        {children}
+      </div>
+    );
+  },
 }));
 
 vi.mock('@/store', () => ({
@@ -26,13 +29,18 @@ describe('MainView', () => {
 
   it('renders correctly', () => {
     render(<MainView />);
-    expect(screen.getByRole('main')).toBeInTheDocument();
+
+    act(() => {
+      expect(screen.getByRole('main')).toBeInTheDocument();
+    });
   });
 
   it('does not show dialog', () => {
     render(<MainView />);
 
-    expect(screen.queryByTestId('mock-dialog')).not.toBeInTheDocument();
+    act(() => {
+      expect(screen.queryByTestId('mock-dialog')).not.toBeInTheDocument();
+    });
   });
 
   it('shows hook form', async () => {

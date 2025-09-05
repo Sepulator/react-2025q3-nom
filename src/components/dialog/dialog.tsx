@@ -13,6 +13,7 @@ export function Dialog({ children, isOpen, handleClose, title }: Props) {
 
   useEffect(() => {
     const dialogNode = dialogRef.current;
+
     if (isOpen) {
       dialogNode?.showModal();
     } else {
@@ -21,12 +22,20 @@ export function Dialog({ children, isOpen, handleClose, title }: Props) {
   }, [isOpen]);
 
   useEffect(() => {
+    const handleKeyPress = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        handleClose();
+      }
+    };
+
     const dialogNode = dialogRef.current;
 
     dialogNode?.addEventListener('close', handleClose);
+    document.addEventListener('keydown', handleKeyPress);
 
     return () => {
       dialogNode?.removeEventListener('close', handleClose);
+      document.removeEventListener('keydown', handleKeyPress);
     };
   }, [handleClose]);
 
@@ -35,6 +44,10 @@ export function Dialog({ children, isOpen, handleClose, title }: Props) {
       handleClose();
     }
   };
+
+  if (!isOpen) {
+    return null;
+  }
 
   return createPortal(
     <dialog ref={dialogRef} onClick={handleBackdropClick}>

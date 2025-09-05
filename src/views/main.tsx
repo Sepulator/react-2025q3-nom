@@ -22,15 +22,14 @@ export default function MainView() {
     <>
       <Header />
       <main className="container main">
-        {isDialogOpen && (
-          <Dialog
-            isOpen={isDialogOpen}
-            handleClose={closeDialog}
-            title={isHookForm ? 'React Hook Form' : 'Uncontrolled Form'}
-          >
-            {isHookForm ? <HookForm /> : <UncontrolledForm />}
-          </Dialog>
-        )}
+        <Dialog
+          isOpen={isDialogOpen}
+          handleClose={closeDialog}
+          title={isHookForm ? 'React Hook Form' : 'Uncontrolled Form'}
+        >
+          {isHookForm ? <HookForm /> : <UncontrolledForm />}
+        </Dialog>
+
         <section className="cards-list" role="region">
           {formValues.map((formValue, index) => (
             <Card key={index} {...formValue} className={index === 0 ? newCard : ''} />
