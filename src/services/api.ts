@@ -1,24 +1,22 @@
-import { urlMovie } from '@/consts';
+import { httpMessages, urlMovie } from '@/consts';
 import type { MovieDetail, MoviesList } from '@/types/interfaces';
 
-export const getMovieList = async (query: string, page: string) => {
-  const response = await fetch(`${urlMovie}&s=${query}&page=${page}`);
-  if (!response.ok) throw new Error(response.status.toString());
+const apiRequest = async <T>(url: string): Promise<T> => {
+  const response = await fetch(url);
 
-  const data = (await response.json()) as MoviesList;
-  return data;
-};
-export const getNowPLaying = async (page: string) => {
-  const response = await fetch(`${urlMovie}&s=spider-man&page=${page}`);
-  if (!response.ok) throw new Error(response.status.toString());
+  if (!response.ok) {
+    const statusText = httpMessages.find((code) => code.status === String(response.status))?.message;
+    throw new Error(`API Error: ${response.status} ${statusText}`);
+  }
 
-  const data = (await response.json()) as MoviesList;
-  return data;
-};
-export const getMovie = async (id: string) => {
-  const response = await fetch(`${urlMovie}&i=${id}`);
-  if (!response.ok) throw new Error(response.status.toString());
+  const data = await response.json();
 
-  const data = (await response.json()) as MovieDetail;
-  return data;
+  return data as T;
 };
+
+export const getMovieList = (query: string, page: string) =>
+  apiRequest<MoviesList>(`${urlMovie}&s=${query}&page=${page}`);
+
+export const getNowPLaying = async (page: string) => apiRequest<MoviesList>(`${urlMovie}&s=spider-man&page=${page}`);
+
+export const getMovie = async (id: string) => apiRequest<MovieDetail>(`${urlMovie}&i=${id}`);

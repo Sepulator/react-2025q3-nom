@@ -19,7 +19,7 @@ export function Main() {
         <ErrorInfo error={error} status_message={data?.Error || ''} />
       ) : status === 'pending' ? (
         <article aria-busy="true">Loading</article>
-      ) : data && data.Search.length ? (
+      ) : data && data.Search?.length ? (
         <>
           <div className={details ? 'outlet-detail' : 'outlet'}>
             <CardsList movieList={data.Search} />

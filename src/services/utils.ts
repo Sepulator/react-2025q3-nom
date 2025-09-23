@@ -1,15 +1,5 @@
 import type { Movie } from '@/types/interfaces';
 
-export const getKey = (arr: string) => {
-  let result = '';
-
-  for (let i = arr.length - 1; i >= 0; i--) {
-    result += arr[i];
-  }
-
-  return result;
-};
-
 const generateMovieCSV = (movies: Movie[]) =>
   movies.reduce((prev, movie) => {
     return prev + `${movie.imdbID}; ${movie.Title}; ${movie.Year}; ${movie.imdbID} \n`;
