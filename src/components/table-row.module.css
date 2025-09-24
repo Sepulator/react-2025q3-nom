@@ -1,0 +1,14 @@
+.highlight {
+  animation: highlightFade 1s ease-out;
+}
+
+/* stylelint-disable-next-line keyframes-name-pattern */
+@keyframes highlightFade {
+  0% {
+    background-color: #ffeb3b;
+  }
+
+  100% {
+    background-color: transparent;
+  }
+}

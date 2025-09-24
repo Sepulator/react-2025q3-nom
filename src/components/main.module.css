@@ -1,0 +1,23 @@
+.year {
+  min-width: 180px;
+}
+
+.country {
+  min-width: 400px;
+  cursor: pointer;
+}
+
+.region {
+  min-width: 200px;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.population {
+  cursor: pointer;
+  min-width: 140px;
+}
