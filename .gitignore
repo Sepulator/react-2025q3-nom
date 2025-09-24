@@ -11,8 +11,9 @@ node_modules
 dist
 dist-ssr
 *.local
-*.min.css
+!*.min.css
 owid-co2-data.json
+.env
 
 # Editor directories and files
 .vscode/*

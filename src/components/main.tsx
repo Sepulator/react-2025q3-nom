@@ -51,7 +51,7 @@ export function Main() {
   );
 
   return (
-    <main className="container">
+    <>
       <button className="outline" onClick={() => setIsOpen(true)}>
         Select columns
       </button>
@@ -127,6 +127,6 @@ export function Main() {
           })}
         </tbody>
       </table>
-    </main>
+    </>
   );
 }
