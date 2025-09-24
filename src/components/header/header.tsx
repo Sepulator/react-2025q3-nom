@@ -1,16 +1,11 @@
 import Image from 'next/image';
 import { Link } from '@/i18n/navigation';
-import { getTranslations, setRequestLocale } from 'next-intl/server';
+import { getTranslations } from 'next-intl/server';
 
 import ThemeSwitch from '@/components/theme-switch';
 import LocaleSwitcher from '@/components/locale-switcher';
 
-interface Props {
-  locale: string;
-}
-
-export async function Header({ locale }: Props) {
-  setRequestLocale(locale);
+export async function Header() {
   const t = await getTranslations('Header');
 
   return (

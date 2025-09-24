@@ -1,14 +1,8 @@
 import Image from 'next/image';
-import { useTranslations } from 'next-intl';
-import { setRequestLocale } from 'next-intl/server';
+import { getTranslations } from 'next-intl/server';
 
-interface Props {
-  locale: string;
-}
-
-export function About({ locale }: Props) {
-  setRequestLocale(locale);
-  const t = useTranslations('AboutPage');
+export async function About() {
+  const t = await getTranslations('AboutPage');
 
   return (
     <section className="about">

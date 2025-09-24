@@ -3,7 +3,8 @@
     "title": "База данных фильмов"
   },
   "LocaleLayout": {
-    "title": "База данных фильмов"
+    "title": "База данных фильмов",
+    "description": "The Movie Database API"
   },
   "Search": {
     "placeholder": "Поиск фильма",

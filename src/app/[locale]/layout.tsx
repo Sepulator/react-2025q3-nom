@@ -1,14 +1,15 @@
 import { ReactNode } from 'react';
 import { Inter } from 'next/font/google';
-import { NextIntlClientProvider, hasLocale } from 'next-intl';
+import { Locale, NextIntlClientProvider, hasLocale } from 'next-intl';
 import { notFound } from 'next/navigation';
 import { routing } from '@/i18n/routing';
 
-import './global.css';
 import Header from '@/components/header';
 import Footer from '@/components/footer';
 import ThemeProvider from '@/components/theme-provider';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
+
+import './global.css';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -20,6 +21,24 @@ interface Props {
   params: Promise<{ locale: string }>;
 }
 
+export async function generateMetadata({ params }: { params: Promise<{ locale: Locale }> }) {
+  const { locale } = await params;
+
+  const t = await getTranslations({
+    locale: locale,
+    namespace: 'LocaleLayout',
+  });
+
+  return {
+    title: t('title'),
+    description: t('description'),
+  };
+}
+
+export function generateStaticParams() {
+  return routing.locales.map((locale) => ({ locale }));
+}
+
 export default async function LocaleLayout({ children, params }: Props) {
   const { locale } = await params;
 
@@ -29,24 +48,16 @@ export default async function LocaleLayout({ children, params }: Props) {
 
   setRequestLocale(locale);
 
-  const t = await getTranslations({ locale, namespace: 'LocaleLayout' });
-
   return (
     <html lang={locale} data-theme="dark" className={inter.className}>
-      <head>
-        <title>{t('title')}</title>
-        <link rel="icon" href="/movie.svg" />
-      </head>
       <body>
-        <div id="root">
-          <NextIntlClientProvider locale={locale}>
-            <ThemeProvider>
-              <Header locale={locale} />
-              <main className="container main">{children}</main>
-              <Footer />
-            </ThemeProvider>
-          </NextIntlClientProvider>
-        </div>
+        <NextIntlClientProvider>
+          <ThemeProvider>
+            <Header />
+            {children}
+            <Footer />
+          </ThemeProvider>
+        </NextIntlClientProvider>
       </body>
     </html>
   );

@@ -33,6 +33,6 @@
     ]
   },
   "types": ["vitest/globals"],
-  "include": ["./src", "./dist/types/**/*.ts", "./next-env.d.ts"],
+  "include": ["./src", "./dist/types/**/*.ts", "./next-env.d.ts", "./src/types/global.d.ts"],
   "exclude": ["node_modules"]
 }

@@ -12,7 +12,7 @@ interface Props {
 export function Pagination({ totalResults }: Props) {
   const searchParams = useSearchParams();
   const pathname = usePathname();
-  const total_pages = Math.ceil(Number(totalResults) / MAX_PAGES);
+  const totalPages = Math.ceil(Number(totalResults) / MAX_PAGES);
   const page = Number(searchParams.get('page') ?? '1');
 
   const renderPageButton = (pageNumber: number) => {
@@ -36,8 +36,8 @@ export function Pagination({ totalResults }: Props) {
   const renderPageButtons = () => {
     const buttons = [];
 
-    if (total_pages <= MAX_BUTTONS) {
-      for (let i = 1; i <= total_pages; i++) {
+    if (totalPages <= MAX_BUTTONS) {
+      for (let i = 1; i <= totalPages; i++) {
         buttons.push(renderPageButton(i));
       }
 
@@ -47,16 +47,16 @@ export function Pagination({ totalResults }: Props) {
     buttons.push(renderPageButton(1));
 
     let startPage = Math.max(2, page - 2);
-    let endPage = Math.min(total_pages - 1, page + 2);
+    let endPage = Math.min(totalPages - 1, page + 2);
 
     if (page <= 4) {
       startPage = 2;
       endPage = 5;
     }
 
-    if (page >= total_pages - 3) {
-      startPage = total_pages - 4;
-      endPage = total_pages - 1;
+    if (page >= totalPages - 3) {
+      startPage = totalPages - 4;
+      endPage = totalPages - 1;
     }
 
     if (startPage > 2) {
@@ -67,11 +67,11 @@ export function Pagination({ totalResults }: Props) {
       buttons.push(renderPageButton(i));
     }
 
-    if (endPage < total_pages - 1) {
+    if (endPage < totalPages - 1) {
       buttons.push(<li key="end-ellipsis">...</li>);
     }
 
-    buttons.push(renderPageButton(total_pages));
+    buttons.push(renderPageButton(totalPages));
 
     return buttons;
   };

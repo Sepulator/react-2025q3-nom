@@ -1,8 +1,8 @@
 import { Link } from '@/i18n/navigation';
-import { useTranslations } from 'next-intl';
+import { getTranslations } from 'next-intl/server';
 
-export function NotFound() {
-  const t = useTranslations('NotFound');
+export async function NotFound() {
+  const t = await getTranslations('NotFound');
 
   return (
     <main className="container">

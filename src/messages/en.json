@@ -3,7 +3,8 @@
     "title": "The Movie Database API"
   },
   "LocaleLayout": {
-    "title": "The Movie Database API"
+    "title": "The Movie Database API",
+    "description": "The Movie Database API"
   },
   "Search": {
     "placeholder": "Search movie",

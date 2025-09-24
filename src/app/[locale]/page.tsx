@@ -1,4 +1,4 @@
-import { getTranslations, setRequestLocale } from 'next-intl/server';
+import { getTranslations } from 'next-intl/server';
 
 import CardsList from '@/components/card-list';
 import ErrorInfo from '@/components/error-info';
@@ -9,12 +9,9 @@ import { getMovieList, getNowPLaying } from '@/services/api';
 
 interface Props {
   searchParams: Promise<{ query?: string; page?: string }>;
-  params: Promise<{ locale: string }>;
 }
 
-export default async function HomePage({ searchParams, params }: Props) {
-  const { locale } = await params;
-  setRequestLocale(locale);
+export default async function HomePage({ searchParams }: Props) {
   const t = await getTranslations('HomePage');
   const { page = '1', query = '' } = await searchParams;
 
@@ -25,7 +22,7 @@ export default async function HomePage({ searchParams, params }: Props) {
   if (data.Search.length === 0) return <span>Nothing to display. Type to search movie.</span>;
 
   return (
-    <>
+    <main className="container main">
       <h1>{t('title')}</h1>
       <Search />
       <div className="outlet">
@@ -33,6 +30,6 @@ export default async function HomePage({ searchParams, params }: Props) {
       </div>
       <Pagination totalResults={data.totalResults} />
       <Flyout />
-    </>
+    </main>
   );
 }

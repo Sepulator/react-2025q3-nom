@@ -2,25 +2,21 @@ import { ReactNode } from 'react';
 
 import Flyout from '@/components/flyout';
 import Search from '@/components/search';
-import { getTranslations, setRequestLocale } from 'next-intl/server';
+import { getTranslations } from 'next-intl/server';
 
 interface Props {
   children: ReactNode;
-  params: Promise<{ locale: string }>;
 }
 
-export default async function DetailsLayout({ children, params }: Props) {
-  const { locale } = await params;
-  setRequestLocale(locale);
-
-  const t = await getTranslations({ locale, namespace: 'LocaleLayout' });
+export default async function DetailsLayout({ children }: Props) {
+  const t = await getTranslations('AboutPage');
 
   return (
-    <>
+    <main className="container main">
       <h1>{t('title')}</h1>
       <Search />
       {children}
       <Flyout />
-    </>
+    </main>
   );
 }
